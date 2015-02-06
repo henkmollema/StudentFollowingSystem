@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace StudentFollowingSystem.Data
@@ -8,7 +9,7 @@ namespace StudentFollowingSystem.Data
         public static IDbConnection GetOpenConnection()
         {
             // todo: add connection string.
-            var con = new SqlConnection();
+            var con = new SqlConnection(ConfigurationManager.ConnectionStrings["SVS"].ConnectionString);
             con.Open();
             return con;
         }

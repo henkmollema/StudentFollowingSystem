@@ -12,6 +12,8 @@
 
         public string Email { get; set; }
 
+        public string Password { get; set; }
+
         public string Class { get; set; }
 
         public string Telephone { get; set; }

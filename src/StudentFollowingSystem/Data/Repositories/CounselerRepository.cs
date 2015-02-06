@@ -4,13 +4,13 @@ using StudentFollowingSystem.Models;
 
 namespace StudentFollowingSystem.Data.Repositories
 {
-    public class StudentRepository : RepositoryBase<Student>
+    public class CounselerRepository : RepositoryBase<Counseler>
     {
-        public Student GetByEmail(string email)
+        public Counseler GetByEmail(string email)
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
-                return con.Select<Student>(s => s.Email == email).FirstOrDefault();
+                return con.Select<Counseler>(c => c.Email == email).FirstOrDefault();
             }
         }
     }

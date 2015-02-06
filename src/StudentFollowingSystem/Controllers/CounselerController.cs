@@ -1,25 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Helpers;
+﻿using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using StudentFollowingSystem.Data.Repositories;
+using StudentFollowingSystem.Filters;
 using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
+    [AuthorizeCounseler]
     public class CounselerController : Controller
     {
         private readonly CounselerRepository _counselerRepository = new CounselerRepository();
 
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View(new LoginModel());
         }
 
-        [HttpPost]
+        [AllowAnonymous, HttpPost]
         public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)

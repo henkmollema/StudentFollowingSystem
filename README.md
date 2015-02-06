@@ -1,6 +1,7 @@
 # NHL Student Following System
 
-[![Build Status](https://magnum.travis-ci.com/henkmollema/StudentFollowingSystem.svg?token=p1eabXRxNvjvFS4B8HTb)](https://magnum.travis-ci.com/henkmollema/StudentFollowingSystem)
+[![Build status](https://ci.appveyor.com/api/projects/status/mc6xjawamt8hmw8e?svg=true)](https://ci.appveyor.com/project/henkmollema/studentfollowingsystem)
+
 
 ![NHL](http://www.nhl.nl/interface/images/logo2.gif)
 

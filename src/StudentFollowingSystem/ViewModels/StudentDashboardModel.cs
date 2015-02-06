@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace StudentFollowingSystem.ViewModels
 {
-    public class DashboardModel
+    public class StudentDashboardModel
     {
     }
 }

@@ -7,10 +7,16 @@ using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
-    [AuthorizeCounseler]
-    public class CounselerController : Controller
+    [AuthorizeStudent]
+    public class StudentController : Controller
     {
-        private readonly CounselerRepository _counselerRepository = new CounselerRepository();
+        private readonly StudentRepository _studentRepository = new StudentRepository();
+
+        public ActionResult Dashboard()
+        {
+            var model = new StudentDashboardModel();
+            return View(model);
+        }
 
         [AllowAnonymous]
         public ActionResult Login()
@@ -23,12 +29,12 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var counseler = _counselerRepository.GetByEmail(model.Email);
-                if (counseler != null)
+                var student = _studentRepository.GetByEmail(model.Email);
+                if (student != null)
                 {
-                    if (Crypto.VerifyHashedPassword(counseler.Password, model.Password))
+                    if (Crypto.VerifyHashedPassword(student.Password, model.Password))
                     {
-                        FormsAuthentication.SetAuthCookie(counseler.Email, true);
+                        FormsAuthentication.SetAuthCookie(student.Email, true);
                         return RedirectToAction("Dashboard");
                     }
                 }
@@ -36,12 +42,6 @@ namespace StudentFollowingSystem.Controllers
                 ModelState.AddModelError("", "Je gebruikersnaam of wachtwoord klopt niet.");
             }
 
-            return View(model);
-        }
-
-        public ActionResult Dashboard()
-        {
-            var model = new CounselerDashboardModel();
             return View(model);
         }
     }

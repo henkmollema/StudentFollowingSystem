@@ -9,7 +9,7 @@ using Validatr.Filters;
 
 namespace StudentFollowingSystem.Controllers
 {
-    [AuthorizeStudent]
+    [AuthorizeCounseler]
     public class StudentsController : Controller
     {
         private readonly StudentRepository _studentRepository = new StudentRepository();
@@ -31,13 +31,18 @@ namespace StudentFollowingSystem.Controllers
             return View(new StudentModel());
         }
 
-        [HttpPost, Validate]
+        [HttpPost]
         public ActionResult Add(StudentModel model)
         {
-            var student = Mapper.Map<Student>(model);
-            _studentRepository.Add(student);
+            if (ModelState.IsValid)
+            {
+                var student = Mapper.Map<Student>(model);
+                _studentRepository.Add(student);
 
-            return View(new StudentModel());
+                return RedirectToAction("List");
+            }
+
+            return View(model);
         }
     }
 }

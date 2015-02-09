@@ -187,6 +187,8 @@
     <Content Include="Views\Counseler\Dashboard.cshtml" />
     <Content Include="Views\Students\Dashboard.cshtml" />
     <Content Include="Views\Account\StudentLogin.cshtml" />
+    <Content Include="Views\Students\List.cshtml" />
+    <Content Include="Views\Students\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

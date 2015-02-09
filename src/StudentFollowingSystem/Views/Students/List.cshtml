@@ -1,0 +1,63 @@
+﻿@model IEnumerable<StudentFollowingSystem.ViewModels.StudentModel>
+
+@{
+    ViewBag.Title = "Studenten";
+}
+
+<h2>Studenten</h2>
+
+<p>
+    @Html.ActionLink("Nieuwe student toevoegen", "Add")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Class)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Class)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telephone)
+        </td>
+        <td>
+            @Html.ActionLink("Wijzigen", "Edit", new { id = item.Id }) |
+            @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+            @Html.ActionLink("Verwijderen", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

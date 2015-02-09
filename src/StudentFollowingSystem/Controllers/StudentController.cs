@@ -1,9 +1,11 @@
-﻿using System.Web.Helpers;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Security;
+using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
 using StudentFollowingSystem.Filters;
+using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
+using Validatr.Filters;
 
 namespace StudentFollowingSystem.Controllers
 {
@@ -18,31 +20,24 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult List()
         {
-            return View(new LoginModel());
+            var students = new List<StudentModel>();
+            return View(students);
         }
 
-        [AllowAnonymous, HttpPost]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Add()
         {
-            if (ModelState.IsValid)
-            {
-                var student = _studentRepository.GetByEmail(model.Email);
-                if (student != null)
-                {
-                    if (Crypto.VerifyHashedPassword(student.Password, model.Password))
-                    {
-                        FormsAuthentication.SetAuthCookie(student.Email, true);
-                        return RedirectToAction("Dashboard");
-                    }
-                }
+            return View(new StudentModel());
+        }
 
-                ModelState.AddModelError("", "Je gebruikersnaam of wachtwoord klopt niet.");
-            }
+        [HttpPost, Validate]
+        public ActionResult Add(StudentModel model)
+        {
+            var student = Mapper.Map<Student>(model);
+            _studentRepository.Add(student);
 
-            return View(model);
+            return View(new StudentModel());
         }
     }
 }

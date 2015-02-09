@@ -55,7 +55,7 @@ namespace StudentFollowingSystem.Controllers
                     if (Crypto.VerifyHashedPassword(student.Password, model.Password))
                     {
                         FormsAuthentication.SetAuthCookie(student.Email, true);
-                        return RedirectToAction("Dashboard", "Student");
+                        return RedirectToAction("Dashboard", "Students");
                     }
                 }
 

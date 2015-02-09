@@ -10,7 +10,7 @@ using Validatr.Filters;
 namespace StudentFollowingSystem.Controllers
 {
     [AuthorizeStudent]
-    public class StudentController : Controller
+    public class StudentsController : Controller
     {
         private readonly StudentRepository _studentRepository = new StudentRepository();
 
@@ -22,7 +22,7 @@ namespace StudentFollowingSystem.Controllers
 
         public ActionResult List()
         {
-            var students = new List<StudentModel>();
+            var students = Mapper.Map<List<StudentModel>>(_studentRepository.GetAll());
             return View(students);
         }
 

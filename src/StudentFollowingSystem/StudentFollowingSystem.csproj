@@ -124,7 +124,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CounselerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Data\ConnectionFactory.cs" />
     <Compile Include="Data\Dommel\DommelMapper.cs" />
     <Compile Include="Data\Repositories\CounselerRepository.cs" />
@@ -185,7 +185,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\CounselerLogin.cshtml" />
     <Content Include="Views\Counseler\Dashboard.cshtml" />
-    <Content Include="Views\Student\Dashboard.cshtml" />
+    <Content Include="Views\Students\Dashboard.cshtml" />
     <Content Include="Views\Account\StudentLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>

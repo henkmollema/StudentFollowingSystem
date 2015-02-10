@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
 using StudentFollowingSystem.Filters;
 using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
-using Validatr.Filters;
 
 namespace StudentFollowingSystem.Controllers
 {
@@ -37,6 +37,7 @@ namespace StudentFollowingSystem.Controllers
             if (ModelState.IsValid)
             {
                 var student = Mapper.Map<Student>(model);
+                student.Password = Crypto.HashPassword("test");
                 _studentRepository.Add(student);
 
                 return RedirectToAction("List");

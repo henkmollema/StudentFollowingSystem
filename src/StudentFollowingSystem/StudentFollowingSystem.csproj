@@ -135,12 +135,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Counseler.cs" />
     <Compile Include="Models\Counseling.cs" />
     <Compile Include="Models\Presence.cs" />
+    <Compile Include="Models\Status.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TimetableService.cs" />
     <Compile Include="ViewModels\CounselerDashboardModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\StudentDashboardModel.cs" />

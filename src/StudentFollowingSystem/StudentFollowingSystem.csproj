@@ -139,6 +139,7 @@
     <Compile Include="Models\Counseler.cs" />
     <Compile Include="Models\Counseling.cs" />
     <Compile Include="Models\Presence.cs" />
+    <Compile Include="Models\Status.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace StudentFollowingSystem.Models
 {
     public class Student
@@ -15,7 +16,9 @@ namespace StudentFollowingSystem.Models
 
         public string Password { get; set; }
 
-        public string Class { get; set; }
+        public int ClassId { get; set; }
+
+        public Class Class { get; set; }
 
         public string Telephone { get; set; }
 
@@ -37,9 +40,7 @@ namespace StudentFollowingSystem.Models
 
         public string PreStudy { get; set; }
 
-        //public KUT Photo { get; set; }
-
-        public string Status { get; set; }
+        public Status Status { get; set; }
 
         public string Details { get; set; }
     }

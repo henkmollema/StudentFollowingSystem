@@ -1,10 +1,9 @@
-﻿namespace StudentFollowingSystem.Models
+﻿using System;
+namespace StudentFollowingSystem.Models
 {
     public class Student
     {
         public int Id { get; set; }
-
-        public int StudentNr { get; set; }
 
         public string FirstName { get; set; }
 
@@ -12,10 +11,36 @@
 
         public string Email { get; set; }
 
+        public string SchoolEmail { get; set; }
+
         public string Password { get; set; }
 
         public string Class { get; set; }
 
         public string Telephone { get; set; }
+
+        public string Section { get; set; }
+
+        public string CounselerId { get; set; }
+
+        public string StreetName { get; set; }
+
+        public int StreetNumber { get; set; }
+
+        public string ZipCode { get; set; }
+
+        public string City { get; set; }
+
+        public DateTime BirthDate { get; set; }
+
+        public DateTime EnrollDate { get; set; }
+
+        public string PreStudy { get; set; }
+
+        //public KUT Photo { get; set; }
+
+        public string Status { get; set; }
+
+        public string Details { get; set; }
     }
 }

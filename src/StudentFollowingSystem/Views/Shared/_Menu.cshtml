@@ -13,7 +13,6 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("Help", "Help", "Home")</li>
                 @if (Model.IsStudent)
                 {
                     <li>@Html.ActionLink("Gegevens wijzigen", "Edit", "Students")</li>
@@ -22,6 +21,9 @@
                 {
                     <li>@Html.ActionLink("Studenten overzicht", "List", "Students")</li>
                 }
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("Help", "Help", "Home")</li>
             </ul>
         </div>
     </div>

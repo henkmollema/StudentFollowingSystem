@@ -207,6 +207,7 @@
     <Content Include="Views\Students\List.cshtml" />
     <Content Include="Views\Students\Add.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
+    <Content Include="Views\Home\Help.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

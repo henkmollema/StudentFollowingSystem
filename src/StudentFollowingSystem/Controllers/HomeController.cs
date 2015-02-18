@@ -18,6 +18,11 @@ namespace StudentFollowingSystem.Controllers
             return View();
         }
 
+        public ActionResult Help()
+        {
+            return View();
+        }
+
         public ActionResult Menu()
         {
             var model = new MenuModel();

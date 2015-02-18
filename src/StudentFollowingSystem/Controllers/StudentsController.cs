@@ -53,10 +53,11 @@ namespace StudentFollowingSystem.Controllers
 
                 var msg = new EmailMessage
                               {
-                                  text = string.Format("Hoi {1},{0}{0} Inlognaam: {1} {0}Wachtwoord: {2}{0}{0}Groetjes.",
+                                  text = string.Format("Hoi {1},{0}{0} Inlognaam: {3} {0}Wachtwoord: {2}{0}{0}Groetjes.",
                                       Environment.NewLine,
                                       student.FirstName,
-                                      password),
+                                      password,
+                                      student.Email),
                                   subject = "SVS wachtwoord",
                                   to = new List<EmailAddress>
                                            {

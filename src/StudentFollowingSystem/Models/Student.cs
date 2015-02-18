@@ -22,10 +22,6 @@ namespace StudentFollowingSystem.Models
 
         public string Telephone { get; set; }
 
-        public string Section { get; set; }
-
-        public string CounselerId { get; set; }
-
         public string StreetName { get; set; }
 
         public int StreetNumber { get; set; }

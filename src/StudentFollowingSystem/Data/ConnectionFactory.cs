@@ -8,7 +8,6 @@ namespace StudentFollowingSystem.Data
     {
         public static IDbConnection GetOpenConnection()
         {
-            // todo: add connection string.
             var con = new SqlConnection(ConfigurationManager.ConnectionStrings["SVS"].ConnectionString);
             con.Open();
             return con;

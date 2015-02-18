@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentFollowingSystem", "StudentFollowingSystem\StudentFollowingSystem.csproj", "{976A5DE0-77AB-4A15-90C2-C20FB365D453}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "StudentFollowingSystem.Database", "StudentFollowingSystem.Database\StudentFollowingSystem.Database.sqlproj", "{18EE5718-C829-4391-979E-954A3820DD76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{976A5DE0-77AB-4A15-90C2-C20FB365D453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{976A5DE0-77AB-4A15-90C2-C20FB365D453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{976A5DE0-77AB-4A15-90C2-C20FB365D453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18EE5718-C829-4391-979E-954A3820DD76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18EE5718-C829-4391-979E-954A3820DD76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18EE5718-C829-4391-979E-954A3820DD76}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{18EE5718-C829-4391-979E-954A3820DD76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18EE5718-C829-4391-979E-954A3820DD76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18EE5718-C829-4391-979E-954A3820DD76}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

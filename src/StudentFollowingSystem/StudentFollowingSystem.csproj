@@ -129,6 +129,7 @@
     <Compile Include="Controllers\CounselerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Data\ConnectionFactory.cs" />
     <Compile Include="Data\Dommel\DommelMapper.cs" />
     <Compile Include="Data\Repositories\CounselerRepository.cs" />
@@ -218,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Tools\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

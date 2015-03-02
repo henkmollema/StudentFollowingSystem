@@ -11,5 +11,9 @@ namespace StudentFollowingSystem.Models
         public int StudentId { get; set; }
 
         public Student Student { get; set; }
+
+        public int CounselerId { get; set; }
+
+        public Counseler Counseler { get; set; }
     }
 }

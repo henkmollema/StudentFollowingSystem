@@ -68,11 +68,15 @@
     <Build Include="dbo\Tables\Students.sql" />
     <Build Include="dbo\Tables\Subjects.sql" />
     <Build Include="dbo\Tables\Classes.sql" />
+    <Build Include="dbo\Tables\Appointments.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="HelpScripts\CreateAdmin.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StudentFollowingSystem.Database.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="StudentFollowingSystem.Database.refactorlog" />
   </ItemGroup>
 </Project>

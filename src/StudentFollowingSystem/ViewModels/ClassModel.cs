@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using StudentFollowingSystem.Models;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace StudentFollowingSystem.ViewModels
 {
     public class ClassModel
     {
-        public ClassModel()
-        {
-            CounselerList = new List<CounselerModel>();
-        }
-
         public string Name { get; set; }
 
         public string Section { get; set; }
@@ -21,6 +13,6 @@ namespace StudentFollowingSystem.ViewModels
 
         public CounselerModel Counseler { get; set; }
 
-        public List<CounselerModel> CounselerList { get; private set; }
+        public IEnumerable<SelectListItem> CounselerList { get; set; }
     }
 }

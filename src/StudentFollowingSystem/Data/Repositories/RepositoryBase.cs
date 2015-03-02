@@ -7,7 +7,7 @@ namespace StudentFollowingSystem.Data.Repositories
     public abstract class RepositoryBase<TEntity>
         where TEntity : class
     {
-        public List<TEntity> GetAll()
+        public virtual List<TEntity> GetAll()
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
@@ -15,7 +15,7 @@ namespace StudentFollowingSystem.Data.Repositories
             }
         }
 
-        public TEntity GetById(int id)
+        public virtual TEntity GetById(int id)
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
@@ -23,7 +23,7 @@ namespace StudentFollowingSystem.Data.Repositories
             }
         }
 
-        public int Add(TEntity entity)
+        public virtual int Add(TEntity entity)
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
@@ -31,7 +31,7 @@ namespace StudentFollowingSystem.Data.Repositories
             }
         }
 
-        public bool Update(TEntity entity)
+        public virtual bool Update(TEntity entity)
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
@@ -39,7 +39,7 @@ namespace StudentFollowingSystem.Data.Repositories
             }
         }
 
-        public void Delete(TEntity entity)
+        public virtual void Delete(TEntity entity)
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {

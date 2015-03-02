@@ -17,10 +17,16 @@ namespace StudentFollowingSystem.AutoMapper
         protected override void Configure()
         {
             CreateMap<StudentModel, Student>()
-                .ForMember(s => s.Password, opt => opt.Ignore());
+                .ForMember(dest => dest.Password, opt => opt.Ignore());
 
             CreateMap<Student, StudentModel>()
-                .ForMember(s => s.Id, opt => opt.Ignore());
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+            CreateMap<Class, ClassModel>()
+                .ForMember(dest => dest.CounselerList, opt => opt.Ignore());
+
+            CreateMap<ClassModel, Class>()
+                .ForMember(dest => dest.Counseler, opt => opt.Ignore());
         }
     }
 }

@@ -126,12 +126,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AutoMapper\AutoMapperConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\CounselerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Data\ConnectionFactory.cs" />
     <Compile Include="Data\Dommel\DommelMapper.cs" />
+    <Compile Include="Data\Repositories\ClassRepository.cs" />
     <Compile Include="Data\Repositories\CounselerRepository.cs" />
     <Compile Include="Data\Repositories\RepositoryBase.cs" />
     <Compile Include="Data\Repositories\StudentRepository.cs" />
@@ -153,6 +155,7 @@
     <Compile Include="Services\MandrillMailEngine.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
     <Compile Include="Services\TimetableService.cs" />
+    <Compile Include="ViewModels\ClassModel.cs" />
     <Compile Include="ViewModels\CounselerDashboardModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\MenuModel.cs" />
@@ -217,6 +220,7 @@
     <Content Include="Views\Students\Add.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\Class\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -226,7 +230,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Project_Readme.html" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

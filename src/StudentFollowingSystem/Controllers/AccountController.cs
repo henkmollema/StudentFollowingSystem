@@ -18,7 +18,7 @@ namespace StudentFollowingSystem.Controllers
         }
 
         [AllowAnonymous, HttpPost]
-        public ActionResult Login(LoginModel model)
+        public ActionResult Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -28,6 +28,10 @@ namespace StudentFollowingSystem.Controllers
                     if (Crypto.VerifyHashedPassword(student.Password, model.Password))
                     {
                         FormsAuthentication.SetAuthCookie(student.Email, true);
+                        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        {
+                            return Redirect(returnUrl);
+                        }
                         return RedirectToAction("Dashboard", "Students");
                     }
                 }

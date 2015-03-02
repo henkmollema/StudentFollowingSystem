@@ -29,10 +29,20 @@ namespace StudentFollowingSystem.Controllers
             if (Request.IsAuthenticated && User != null && User.Identity.IsAuthenticated)
             {
                 var student = _studentRepository.GetByEmail(User.Identity.Name);
-                model.IsStudent = student != null;
-
-                var counseler = _counselerRepository.GetByEmail(User.Identity.Name);
-                model.IsCounseler = counseler != null;
+                if (student != null)
+                {
+                    model.IsStudent = true;
+                    model.Username = student.FullName;
+                }
+                else
+                {
+                    var counseler = _counselerRepository.GetByEmail(User.Identity.Name);
+                    if (counseler != null)
+                    {
+                        model.IsCounseler = true;
+                        model.Username = counseler.FullName;
+                    }
+                }
             }
             
             return PartialView("_Menu", model);

@@ -19,12 +19,21 @@
                 }
                 else if (Model.IsCounseler)
                 {
+                    <li>@Html.ActionLink("Dashboard", "Dashboard", "Counseler")</li>
                     <li>@Html.ActionLink("Klassen overzicht", "List", "Class")</li>
                     <li>@Html.ActionLink("Studenten overzicht", "List", "Students")</li>
                 }
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>@Html.ActionLink("Help", "Help", "Home")</li>
+                @if (Model.IsAuthenticated)
+                {
+                    <li><p class="navbar-text">Welkom @Model.Username | @Html.ActionLink("Uitloggen", "Logout", "Account", null, new { @class = "navbar-link" })</p></li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Inloggen", "Login", "Account")</li>
+                }
             </ul>
         </div>
     </div>

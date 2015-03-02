@@ -21,8 +21,7 @@ namespace StudentFollowingSystem.Controllers
         public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)
-            {   
-                
+            {
                 var student = _studentRepository.GetByEmail(model.Email);
                 if (student != null)
                 {
@@ -47,6 +46,12 @@ namespace StudentFollowingSystem.Controllers
             }
 
             return View(model);
-        }       
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

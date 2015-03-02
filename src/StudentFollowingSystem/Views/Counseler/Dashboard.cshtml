@@ -4,5 +4,14 @@
     ViewBag.Title = "Dashboard";
 }
 
-<h2>SVS dashboard voor docenten</h2>
+
+<div class="container">
+    <h2>Afspraken voor deze week</h2>
+    <ul class="list-group">
+        @foreach (var appointment in Model.Appointments)
+        {
+            <li class="list-group-item">@appointment.Student.FirstName @appointment.Student.LastName (@appointment.DateTime.ToString("dddd d MMMM HH:mm"))</li>
+        }
+    </ul>
+</div>
 

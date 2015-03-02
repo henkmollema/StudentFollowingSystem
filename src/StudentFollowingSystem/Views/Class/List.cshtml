@@ -7,18 +7,18 @@
 <h2>List</h2>
 
 <p>
-    @Html.ActionLink("Nieuwe class toevoegen", "Create")
+    @Html.ActionLink("Nieuwe klas toevoegen", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Klas naam
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Section)
+            Afdeling
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CounselerId)
+            SLB'er
         </th>
         <th></th>
     </tr>
@@ -26,13 +26,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @item.Name
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Section)
+            @item.Section
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CounselerId)
+            @item.Counseler.FullName
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

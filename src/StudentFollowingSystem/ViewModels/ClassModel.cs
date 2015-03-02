@@ -10,7 +10,7 @@ namespace StudentFollowingSystem.ViewModels
     {
         public ClassModel()
         {
-            CounselerList = new List<Counseler>();
+            CounselerList = new List<CounselerModel>();
         }
 
         public string Name { get; set; }
@@ -19,8 +19,8 @@ namespace StudentFollowingSystem.ViewModels
 
         public int CounselerId { get; set; }
 
-        public Counseler Counseler { get; set; }
+        public CounselerModel Counseler { get; set; }
 
-        public List<Counseler> CounselerList { get; private set; }
+        public List<CounselerModel> CounselerList { get; private set; }
     }
 }

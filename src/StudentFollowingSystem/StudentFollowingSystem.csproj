@@ -157,6 +157,7 @@
     <Compile Include="Services\TimetableService.cs" />
     <Compile Include="ViewModels\ClassModel.cs" />
     <Compile Include="ViewModels\CounselerDashboardModel.cs" />
+    <Compile Include="ViewModels\CounselerModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\MenuModel.cs" />
     <Compile Include="ViewModels\StudentDashboardModel.cs" />

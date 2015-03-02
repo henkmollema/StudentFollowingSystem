@@ -213,10 +213,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Counseler\Login.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Account\CounselerLogin.cshtml" />
     <Content Include="Views\Counseler\Dashboard.cshtml" />
     <Content Include="Views\Students\Dashboard.cshtml" />
-    <Content Include="Views\Account\StudentLogin.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Students\List.cshtml" />
     <Content Include="Views\Students\Add.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />

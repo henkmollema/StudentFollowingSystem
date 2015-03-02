@@ -12,16 +12,27 @@ namespace StudentFollowingSystem.Controllers
         private readonly StudentRepository _studentRepository = new StudentRepository();
 
         [AllowAnonymous]
-        public ActionResult CounselerLogin()
+        public ActionResult Login()
         {
             return View(new LoginModel());
         }
 
         [AllowAnonymous, HttpPost]
-        public ActionResult CounselerLogin(LoginModel model)
+        public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)
-            {
+            {   
+                
+                var student = _studentRepository.GetByEmail(model.Email);
+                if (student != null)
+                {
+                    if (Crypto.VerifyHashedPassword(student.Password, model.Password))
+                    {
+                        FormsAuthentication.SetAuthCookie(student.Email, true);
+                        return RedirectToAction("Dashboard", "Students");
+                    }
+                }
+
                 var counseler = _counselerRepository.GetByEmail(model.Email);
                 if (counseler != null)
                 {
@@ -36,33 +47,6 @@ namespace StudentFollowingSystem.Controllers
             }
 
             return View(model);
-        }
-
-        [AllowAnonymous]
-        public ActionResult StudentLogin()
-        {
-            return View(new LoginModel());
-        }
-
-        [AllowAnonymous, HttpPost]
-        public ActionResult StudentLogin(LoginModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var student = _studentRepository.GetByEmail(model.Email);
-                if (student != null)
-                {
-                    if (Crypto.VerifyHashedPassword(student.Password, model.Password))
-                    {
-                        FormsAuthentication.SetAuthCookie(student.Email, true);
-                        return RedirectToAction("Dashboard", "Students");
-                    }
-                }
-
-                ModelState.AddModelError("", "Je gebruikersnaam of wachtwoord klopt niet.");
-            }
-
-            return View(model);
-        }
+        }       
     }
 }

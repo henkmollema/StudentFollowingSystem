@@ -28,18 +28,72 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Create(ClassModel model)
         {
             if (ModelState.IsValid)
             {
-                var student = Mapper.Map<Class>(model);
-                _classRepository.Add(student);
+                var @class = Mapper.Map<Class>(model);
+                _classRepository.Add(@class);
                 return RedirectToAction("List");
             }
 
             PrepareClassModel(model);
             return View(model);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var @class = _classRepository.GetById(id);
+            if (@class == null)
+            {
+                // Class does not exists, show the overview page.
+                return RedirectToAction("List");
+            }
+
+            var model = Mapper.Map<ClassModel>(@class);
+            PrepareClassModel(model);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Edit(ClassModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var @class = Mapper.Map<Class>(model);
+                _classRepository.Update(@class);
+
+                return RedirectToAction("List");
+            }
+
+            PrepareClassModel(model);
+            return View();
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var @class = _classRepository.GetById(id);
+            if (@class == null)
+            {
+                // Class does not exists, show the overview page.
+                return RedirectToAction("List");
+            }
+
+            var model = Mapper.Map<ClassModel>(@class);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Delete(ClassModel model)
+        {
+            var @class = _classRepository.GetById(model.Id);
+            if (@class != null)
+            {
+                _classRepository.Delete(@class);
+            }
+
+            return RedirectToAction("List");
         }
 
         private void PrepareClassModel(ClassModel model)

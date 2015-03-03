@@ -6,6 +6,8 @@ namespace StudentFollowingSystem.ViewModels
 {
     public class ClassModel
     {
+        public int Id { get; set; }
+
         [Display(Name = "Klas naam")]
         [Required(ErrorMessage = "Naam is verplicht")]
         public string Name { get; set; }

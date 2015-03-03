@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
 using StudentFollowingSystem.Filters;
+using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
@@ -22,12 +23,28 @@ namespace StudentFollowingSystem.Controllers
 
         public ActionResult Create()
         {
-            var model = new ClassModel
-                            {
-                                CounselerList = Mapper.Map<List<CounselerModel>>(_counselerRepository.GetAll()).Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.FullName })
-                            };
-
+            var model = new ClassModel();
+            PrepareClassModel(model);
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Create(ClassModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var student = Mapper.Map<Class>(model);
+                _classRepository.Add(student);
+                return RedirectToAction("List");
+            }
+
+            PrepareClassModel(model);
+            return View(model);
+        }
+
+        private void PrepareClassModel(ClassModel model)
+        {
+            model.CounselerList = Mapper.Map<List<CounselerModel>>(_counselerRepository.GetAll()).Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.FullName });
         }
     }
 }

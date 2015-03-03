@@ -20,6 +20,14 @@ namespace StudentFollowingSystem.ViewModels
         [Required]
         public string LastName { get; set; }
 
+        public string FullName
+        {
+            get
+            {
+                return string.Format("{0} {1}", FirstName, LastName);
+            }
+        }
+
         [Required]
         public string Email { get; set; }
 
@@ -40,8 +48,10 @@ namespace StudentFollowingSystem.ViewModels
 
         public string City { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime EnrollDate { get; set; }
 
         public string PreStudy { get; set; }

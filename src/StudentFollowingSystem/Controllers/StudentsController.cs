@@ -13,6 +13,7 @@ using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
+    [AuthorizeCounseler]
     public class StudentsController : Controller
     {
         private readonly StudentRepository _studentRepository = new StudentRepository();
@@ -26,14 +27,12 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeCounseler]
         public ActionResult List()
         {
             var students = Mapper.Map<List<StudentModel>>(_studentRepository.GetAll());
             return View(students);
         }
 
-        [AuthorizeCounseler]
         public ActionResult Create()
         {
             var model = new StudentModel();
@@ -41,7 +40,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeCounseler, HttpPost]
+        [HttpPost]
         public ActionResult Create(StudentModel model)
         {
             if (ModelState.IsValid)
@@ -70,6 +69,35 @@ namespace StudentFollowingSystem.Controllers
 
                               };
                 _mailEngine.Send(msg);
+
+                return RedirectToAction("List");
+            }
+
+            PrepareStudentModel(model);
+            return View(model);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var student = _studentRepository.GetById(id);
+            if (student == null)
+            {
+                return RedirectToAction("List");
+            }
+
+            var model = Mapper.Map<StudentModel>(student);
+            PrepareStudentModel(model);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Edit(StudentModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var student = _studentRepository.GetById(model.Id);
+                Mapper.Map(model, student);
+                _studentRepository.Update(student);
 
                 return RedirectToAction("List");
             }

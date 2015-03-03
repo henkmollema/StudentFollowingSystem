@@ -233,7 +233,7 @@
     <Content Include="Views\Students\Dashboard.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Students\List.cshtml" />
-    <Content Include="Views\Students\Add.cshtml" />
+    <Content Include="Views\Students\Create.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Home\Help.cshtml" />
     <Content Include="Views\Class\List.cshtml" />

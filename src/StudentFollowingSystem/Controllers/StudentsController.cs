@@ -34,7 +34,7 @@ namespace StudentFollowingSystem.Controllers
         }
 
         [AuthorizeCounseler]
-        public ActionResult Add()
+        public ActionResult Create()
         {
             var model = new StudentModel();
             PrepareStudentModel(model);
@@ -42,7 +42,7 @@ namespace StudentFollowingSystem.Controllers
         }
 
         [AuthorizeCounseler, HttpPost]
-        public ActionResult Add(StudentModel model)
+        public ActionResult Create(StudentModel model)
         {
             if (ModelState.IsValid)
             {

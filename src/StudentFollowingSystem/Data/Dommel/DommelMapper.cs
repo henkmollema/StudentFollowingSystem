@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using Dapper;
 
-namespace Dommel
+namespace Dommel_Source
 {
     /// <summary>
     /// Simple CRUD operations for Dapper.

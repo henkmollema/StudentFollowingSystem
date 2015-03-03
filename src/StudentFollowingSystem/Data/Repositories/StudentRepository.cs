@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Dommel_Source;
+using Dommel;
 using StudentFollowingSystem.Models;
 
 namespace StudentFollowingSystem.Data.Repositories

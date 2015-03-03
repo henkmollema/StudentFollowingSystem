@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Dommel_Source;
+using Dommel;
 
 namespace StudentFollowingSystem.Data.Repositories
 {

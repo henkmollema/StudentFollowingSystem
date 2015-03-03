@@ -142,7 +142,9 @@
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Data\ConnectionFactory.cs" />
-    <Compile Include="Data\Dommel\DommelMapper.cs" />
+    <Compile Include="Data\Dommel\DommelSelect.cs" />
+    <Compile Include="Data\Dommel\DommelTableNameResolver.cs" />
+    <Compile Include="Data\Dommel\EntityMaps.cs" />
     <Compile Include="Data\Repositories\AppointmentRepository.cs" />
     <Compile Include="Data\Repositories\ClassRepository.cs" />
     <Compile Include="Data\Repositories\CounselerRepository.cs" />

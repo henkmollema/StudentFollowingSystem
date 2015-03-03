@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StudentFollowingSystem.Database.publish.xml" />
+    <None Include="SchemaCompareWithLocalDb.scmp" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="StudentFollowingSystem.Database.refactorlog" />

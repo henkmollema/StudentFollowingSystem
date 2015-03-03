@@ -32,7 +32,7 @@ namespace StudentFollowingSystem.Controllers
                 if (student != null)
                 {
                     model.IsStudent = true;
-                    model.Username = student.FullName;
+                    model.Username = student.GetFullName();
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace StudentFollowingSystem.Controllers
                     if (counseler != null)
                     {
                         model.IsCounseler = true;
-                        model.Username = counseler.FullName;
+                        model.Username = counseler.GetFullName();
                     }
                 }
             }

@@ -6,16 +6,15 @@ namespace StudentFollowingSystem.Models
     {
         public int Id { get; set; }
 
+        public int StudentNr { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
-        public string FullName
+        public string GetFullName()
         {
-            get
-            {
-                return string.Format("{0} {1}", FirstName, LastName);
-            }
+            return string.Format("{0} {1}", FirstName, LastName);
         }
 
         public string Email { get; set; }

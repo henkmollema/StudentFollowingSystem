@@ -15,7 +15,7 @@ namespace StudentFollowingSystem.Services
         {
             mailMessage.from_email = "moll1400@nhl.nl";
             mailMessage.from_name = "Student Volg Systeem";
-            var results = _api.SendMessage(mailMessage);
+            var results = _api.SendMessage(mailMessage, null);
         }
     }
 }

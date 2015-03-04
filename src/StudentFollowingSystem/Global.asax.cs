@@ -3,12 +3,10 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Dapper.FluentMap;
-using Dapper.FluentMap.Dommel;
 using Dapper.FluentMap.Dommel.Resolvers;
 using Dommel;
 using StudentFollowingSystem.AutoMapper;
 using StudentFollowingSystem.Data.Dommel;
-using StudentFollowingSystem.Models;
 
 namespace StudentFollowingSystem
 {
@@ -22,12 +20,10 @@ namespace StudentFollowingSystem
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             AutoMapperConfig.Init();
-            FluentMapper.Intialize(c =>
-                                   {
-                                       c.AddMap(new ClassesMap());
-                                   });
+            FluentMapper.Intialize(c => { c.AddMap(new ClassesMap()); });
 
             DommelMapper.SetTableNameResolver(new DommelTableNameResolver2());
+            DommelMapper.SetPropertyResolver(new DommelPropertyResolver2());
         }
     }
 }

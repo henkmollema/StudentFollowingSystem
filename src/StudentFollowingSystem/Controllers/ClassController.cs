@@ -25,6 +25,10 @@ namespace StudentFollowingSystem.Controllers
         {
             var model = new ClassModel();
             PrepareClassModel(model);
+
+
+
+
             return View(model);
         }
 

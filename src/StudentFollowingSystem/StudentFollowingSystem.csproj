@@ -247,6 +247,7 @@
     <Content Include="Scripts\jquery.validate.xdate.min.js.map">
       <DependentUpon>jquery.validate.xdate.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Students\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

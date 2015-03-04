@@ -77,6 +77,19 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        public ActionResult Details(int id)
+        {
+            var student = _studentRepository.GetById(id);
+            if (student == null)
+            {
+                return RedirectToAction("List");
+            }
+
+            var model = Mapper.Map<StudentModel>(student);
+            PrepareStudentModel(model);
+            return View(model);
+        }
+
         public ActionResult Edit(int id)
         {
             var student = _studentRepository.GetById(id);

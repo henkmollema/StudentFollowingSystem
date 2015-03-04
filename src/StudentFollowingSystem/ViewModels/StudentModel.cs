@@ -39,7 +39,7 @@ namespace StudentFollowingSystem.ViewModels
         [Display(Name = "School email")]
         public string SchoolEmail { get; set; }
 
-        [Display(Name = "Klasse ID")]
+        [Display(Name = "Klas")]
         public int ClassId { get; set; }
 
         public IEnumerable<SelectListItem> ClassesList { get; set; }
@@ -73,6 +73,7 @@ namespace StudentFollowingSystem.ViewModels
         [Display(Name = "Status")]
         public Status Status { get; set; }
 
+        [Display(Name = "Actief")]
         public bool Active { get; set; }
 
         [Display(Name = "Extra info")]

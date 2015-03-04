@@ -73,6 +73,8 @@ namespace StudentFollowingSystem.ViewModels
         [Display(Name = "Status")]
         public Status Status { get; set; }
 
+        public bool Active { get; set; }
+
         [Display(Name = "Extra info")]
         public string Details { get; set; }
     }

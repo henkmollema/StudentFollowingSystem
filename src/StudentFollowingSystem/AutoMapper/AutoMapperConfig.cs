@@ -31,6 +31,9 @@ namespace StudentFollowingSystem.AutoMapper
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
             CreateMap<Counseler, CounselerModel>();
+
+            CreateMap<Subject, SubjectModel>();
+            CreateMap<SubjectModel, Subject>();
         }
     }
 }

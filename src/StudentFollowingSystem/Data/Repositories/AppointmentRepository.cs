@@ -9,14 +9,14 @@ namespace StudentFollowingSystem.Data.Repositories
 {
     public class AppointmentRepository : RepositoryBase<Appointment>
     {
-        public List<Appointment> GetAppointmentsByCounseler(int counselerId, DateTime toDate)
+        public List<Appointment> GetAppointmentsByCounseler(int counselerId, DateTime toDate, DateTime nowDate)
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
                 string sql = @"
 select * from Appointments a
 inner join Students s on a.StudentId = s.Id
-where a.CounselerId = @counselerId and a.DateTime < @toDate
+where a.CounselerId = @counselerId and a.DateTime < @toDate and a.DateTime >= @nowDate
 order by a.DateTime";
 
                 return con.Query<Appointment, Student, Appointment>(sql, (a, s) =>
@@ -24,7 +24,7 @@ order by a.DateTime";
                     a.Student = s;
                     return a;
                 },
-                new { counselerId = counselerId, toDate = toDate })
+                new { counselerId = counselerId, toDate = toDate, nowDate = nowDate })
                 .ToList();
             }
         }

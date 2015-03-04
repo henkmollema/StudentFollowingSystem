@@ -16,7 +16,7 @@ namespace StudentFollowingSystem.Controllers
         public ActionResult Dashboard()
         {
             Counseler counseler = _counselerRepository.GetByEmail(User.Identity.Name);
-            var appointments = _appointmentRepository.GetAppointmentsByCounseler(counseler.Id, GetFirstSaturday());
+            var appointments = _appointmentRepository.GetAppointmentsByCounseler(counseler.Id, GetFirstSaturday(), DateTime.Now);
             foreach (var appointment in appointments)
             {
                 appointment.Counseler = counseler;

@@ -2,8 +2,8 @@
 {
     public enum Status
     {
-        Green,
-        Orange,
-        Red
+        Groen,
+        Oranje,
+        Rood
     }
 }

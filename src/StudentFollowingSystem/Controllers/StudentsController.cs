@@ -47,6 +47,7 @@ namespace StudentFollowingSystem.Controllers
             {
                 // Map the  student view model to the domain model.
                 var student = Mapper.Map<Student>(model);
+                student.Active = true;
 
                 // Generate a password for the student and hash it.
                 string password = PasswordGenerator.CreateRandomPassword();
@@ -66,7 +67,6 @@ namespace StudentFollowingSystem.Controllers
                                            {
                                                new EmailAddress(student.Email, string.Format("{0} {1}", student.FirstName, student.LastName))
                                            },
-
                               };
                 _mailEngine.Send(msg);
 

@@ -16,6 +16,7 @@
     [EnrollDate]   DATETIME       NULL,
     [PreStudy]     NVARCHAR (50)  NULL,
     [Status]       INT            NULL,
+	[Active]	   BIT			  DEFAULT(1) NOT NULL,
     [Details]      NVARCHAR (MAX) NULL,
     CONSTRAINT [PK_Students] PRIMARY KEY CLUSTERED ([Id] ASC)
 );

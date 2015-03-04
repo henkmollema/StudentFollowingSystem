@@ -58,6 +58,8 @@ namespace StudentFollowingSystem.ViewModels
 
         public Status Status { get; set; }
 
+        public bool Active { get; set; }
+
         public string Details { get; set; }
     }
 }

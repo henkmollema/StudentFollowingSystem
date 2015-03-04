@@ -1,4 +1,5 @@
-﻿namespace StudentFollowingSystem.Models
+﻿using System.Collections.Generic;
+namespace StudentFollowingSystem.Models
 {
     public class Counseler
     {

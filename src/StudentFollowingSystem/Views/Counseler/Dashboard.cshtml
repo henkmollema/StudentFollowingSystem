@@ -6,19 +6,31 @@
 
 
 <div class="container">
-    <h2>Afspraken voor deze week</h2>
-    <ul class="list-group">
-        @if (Model.Appointments.Count > 0)
-        {
-            foreach (var appointment in Model.Appointments)
+    <div class="col-md-6">
+        <h2>Afspraken voor deze week</h2>
+        <ul class="list-group">
+            @if (Model.Appointments.Count > 0)
             {
-                <li class="list-group-item">@appointment.Student.FirstName @appointment.Student.LastName (@appointment.DateTime.ToString("dddd d MMMM HH:mm"))</li>
+                foreach (var appointment in Model.Appointments)
+                {
+                    <li class="list-group-item">@appointment.Student.FirstName @appointment.Student.LastName (@appointment.DateTime.ToString("dddd d MMMM HH:mm"))</li>
+                }
             }
-        }
-        else
-        {
-            <li class="list-group-item">Er zijn deze week geen afspraken gepland.</li>
-        }
-    </ul>
+            else
+            {
+                <li class="list-group-item">Er zijn deze week geen afspraken gepland.</li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h2>Studenten die extra aandacht nodig hebben</h2>
+
+        <ul class="list-group">
+            @foreach (var students in Model.Students)
+            {
+                <li class="list-group-item">@students.FirstName @students.LastName</li>
+            }
+        </ul>
+    </div>
 </div>
 

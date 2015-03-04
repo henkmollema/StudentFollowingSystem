@@ -27,7 +27,7 @@ namespace StudentFollowingSystem.Controllers
 
             var model = new CounselerDashboardModel();
             model.Appointments = appointments;
-            model.Students = students.Where(s => s.Status == Status.Oranje || s.Status == Status.Rood).ToList();
+            model.Students = students.Where(s => s.Status == Status.Orange || s.Status == Status.Red).ToList();
             return View(model);
         }
 

@@ -42,6 +42,8 @@ namespace StudentFollowingSystem.ViewModels
         [Display(Name = "Klas")]
         public int ClassId { get; set; }
 
+        public ClassModel Class { get; set; }
+
         public IEnumerable<SelectListItem> ClassesList { get; set; }
 
         [Display(Name = "Telefoonnummer")]

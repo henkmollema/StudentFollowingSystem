@@ -140,6 +140,7 @@
     <Compile Include="Controllers\CounselerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Data\ConnectionFactory.cs" />
     <Compile Include="Data\Dommel\DommelSelect.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Data\Repositories\CounselerRepository.cs" />
     <Compile Include="Data\Repositories\RepositoryBase.cs" />
     <Compile Include="Data\Repositories\StudentRepository.cs" />
+    <Compile Include="Data\Repositories\SubjectRepository.cs" />
     <Compile Include="Filters\AuthorizeCounselerAttribute.cs" />
     <Compile Include="Filters\AuthorizeStudentAttribute.cs" />
     <Compile Include="Filters\ValidateAttribute.cs" />
@@ -175,6 +177,7 @@
     <Compile Include="ViewModels\MenuModel.cs" />
     <Compile Include="ViewModels\StudentDashboardModel.cs" />
     <Compile Include="ViewModels\StudentModel.cs" />
+    <Compile Include="ViewModels\SubjectModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -247,6 +250,9 @@
     <Content Include="Scripts\jquery.validate.xdate.min.js.map">
       <DependentUpon>jquery.validate.xdate.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Students\Details.cshtml" />
+    <Content Include="Views\Subjects\List.cshtml" />
+    <Content Include="Views\Subjects\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

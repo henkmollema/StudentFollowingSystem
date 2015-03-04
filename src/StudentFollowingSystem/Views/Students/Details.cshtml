@@ -1,0 +1,154 @@
+﻿@model StudentFollowingSystem.ViewModels.StudentModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>@Model.FullName</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentNr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentNr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchoolEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Class.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Class.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telephone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StreetName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StreetNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StreetNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ZipCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZipCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrollDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PreStudy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PreStudy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Wijzigen", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Terug naar het overzicht", "List")
+</p>

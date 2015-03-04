@@ -8,5 +8,7 @@ namespace StudentFollowingSystem.ViewModels
     public class CounselerDashboardModel
     {
         public List<Appointment> Appointments { get; set; }
+
+        public List<Student> Students { get; set; }
     }
 }

@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<StudentFollowingSystem.ViewModels.SubjectModel>
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Overzicht";
 }
 
-<h2>List</h2>
+<h2>Overzicht</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nieuwe Les", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Vak:
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartDate)
+            Start tijd:
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndDate)
+            Eind tijd:
         </th>
         <th></th>
     </tr>
@@ -35,9 +35,7 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
         </td>
     </tr>
 }

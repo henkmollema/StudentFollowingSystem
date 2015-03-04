@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
+using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,36 @@ namespace StudentFollowingSystem.Controllers
 
         public ActionResult Create()
         {
-            var model = new SubjectModel();            
+            var model = new SubjectModel();
+            //PrepareSubjectModel(model);
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Create(SubjectModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var @subjects = Mapper.Map<Subject>(model);
+                _subjectRepository.Add(@subjects);
+                return RedirectToAction("List");
+            }
+
+            //PrepareSubjectModel(model);
+            return View(model);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var @subjects = _subjectRepository.GetById(id);
+            if (@subjects == null)
+            {
+                // Class does not exists, show the overview page.
+                return RedirectToAction("List");
+            }
+
+            var model = Mapper.Map<Subject>(@subjects);
+            //PrepareClassModel(model);
             return View(model);
         }
     }

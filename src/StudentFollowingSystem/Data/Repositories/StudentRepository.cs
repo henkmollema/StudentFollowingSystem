@@ -14,7 +14,7 @@ namespace StudentFollowingSystem.Data.Repositories
             {
                 string sql = @"
 select * from Students s
-join Classes c on c.Id = s.ClassId
+left join Classes c on c.Id = s.ClassId
 where s.Id = @Id";
 
                 return con.Query<Student, Class, Student>(

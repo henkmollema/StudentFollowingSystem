@@ -4,6 +4,7 @@ using StudentFollowingSystem.ViewModels;
 using StudentFollowingSystem.Data.Repositories;
 using StudentFollowingSystem.Models;
 using System;
+using System.Linq;
 
 namespace StudentFollowingSystem.Controllers
 {
@@ -11,12 +12,14 @@ namespace StudentFollowingSystem.Controllers
     public class CounselerController : Controller
     {
         private readonly CounselerRepository _counselerRepository = new CounselerRepository();
+        private readonly StudentRepository _studentRepository = new StudentRepository();
         private readonly AppointmentRepository _appointmentRepository = new AppointmentRepository();
 
         public ActionResult Dashboard()
         {
             Counseler counseler = _counselerRepository.GetByEmail(User.Identity.Name);
             var appointments = _appointmentRepository.GetAppointmentsByCounseler(counseler.Id, GetFirstSaturday(), DateTime.Now);
+            var students = _studentRepository.GetAll();
             foreach (var appointment in appointments)
             {
                 appointment.Counseler = counseler;
@@ -24,6 +27,7 @@ namespace StudentFollowingSystem.Controllers
 
             var model = new CounselerDashboardModel();
             model.Appointments = appointments;
+            model.Students = students.Where(s => s.Status == Status.Oranje || s.Status == Status.Rood).ToList();
             return View(model);
         }
 

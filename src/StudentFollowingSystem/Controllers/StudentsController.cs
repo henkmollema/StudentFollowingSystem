@@ -35,7 +35,7 @@ namespace StudentFollowingSystem.Controllers
 
         public ActionResult Create()
         {
-            var model = new StudentModel();
+            var model = new StudentModel { EnrollDate = new DateTime(DateTime.Now.Year - 1, 9, 1) };
             PrepareStudentModel(model);
             return View(model);
         }

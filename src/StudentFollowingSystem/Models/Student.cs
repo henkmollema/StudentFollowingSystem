@@ -31,7 +31,7 @@ namespace StudentFollowingSystem.Models
 
         public string StreetName { get; set; }
 
-        public int StreetNumber { get; set; }
+        public int? StreetNumber { get; set; }
 
         public string ZipCode { get; set; }
 

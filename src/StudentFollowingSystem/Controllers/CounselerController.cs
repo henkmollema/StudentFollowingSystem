@@ -25,9 +25,16 @@ namespace StudentFollowingSystem.Controllers
                 appointment.Counseler = counseler;
             }
 
-            var model = new CounselerDashboardModel();
-            model.Appointments = appointments;
-            model.Students = students.Where(s => s.Status == Status.Orange || s.Status == Status.Red || DateTime.Now > s.LastAppointment.AddMonths(3)).ToList();
+            var model = new CounselerDashboardModel
+                            {
+                                Appointments = appointments,
+                                Students = students.Where(s => s.Status == Status.Orange ||
+                                                               s.Status == Status.Red ||
+                                                               DateTime.Now > s.LastAppointment.AddMonths(3))
+                                                   .OrderByDescending(s => s.Status)
+                                                   .ThenBy(s => s.LastAppointment)
+                                                   .ToList()
+                            };
             return View(model);
         }
 

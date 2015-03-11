@@ -6,7 +6,7 @@ using StudentFollowingSystem.Models;
 
 namespace StudentFollowingSystem.ViewModels
 {
-    public class StudentModel
+    public class StudentModel : IValidatableObject
     {
         public int Id { get; set; }
 
@@ -83,5 +83,18 @@ namespace StudentFollowingSystem.ViewModels
 
         [Display(Name = "Extra info")]
         public string Details { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (BirthDate.GetValueOrDefault().Year + 16 > DateTime.Now.Year)
+            {
+                yield return new ValidationResult("De geboortedatum van de student klopt niet. Een student moet minimaal 16 jaar zijn.");
+            }
+
+            if (BirthDate > EnrollDate)
+            {
+                yield return new ValidationResult("De inschrijfdatum kan niet voor de geboortedatum liggen.");
+            }
+        }
     }
 }

@@ -8,10 +8,13 @@ namespace StudentFollowingSystem.ViewModels
     {
         public int Id { get; set; }
 
+        [Display(Name = "Vak naam")]
         public string Name { get; set; }
 
+        [Display(Name = "Start datum")]
         public DateTime StartDate { get; set; }
 
+        [Display(Name = "Eind datum")]
         public DateTime EndDate { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

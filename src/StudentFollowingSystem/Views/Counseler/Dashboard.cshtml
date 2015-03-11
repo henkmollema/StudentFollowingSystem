@@ -28,7 +28,18 @@
         <ul class="list-group">
             @foreach (var students in Model.Students)
             {
-                <li class="list-group-item">@students.FirstName @students.LastName</li>
+                if (students.Status == StudentFollowingSystem.Models.Status.Red)
+                {
+                    <li class="list-group-item" style="border-color: red">@students.FirstName @students.LastName</li>
+                }
+                else if (students.Status == StudentFollowingSystem.Models.Status.Orange)
+                {
+                    <li class="list-group-item" style="border-color: orange">@students.FirstName @students.LastName</li>
+                }
+                else
+                {
+                    <li class="list-group-item" style="border-color: green">@students.FirstName @students.LastName</li>
+                }
             }
         </ul>
     </div>

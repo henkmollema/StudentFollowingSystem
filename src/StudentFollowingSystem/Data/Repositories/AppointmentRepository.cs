@@ -16,7 +16,7 @@ namespace StudentFollowingSystem.Data.Repositories
                 string sql = @"
 select * from Appointments a
 inner join Students s on a.StudentId = s.Id
-where a.CounselerId = @counselerId and a.DateTime < @toDate and a.DateTime >= @nowDate
+where a.Active = 1 and a.CounselerId = @counselerId and a.DateTime < @toDate and a.DateTime >= @nowDate
 order by a.DateTime";
 
                 return con.Query<Appointment, Student, Appointment>(sql, (a, s) =>

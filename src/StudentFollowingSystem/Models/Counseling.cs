@@ -8,7 +8,9 @@
 
         public Student Student { get; set; }
 
-        public string Counseler { get; set; }
+        public int CounselerId { get; set; }
+
+        public Counseler Counseler { get; set; }
 
         public string Report { get; set; }
     }

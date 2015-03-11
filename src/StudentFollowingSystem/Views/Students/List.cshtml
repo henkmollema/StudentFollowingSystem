@@ -44,7 +44,20 @@
             @item.Email
         </td>
         <td>
-            @item.Status
+            @{
+                if (item.Status == StudentFollowingSystem.Models.Status.Green)
+                {
+                    <img src="~/Content/images/green.png" width="20"/>
+                }
+                if (item.Status == StudentFollowingSystem.Models.Status.Red)
+                {
+                    <img src="~/Content/images/Red.png" width="20" />
+                }
+                if (item.Status == StudentFollowingSystem.Models.Status.Orange)
+                {
+                    <img src="~/Content/images/orange.png" width="20" />
+                }
+}
         </td>
         <td>
             @Html.ActionLink("Wijzigen", "Edit", new { id = item.Id }) |

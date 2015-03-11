@@ -28,6 +28,7 @@ namespace StudentFollowingSystem.Controllers
                     if (Crypto.VerifyHashedPassword(student.Password, model.Password))
                     {
                         FormsAuthentication.SetAuthCookie(student.Email, true);
+
                         if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                         {
                             return Redirect(returnUrl);
@@ -42,6 +43,11 @@ namespace StudentFollowingSystem.Controllers
                     if (Crypto.VerifyHashedPassword(counseler.Password, model.Password))
                     {
                         FormsAuthentication.SetAuthCookie(counseler.Email, true);
+
+                        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        {
+                            return Redirect(returnUrl);
+                        }
                         return RedirectToAction("Dashboard", "Counseler");
                     }
                 }

@@ -12,7 +12,7 @@ namespace StudentFollowingSystem.ViewModels
 
         [Required]
         [Display(Name = "Student nr")]
-        public int StudentNr { get; set; }
+        public int? StudentNr { get; set; }
 
         [Required]
         [Display(Name = "Voornaam")]
@@ -22,7 +22,7 @@ namespace StudentFollowingSystem.ViewModels
         [Display(Name = "Achternaam")]
         public string LastName { get; set; }
 
-         [Display(Name = "Volledige naam")]
+        [Display(Name = "Volledige naam")]
         public string FullName
         {
             get
@@ -52,8 +52,9 @@ namespace StudentFollowingSystem.ViewModels
         [Display(Name = "Straatnaam")]
         public string StreetName { get; set; }
 
+        [Required]
         [Display(Name = "Huisnummer")]
-        public int StreetNumber { get; set; }
+        public int? StreetNumber { get; set; }
 
         [Display(Name = "Postcode")]
         public string ZipCode { get; set; }
@@ -63,11 +64,13 @@ namespace StudentFollowingSystem.ViewModels
 
         [DataType(DataType.Date)]
         [Display(Name = "Geboortedatum")]
-        public DateTime BirthDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        public DateTime? BirthDate { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Inschrijvingsdatum")]
-        public DateTime EnrollDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        public DateTime? EnrollDate { get; set; }
 
         [Display(Name = "Vooropleiding")]
         public string PreStudy { get; set; }

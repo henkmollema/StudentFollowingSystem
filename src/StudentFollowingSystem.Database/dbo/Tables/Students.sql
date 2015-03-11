@@ -19,6 +19,7 @@
 	[Active]	   BIT			  DEFAULT(1) NOT NULL,
     [Details]      NVARCHAR (MAX) NULL,
     [LastAppointment] DATETIME NULL, 
-    CONSTRAINT [PK_Students] PRIMARY KEY CLUSTERED ([Id] ASC)
+    CONSTRAINT [PK_Students] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_StudenetNr] UNIQUE ([StudentNr])
 );
 

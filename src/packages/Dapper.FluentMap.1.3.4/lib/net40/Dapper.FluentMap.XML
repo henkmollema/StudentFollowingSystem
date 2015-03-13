@@ -44,6 +44,11 @@
             Represents configuration of a property via conventions.
             </summary>
         </member>
+        <member name="M:Dapper.FluentMap.Conventions.ConventionPropertyConfiguration.#ctor">
+            <summary>
+            Initializes a new instane of the <see cref="T:Dapper.FluentMap.Conventions.ConventionPropertyConfiguration"/>.
+            </summary>
+        </member>
         <member name="M:Dapper.FluentMap.Conventions.ConventionPropertyConfiguration.HasColumnName(System.String)">
             <summary>
             Configures the name of the database column used to store the property.
@@ -56,6 +61,12 @@
             Configures the prefix of the database column used to store the property.
             </summary>
             <param name="prefix">The prefix of the database column.</param>
+            <returns>The same instance of <see cref="T:Dapper.FluentMap.Conventions.ConventionPropertyConfiguration"/>.</returns>
+        </member>
+        <member name="M:Dapper.FluentMap.Conventions.ConventionPropertyConfiguration.IsCaseInsensitive">
+            <summary>
+            Configures the current convention to be case insensitive.
+            </summary>
             <returns>The same instance of <see cref="T:Dapper.FluentMap.Conventions.ConventionPropertyConfiguration"/>.</returns>
         </member>
         <member name="M:Dapper.FluentMap.Conventions.ConventionPropertyConfiguration.Transform(System.Func{System.String,System.String})">
@@ -264,7 +275,7 @@
             Gets the dictionairy containing the conventions per entity type.
             </summary>
         </member>
-        <member name="M:Dapper.FluentMap.FluentMapper.Intialize(System.Action{Dapper.FluentMap.Configuration.FluentMapConfiguration})">
+        <member name="M:Dapper.FluentMap.FluentMapper.Initialize(System.Action{Dapper.FluentMap.Configuration.FluentMapConfiguration})">
             <summary>
             Initializes Dapper.FluentMap with the specified configuration. 
             This is method should be called when the application starts or when the first mapping is needed.
@@ -316,7 +327,7 @@
         </member>
         <member name="M:Dapper.FluentMap.TypeMaps.FluentConventionTypeMap`1.#ctor">
             <summary>
-            Intializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentConventionTypeMap"/> class 
+            Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentConventionTypeMap"/> class 
             which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
             as mapping strategies.
             </summary>
@@ -330,7 +341,7 @@
         </member>
         <member name="M:Dapper.FluentMap.TypeMaps.FluentMapTypeMap`1.#ctor">
             <summary>
-            Intializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentTypeMap"/> class 
+            Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentTypeMap"/> class 
             which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
             as mapping strategies.
             </summary>
@@ -382,6 +393,16 @@
             <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
             <param name="columnName">The column name in the database to map the property to.</param>
         </member>
+        <member name="M:Dapper.FluentMap.Mapping.PropertyMapBase`1.#ctor(System.Reflection.PropertyInfo,System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> using 
+            the specified <see cref="T:System.Reflection.PropertyInfo"/> object representing the property to map, 
+            column name to map the property to and a value indicating whether the mapping should be case sensitive.
+            </summary>
+            <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
+            <param name="columnName">The column name in the database to map the property to.</param>
+            <param name="caseSensitive">A value indicating whether the mappig should be case sensitive.</param>
+        </member>
         <member name="M:Dapper.FluentMap.Mapping.PropertyMapBase`1.ToColumn(System.String,System.Boolean)">
             <summary>
             Maps the current property to the specified column name.
@@ -415,6 +436,16 @@
             </summary>
             <param name="info">The information about the property.</param>
             <param name="columnName">The column name.</param>
+        </member>
+        <member name="M:Dapper.FluentMap.Mapping.PropertyMap.#ctor(System.Reflection.PropertyInfo,System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> class 
+            with the specified <see cref="T:System.Reflection.PropertyInfo"/> object, column name 
+            and a value indicating whether the mapping should be case sensitive.
+            </summary>
+            <param name="info">The information about the property.</param>
+            <param name="columnName">The column name.</param>
+            <param name="caseSensitive">A value indicating whether the mappig should be case sensitive.</param>
         </member>
         <member name="T:Dapper.FluentMap.Utils.ReflectionHelper">
             <summary>

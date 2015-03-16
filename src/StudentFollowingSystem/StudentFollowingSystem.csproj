@@ -183,6 +183,7 @@
     <Compile Include="ViewModels\CounselingRequestModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\MenuModel.cs" />
+    <Compile Include="ViewModels\PasswordResetModel.cs" />
     <Compile Include="ViewModels\StudentDashboardModel.cs" />
     <Compile Include="ViewModels\StudentModel.cs" />
     <Compile Include="ViewModels\SubjectModel.cs" />
@@ -265,6 +266,7 @@
     <Content Include="Views\Subjects\Create.cshtml" />
     <Content Include="Views\Subjects\Edit.cshtml" />
     <Content Include="Views\Counseler\CounselingRequest.cshtml" />
+    <Content Include="Views\Account\PasswordReset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

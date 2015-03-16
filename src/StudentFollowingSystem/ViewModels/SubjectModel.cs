@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.Web.Mvc;
+using StudentFollowingSystem.Models;
 namespace StudentFollowingSystem.ViewModels
 {
     public class SubjectModel : IValidatableObject
@@ -9,16 +10,17 @@ namespace StudentFollowingSystem.ViewModels
         public int Id { get; set; }
 
         [Display(Name = "Vak naam")]
+        [Required(ErrorMessage = "Geef hier de naam van het vak aan.")]
         public string Name { get; set; }
 
         [Display(Name = "Start datum")]
-        [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [DataType(DataType.Date, ErrorMessage = "Vul een geldige datum in: (dd-mm-yyyy)")]
         public DateTime? StartDate { get; set; }
 
         [Display(Name = "Eind datum")]
-        [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [DataType(DataType.Date, ErrorMessage = "Vul een geldige datum in: (dd-mm-yyyy)")]
         public DateTime? EndDate { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

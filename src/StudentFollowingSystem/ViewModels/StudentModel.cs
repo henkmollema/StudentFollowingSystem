@@ -10,19 +10,23 @@ namespace StudentFollowingSystem.ViewModels
     {
         public int Id { get; set; }
 
-        [Required]
+        
         [Display(Name = "Student nr")]
+        [Required(ErrorMessage = "Vul uw Studentnummer in.")]
         public int? StudentNr { get; set; }
 
-        [Required]
+
         [Display(Name = "Voornaam")]
+        [Required(ErrorMessage = "Vul uw voornaam in.")]
         public string FirstName { get; set; }
 
-        [Required]
+        
         [Display(Name = "Achternaam")]
+        [Required(ErrorMessage = "Vul uw achternaam in.")]
         public string LastName { get; set; }
 
         [Display(Name = "Volledige naam")]
+        [Required(ErrorMessage = "Vul uw volledige naam in.")]
         public string FullName
         {
             get
@@ -31,15 +35,22 @@ namespace StudentFollowingSystem.ViewModels
             }
         }
 
-        [Required]
+        
         [Display(Name = "Email")]
+        [Required(ErrorMessage = "Vul een e-mailadres in.")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Vul een geldig e-mailadres in.")]
+        [EmailAddress(ErrorMessage = "Vul een geldig e-mailadres in.")]
         public string Email { get; set; }
 
-        [Required]
+        
         [Display(Name = "School email")]
+        [Required(ErrorMessage = "Vul een e-mailadres in.")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Vul een geldig e-mailadres in.")]
+        [EmailAddress(ErrorMessage = "Vul een geldig e-mailadres in.")]
         public string SchoolEmail { get; set; }
 
         [Display(Name = "Klas")]
+        [Required(ErrorMessage = "Vul uw klas in.")]
         public int ClassId { get; set; }
 
         public ClassModel Class { get; set; }
@@ -47,33 +58,40 @@ namespace StudentFollowingSystem.ViewModels
         public IEnumerable<SelectListItem> ClassesList { get; set; }
 
         [Display(Name = "Telefoonnummer")]
+        [Required(ErrorMessage = "Vul een geldig Telefoonnummer in")]
         public string Telephone { get; set; }
 
         [Display(Name = "Straatnaam")]
+        [Required(ErrorMessage = "Vul uw straatnaam in.")]
         public string StreetName { get; set; }
 
         [Display(Name = "Huisnummer")]
+        [Required(ErrorMessage = "Vul uw huisnummer in.")]
         public int? StreetNumber { get; set; }
 
         [Display(Name = "Postcode")]
+        [Required(ErrorMessage = "Vul uw postcode in.")]
         public string ZipCode { get; set; }
 
         [Display(Name = "Stad")]
+        [Required(ErrorMessage = "Vul uw woonplaats in.")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Geboortedatum is verplicht")]
-        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Geboortedatum is verplicht (")]
         [Display(Name = "Geboortedatum")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [DataType(DataType.Date, ErrorMessage = "Vul een geldige datum in.")]
+
         public DateTime? BirthDate { get; set; }
 
         [Required(ErrorMessage = "Inschrijvingsdatum is verplicht")]
-        [DataType(DataType.Date)]
         [Display(Name = "Inschrijvingsdatum")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [DataType(DataType.Date, ErrorMessage = "Vul een geldige datum in.")]
         public DateTime? EnrollDate { get; set; }
 
         [Display(Name = "Vooropleiding")]
+        [Required(ErrorMessage = "Vul uw vooropleiding in.")]
         public string PreStudy { get; set; }
 
         [Display(Name = "Status")]

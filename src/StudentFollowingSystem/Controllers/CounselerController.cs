@@ -1,15 +1,15 @@
-﻿using System.Web.Mvc;
-using StudentFollowingSystem.Filters;
-using StudentFollowingSystem.ViewModels;
-using StudentFollowingSystem.Data.Repositories;
-using StudentFollowingSystem.Models;
-using System;
+﻿using System;
 using System.Linq;
+using System.Web.Mvc;
+using StudentFollowingSystem.Data.Repositories;
+using StudentFollowingSystem.Filters;
+using StudentFollowingSystem.Models;
+using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
     [AuthorizeCounseler]
-    public class CounselerController : Controller
+    public class CounselerController : ControllerBase
     {
         private readonly CounselerRepository _counselerRepository = new CounselerRepository();
         private readonly StudentRepository _studentRepository = new StudentRepository();
@@ -17,7 +17,7 @@ namespace StudentFollowingSystem.Controllers
 
         public ActionResult Dashboard()
         {
-            Counseler counseler = _counselerRepository.GetByEmail(User.Identity.Name);
+            Counseler counseler = Counseler;
             var appointments = _appointmentRepository.GetAppointmentsByCounseler(counseler.Id, GetFirstSaturday(), DateTime.Now);
             var students = _studentRepository.GetAll();
             foreach (var appointment in appointments)
@@ -25,13 +25,75 @@ namespace StudentFollowingSystem.Controllers
                 appointment.Counseler = counseler;
             }
 
-            var model = new CounselerDashboardModel();
-            model.Appointments = appointments;
-            model.Students = students.Where(s => s.Status == Status.Orange || s.Status == Status.Red).ToList();
+            var model = new CounselerDashboardModel
+                            {
+                                Appointments = appointments,
+                                Students = students.Where(s => s.Status == Status.Orange ||
+                                                               s.Status == Status.Red ||
+                                                               DateTime.Now > s.LastAppointment.AddMonths(3))
+                                                   .OrderByDescending(s => s.Status)
+                                                   .ThenBy(s => s.LastAppointment)
+                                                   .ToList()
+                            };
+
             return View(model);
         }
 
-        private DateTime GetFirstSaturday()
+        public ActionResult CounselingRequest(int? studentId)
+        {
+            DateTime tommorow = DateTime.Now.AddDays(1);
+            var model = new CounselerCounselingRequestModel
+                            {
+                                DateTimeString = new DateTime(tommorow.Year, tommorow.Month, tommorow.Day, 10, 0, 0).ToString("dd-MM-yyyy HH:mm")
+                            };
+
+            PrepareCounselerCounselingRequestModel(model);
+
+            if (studentId.HasValue)
+            {
+                model.StudentId = studentId.Value;
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult CounselingRequest(CounselerCounselingRequestModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var counseler = Counseler;
+                var appointment = new Appointment
+                                      {
+                                          CounselerId = counseler.Id,
+                                          StudentId = model.StudentId,
+                                          DateTime = model.DateTime,
+                                          Location = model.Location
+                                      };
+
+                _appointmentRepository.Add(appointment);
+
+                // todo: send mail.
+
+                // todo: redirect to appointment overview.
+                return RedirectToAction("Dashboard");
+            }
+
+            PrepareCounselerCounselingRequestModel(model);
+            return View(model);
+        }
+
+        private void PrepareCounselerCounselingRequestModel(CounselerCounselingRequestModel model)
+        {
+            model.StudentsList = _studentRepository.GetAll()
+                                                   .Select(s => new SelectListItem
+                                                                    {
+                                                                        Value = s.Id.ToString(),
+                                                                        Text = string.Format("{0} ({1})", s.GetFullName(), s.StudentNr)
+                                                                    });
+        }
+
+        private static DateTime GetFirstSaturday()
         {
             DateTime date = DateTime.Now;
             int days = 0;
@@ -60,7 +122,7 @@ namespace StudentFollowingSystem.Controllers
                     days = 6;
                     break;
             }
-            
+
             return date.AddDays(days);
         }
     }

@@ -45,32 +45,39 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Map the  student view model to the domain model.
-                var student = Mapper.Map<Student>(model);
-                student.Active = true;
+                var duplicate = _studentRepository.GetByStudentNr(model.StudentNr.GetValueOrDefault());
+                if (duplicate == null)
+                {
+                    // Map the  student view model to the domain model.
+                    var student = Mapper.Map<Student>(model);
+                    student.Active = true;
+                    student.LastAppointment = model.EnrollDate.GetValueOrDefault();
 
-                // Generate a password for the student and hash it.
-                string password = PasswordGenerator.CreateRandomPassword();
-                student.Password = Crypto.HashPassword(password);
-                _studentRepository.Add(student);
+                    // Generate a password for the student and hash it.
+                    string password = PasswordGenerator.CreateRandomPassword();
+                    student.Password = Crypto.HashPassword(password);
+                    _studentRepository.Add(student);
 
-                // Create a mail message with the password and mail it to the student.
-                var msg = new EmailMessage
-                              {
-                                  text = string.Format("Beste {1},{0}{0}Inlognaam: {3} {0}Wachtwoord: {2}{0}{0}",
-                                      Environment.NewLine,
-                                      student.FirstName,
-                                      password,
-                                      student.Email),
-                                  subject = "Studenten Volg Systeem wachtwoord",
-                                  to = new List<EmailAddress>
-                                           {
-                                               new EmailAddress(student.Email, string.Format("{0} {1}", student.FirstName, student.LastName))
-                                           },
-                              };
-                _mailEngine.Send(msg);
+                    // Create a mail message with the password and mail it to the student.
+                    var msg = new EmailMessage
+                                  {
+                                      text = string.Format("Beste {1},{0}{0}Inlognaam: {3} {0}Wachtwoord: {2}{0}{0}",
+                                          Environment.NewLine,
+                                          student.FirstName,
+                                          password,
+                                          student.Email),
+                                      subject = "Studenten Volg Systeem wachtwoord",
+                                      to = new List<EmailAddress>
+                                               {
+                                                   new EmailAddress(student.Email, string.Format("{0} {1}", student.FirstName, student.LastName))
+                                               },
+                                  };
+                    _mailEngine.Send(msg);
 
-                return RedirectToAction("List");
+                    return RedirectToAction("List");
+                }
+
+                ModelState.AddModelError("", "Studentnummer komt al voor in de database.");
             }
 
             PrepareStudentModel(model);

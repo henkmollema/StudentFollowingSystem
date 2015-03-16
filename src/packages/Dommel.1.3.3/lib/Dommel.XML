@@ -132,6 +132,31 @@
             <param name="propertyInfo">The <see cref="T:System.Reflection.PropertyInfo"/> to get the column name for.</param>
             <returns>The column name in the database for <paramref name="propertyInfo"/>.</returns>
         </member>
+        <member name="T:Dommel.DommelMapper.Resolvers.Default">
+            <summary>
+            Provides access to default resolver implementations.
+            </summary>
+        </member>
+        <member name="F:Dommel.DommelMapper.Resolvers.Default.ColumnNameResolver">
+            <summary>
+            The default column name resolver.
+            </summary>
+        </member>
+        <member name="F:Dommel.DommelMapper.Resolvers.Default.PropertyResolver">
+            <summary>
+            The default property resolver.
+            </summary>
+        </member>
+        <member name="F:Dommel.DommelMapper.Resolvers.Default.KeyPropertyResolver">
+            <summary>
+            The default key property resolver.
+            </summary>
+        </member>
+        <member name="F:Dommel.DommelMapper.Resolvers.Default.TableNameResolver">
+            <summary>
+            The default table name resolver.
+            </summary>
+        </member>
         <member name="T:Dommel.DommelMapper.IPropertyResolver">
             <summary>
             Defines methods for resolving the properties of entities. 
@@ -168,6 +193,11 @@
             <summary>
             Gets a collection of types that are considered 'primitive' for Dommel but are not for the CLR.
             Override this if you need your own implementation of this.
+            </summary>
+        </member>
+        <member name="T:Dommel.DommelMapper.DefaultPropertyResolver">
+            <summary>
+            Default implemenation of the <see cref="T:Dommel.DommelMapper.IPropertyResolver"/> interface.
             </summary>
         </member>
         <member name="T:Dommel.DommelMapper.IKeyPropertyResolver">

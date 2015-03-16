@@ -31,7 +31,7 @@ namespace StudentFollowingSystem.Models
 
         public string StreetName { get; set; }
 
-        public int StreetNumber { get; set; }
+        public int? StreetNumber { get; set; }
 
         public string ZipCode { get; set; }
 
@@ -48,5 +48,7 @@ namespace StudentFollowingSystem.Models
         public bool Active { get; set; }
 
         public string Details { get; set; }
+
+        public DateTime LastAppointment { get; set; }
     }
 }

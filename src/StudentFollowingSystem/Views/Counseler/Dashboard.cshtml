@@ -1,36 +1,57 @@
-﻿@model StudentFollowingSystem.ViewModels.CounselerDashboardModel
+﻿@model CounselerDashboardModel
 
 @{
     ViewBag.Title = "Dashboard";
 }
 
-
 <div class="container">
     <div class="col-md-6">
         <h3>Afspraken voor deze week</h3>
-        <ul class="list-group">
+        <div class="list-group">
             @if (Model.Appointments.Count > 0)
             {
                 foreach (var appointment in Model.Appointments)
                 {
-                    <li class="list-group-item">@appointment.Student.FirstName @appointment.Student.LastName (@appointment.DateTime.ToString("dddd d MMMM HH:mm")) - @appointment.Location</li>
+                    <a class="list-group-item" href="@Url.Action("Appointment", "Counseler", new { id = appointment.Id })">
+                        <h4 class="list-group-item-heading">@appointment.Student.GetFullName()</h4>
+                        <p class="list-group-item-text">
+                            @appointment.DateTime.ToString("dddd d MMMM HH:mm")<br />
+                            Locatie: @appointment.Location
+                        </p>
+                    </a>
                 }
             }
             else
             {
-                <li class="list-group-item">Er zijn deze week geen afspraken gepland.</li>
+                <p class="list-group-item">Er zijn deze week geen afspraken gepland.</p>
             }
-        </ul>
+        </div>
     </div>
     <div class="col-md-6">
         <h3>Studenten die extra aandacht nodig hebben</h3>
 
-        <ul class="list-group">
+        <div class="list-group">
             @foreach (var students in Model.Students)
             {
-                <li class="list-group-item">@students.FirstName @students.LastName</li>
+                string statusClass = "list-group-item-success";
+                switch (students.Status)
+                {
+                    case Status.Green:
+                        statusClass = "list-group-item-success";
+                        break;
+                    case Status.Orange:
+                        statusClass = "list-group-item-warning";
+                        break;
+                    case Status.Red:
+                        statusClass = "list-group-item-danger";
+                        break;
+                }
+
+                <a class="list-group-item @statusClass" href="@Url.Action("Details", "Students", new { id = students.Id })">
+                    <h4 class="list-group-item-heading">@students.GetFullName() (@students.StudentNr)</h4>
+                    <p class="list-group-item-text">Laatste gesprek: @students.LastAppointment.ToShortDateString()</p>
+                </a>
             }
-        </ul>
+        </div>
     </div>
 </div>
-

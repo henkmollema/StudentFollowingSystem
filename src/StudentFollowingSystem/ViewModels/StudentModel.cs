@@ -52,7 +52,6 @@ namespace StudentFollowingSystem.ViewModels
         [Display(Name = "Straatnaam")]
         public string StreetName { get; set; }
 
-        [Required]
         [Display(Name = "Huisnummer")]
         public int? StreetNumber { get; set; }
 
@@ -62,11 +61,13 @@ namespace StudentFollowingSystem.ViewModels
         [Display(Name = "Stad")]
         public string City { get; set; }
 
+        [Required(ErrorMessage = "Geboortedatum is verplicht")]
         [DataType(DataType.Date)]
         [Display(Name = "Geboortedatum")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime? BirthDate { get; set; }
 
+        [Required(ErrorMessage = "Inschrijvingsdatum is verplicht")]
         [DataType(DataType.Date)]
         [Display(Name = "Inschrijvingsdatum")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]

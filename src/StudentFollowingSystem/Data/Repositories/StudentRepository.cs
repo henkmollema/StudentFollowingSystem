@@ -35,5 +35,13 @@ where s.Id = @Id";
                 return con.Select<Student>(s => s.Email == email).FirstOrDefault();
             }
         }
+
+        public Student GetByStudentNr(int studentNr)
+        {
+            using (var con = ConnectionFactory.GetOpenConnection())
+            {
+                return con.Select<Student>(s => s.StudentNr == studentNr).FirstOrDefault();
+            }
+        }
     }
 }

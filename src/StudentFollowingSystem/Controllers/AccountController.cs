@@ -63,5 +63,11 @@ namespace StudentFollowingSystem.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+
+        [AllowAnonymous]
+        public ActionResult PasswordReset()
+        {
+            return View(new LoginModel());
+        }
     }
 }

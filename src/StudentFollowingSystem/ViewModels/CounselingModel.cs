@@ -1,6 +1,9 @@
-﻿namespace StudentFollowingSystem.Models
+﻿using StudentFollowingSystem.Models;
+using System.ComponentModel.DataAnnotations;
+
+namespace StudentFollowingSystem.ViewModels
 {
-    public class Counseling
+    public class CounselingModel
     {
         public int Id { get; set; }
 

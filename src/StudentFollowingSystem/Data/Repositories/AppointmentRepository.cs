@@ -1,14 +1,21 @@
-﻿using StudentFollowingSystem.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Dapper;
+using StudentFollowingSystem.Models;
 
 namespace StudentFollowingSystem.Data.Repositories
 {
     public class AppointmentRepository : RepositoryBase<Appointment>
     {
+        /// <summary>
+        /// Gets all the appointments for te specified <paramref name="counselerId"/> 
+        /// within the specified date range.
+        /// </summary>
+        /// <param name="counselerId">The counseler id.</param>
+        /// <param name="toDate">The starting date.</param>
+        /// <param name="nowDate">The end date.</param>
+        /// <returns>A collection of appointments.</returns>
         public List<Appointment> GetAppointmentsByCounseler(int counselerId, DateTime toDate, DateTime nowDate)
         {
             using (var con = ConnectionFactory.GetOpenConnection())
@@ -20,12 +27,12 @@ where a.Accepted = 1 and a.CounselerId = @counselerId and a.DateTime < @toDate a
 order by a.DateTime";
 
                 return con.Query<Appointment, Student, Appointment>(sql, (a, s) =>
-                {
-                    a.Student = s;
-                    return a;
-                },
-                new { counselerId = counselerId, toDate = toDate, nowDate = nowDate })
-                .ToList();
+                                                                         {
+                                                                             a.Student = s;
+                                                                             return a;
+                                                                         },
+                    new { counselerId = counselerId, toDate = toDate, nowDate = nowDate })
+                          .ToList();
             }
         }
     }

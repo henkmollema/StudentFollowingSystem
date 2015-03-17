@@ -2,12 +2,16 @@
 using Dapper;
 using Dommel;
 using StudentFollowingSystem.Models;
-using System.Collections.Generic;
 
 namespace StudentFollowingSystem.Data.Repositories
 {
     public class StudentRepository : RepositoryBase<Student>
     {
+        /// <summary>
+        /// Gets a student by its <paramref name="id"/> with its corresponding class.
+        /// </summary>
+        /// <param name="id">The id of the student.</param>
+        /// <returns>A student.</returns>
         public override Student GetById(int id)
         {
             using (var con = ConnectionFactory.GetOpenConnection())
@@ -28,6 +32,11 @@ where s.Id = @Id";
             }
         }
 
+        /// <summary>
+        /// Gets a student by its <paramref name="email"/>.
+        /// </summary>
+        /// <param name="email">The email address of the student.</param>
+        /// <returns>A student.</returns>
         public Student GetByEmail(string email)
         {
             using (var con = ConnectionFactory.GetOpenConnection())
@@ -36,6 +45,11 @@ where s.Id = @Id";
             }
         }
 
+        /// <summary>
+        /// Gets a student by its <paramref name="studentNr"/>.
+        /// </summary>
+        /// <param name="studentNr">The student number of the student.</param>
+        /// <returns>A student.</returns>
         public Student GetByStudentNr(int studentNr)
         {
             using (var con = ConnectionFactory.GetOpenConnection())

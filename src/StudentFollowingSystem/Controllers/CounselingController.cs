@@ -1,4 +1,6 @@
-﻿using System;
+﻿using StudentFollowingSystem.Models;
+using StudentFollowingSystem.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +10,26 @@ namespace StudentFollowingSystem.Controllers
 {
     public class CounselingController : Controller
     {
-        // GET: Counseling
-        public ActionResult Create()
+        public ActionResult Create(int appointmentId)
         {
-            return View();
+            var model = new CounselingModel();
+
+            
+
+            return View(model);
         }
+
+        //[HttpPost, ValidateAntiForgeryToken]
+        //public ActionResult Create(CounselingModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var subjects = Mapper.Map<Subject>(model);
+        //        _subjectRepository.Add(subjects);
+        //        return RedirectToAction("List");
+        //    }
+
+        //    return View(model);
+        //}
     }
 }

@@ -269,10 +269,10 @@
     <Content Include="Views\Subjects\Edit.cshtml" />
     <Content Include="Views\Appointment\AppointmentByCounseler.cshtml" />
     <Content Include="Views\Account\PasswordReset.cshtml" />
+    <Content Include="Views\Counseling\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Counseling\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

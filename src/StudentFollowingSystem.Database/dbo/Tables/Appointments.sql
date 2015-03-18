@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Appointments]
 (
-	[Id] INT IDENTITY PRIMARY KEY, 
+	[Id] INT IDENTITY (1, 1) PRIMARY KEY, 
     [StudentId] NCHAR(10) NULL, 
     [CounselerId] NCHAR(10) NULL, 
     [Datetime] DATETIME NOT NULL, 

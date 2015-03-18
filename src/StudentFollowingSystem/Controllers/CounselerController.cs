@@ -11,15 +11,13 @@ namespace StudentFollowingSystem.Controllers
     [AuthorizeCounseler]
     public class CounselerController : ControllerBase
     {
-        private readonly CounselerRepository _counselerRepository = new CounselerRepository();
-        private readonly StudentRepository _studentRepository = new StudentRepository();
         private readonly AppointmentRepository _appointmentRepository = new AppointmentRepository();
 
         public ActionResult Dashboard()
         {
             Counseler counseler = Counseler;
             var appointments = _appointmentRepository.GetAppointmentsByCounseler(counseler.Id, GetFirstSaturday(), DateTime.Now);
-            var students = _studentRepository.GetAll();
+            var students = StudentRepository.GetAll();
             foreach (var appointment in appointments)
             {
                 appointment.Counseler = counseler;

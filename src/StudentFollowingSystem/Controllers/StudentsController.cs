@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using AutoMapper;
@@ -14,9 +13,8 @@ using StudentFollowingSystem.ViewModels;
 namespace StudentFollowingSystem.Controllers
 {
     [AuthorizeCounseler]
-    public class StudentsController : Controller
+    public class StudentsController : ControllerBase
     {
-        private readonly StudentRepository _studentRepository = new StudentRepository();
         private readonly ClassRepository _classRepository = new ClassRepository();
         private readonly MandrillMailEngine _mailEngine = new MandrillMailEngine();
 
@@ -29,7 +27,7 @@ namespace StudentFollowingSystem.Controllers
 
         public ActionResult List()
         {
-            var students = Mapper.Map<List<StudentModel>>(_studentRepository.GetAll());
+            var students = Mapper.Map<List<StudentModel>>(StudentRepository.GetAll());
             return View(students);
         }
 
@@ -45,7 +43,7 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var duplicate = _studentRepository.GetByStudentNr(model.StudentNr.GetValueOrDefault());
+                var duplicate = StudentRepository.GetByStudentNr(model.StudentNr.GetValueOrDefault());
                 if (duplicate == null)
                 {
                     // Map the  student view model to the domain model.
@@ -56,7 +54,7 @@ namespace StudentFollowingSystem.Controllers
                     // Generate a password for the student and hash it.
                     string password = PasswordGenerator.CreateRandomPassword();
                     student.Password = Crypto.HashPassword(password);
-                    _studentRepository.Add(student);
+                    StudentRepository.Add(student);
 
                     // Create a mail message with the password and mail it to the student.
                     var msg = new EmailMessage
@@ -86,7 +84,7 @@ namespace StudentFollowingSystem.Controllers
 
         public ActionResult Details(int id)
         {
-            var student = _studentRepository.GetById(id);
+            var student = StudentRepository.GetById(id);
             if (student == null)
             {
                 return RedirectToAction("List");
@@ -99,7 +97,7 @@ namespace StudentFollowingSystem.Controllers
 
         public ActionResult Edit(int id)
         {
-            var student = _studentRepository.GetById(id);
+            var student = StudentRepository.GetById(id);
             if (student == null)
             {
                 return RedirectToAction("List");
@@ -115,9 +113,9 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var student = _studentRepository.GetById(model.Id);
+                var student = StudentRepository.GetById(model.Id);
                 Mapper.Map(model, student);
-                _studentRepository.Update(student);
+                StudentRepository.Update(student);
 
                 return RedirectToAction("List");
             }
@@ -128,15 +126,11 @@ namespace StudentFollowingSystem.Controllers
 
         private void PrepareStudentModel(StudentModel model)
         {
-            model.ClassesList = _classRepository
-                .GetAll()
-                .Select(c => new SelectListItem
-                                 {
-                                     Value = c.Id.ToString(),
-                                     Text = c.Name + (!string.IsNullOrEmpty(c.Section)
-                                                          ? string.Format(" ({0})", c.Section)
-                                                          : string.Empty)
-                                 });
+            model.ClassesList = SelectList(_classRepository.GetAll(),
+                c => c.Id,
+                c => c.Name + (!string.IsNullOrEmpty(c.Section)
+                                   ? string.Format(" ({0})", c.Section)
+                                   : string.Empty));
         }
     }
 }

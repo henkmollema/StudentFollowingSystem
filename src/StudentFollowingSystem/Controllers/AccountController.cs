@@ -1,16 +1,12 @@
 ﻿using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
-using StudentFollowingSystem.Data.Repositories;
 using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
-        private readonly CounselerRepository _counselerRepository = new CounselerRepository();
-        private readonly StudentRepository _studentRepository = new StudentRepository();
-
         [AllowAnonymous]
         public ActionResult Login()
         {
@@ -22,7 +18,7 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var student = _studentRepository.GetByEmail(model.Email);
+                var student = StudentRepository.GetByEmail(model.Email);
                 if (student != null)
                 {
                     if (Crypto.VerifyHashedPassword(student.Password, model.Password))
@@ -37,7 +33,7 @@ namespace StudentFollowingSystem.Controllers
                     }
                 }
 
-                var counseler = _counselerRepository.GetByEmail(model.Email);
+                var counseler = CounselerRepository.GetByEmail(model.Email);
                 if (counseler != null)
                 {
                     if (Crypto.VerifyHashedPassword(counseler.Password, model.Password))

@@ -1,18 +1,10 @@
-﻿using StudentFollowingSystem.Data.Repositories;
+﻿using System.Web.Mvc;
 using StudentFollowingSystem.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace StudentFollowingSystem.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControllerBase
     {
-        private readonly StudentRepository _studentRepository = new StudentRepository();
-        private readonly CounselerRepository _counselerRepository = new CounselerRepository();
-
         public ActionResult Index()
         {
             return View();
@@ -28,7 +20,7 @@ namespace StudentFollowingSystem.Controllers
             var model = new MenuModel();
             if (Request.IsAuthenticated && User != null && User.Identity.IsAuthenticated)
             {
-                var student = _studentRepository.GetByEmail(User.Identity.Name);
+                var student = StudentRepository.GetByEmail(User.Identity.Name);
                 if (student != null)
                 {
                     model.IsStudent = true;
@@ -36,7 +28,7 @@ namespace StudentFollowingSystem.Controllers
                 }
                 else
                 {
-                    var counseler = _counselerRepository.GetByEmail(User.Identity.Name);
+                    var counseler = CounselerRepository.GetByEmail(User.Identity.Name);
                     if (counseler != null)
                     {
                         model.IsCounseler = true;
@@ -44,7 +36,7 @@ namespace StudentFollowingSystem.Controllers
                     }
                 }
             }
-            
+
             return PartialView("_Menu", model);
         }
     }

@@ -1,16 +1,13 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
 using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace StudentFollowingSystem.Controllers
 {
-    public class SubjectsController : Controller
+    public class SubjectsController : ControllerBase
     {
         private readonly SubjectRepository _subjectRepository = new SubjectRepository();
 
@@ -24,7 +21,6 @@ namespace StudentFollowingSystem.Controllers
         public ActionResult Create()
         {
             var model = new SubjectModel();
-            //PrepareSubjectModel(model);
             return View(model);
         }
 
@@ -33,26 +29,23 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var @subjects = Mapper.Map<Subject>(model);
-                _subjectRepository.Add(@subjects);
+                var subjects = Mapper.Map<Subject>(model);
+                _subjectRepository.Add(subjects);
                 return RedirectToAction("List");
             }
 
-            //PrepareSubjectModel(model);
             return View(model);
         }
 
         public ActionResult Edit(int id)
         {
-            var @subjects = _subjectRepository.GetById(id);
-            if (@subjects == null)
+            var subjects = _subjectRepository.GetById(id);
+            if (subjects == null)
             {
-                // Class does not exists, show the overview page.
                 return RedirectToAction("List");
             }
 
-            var model = Mapper.Map<Subject>(@subjects);
-            //PrepareClassModel(model);
+            var model = Mapper.Map<Subject>(subjects);
             return View(model);
         }
     }

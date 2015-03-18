@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
@@ -10,10 +9,9 @@ using StudentFollowingSystem.ViewModels;
 namespace StudentFollowingSystem.Controllers
 {
     [AuthorizeCounseler]
-    public class ClassController : Controller
+    public class ClassController : ControllerBase
     {
         private readonly ClassRepository _classRepository = new ClassRepository();
-        private readonly CounselerRepository _counselerRepository = new CounselerRepository();
 
         public ActionResult List()
         {
@@ -98,7 +96,9 @@ namespace StudentFollowingSystem.Controllers
 
         private void PrepareClassModel(ClassModel model)
         {
-            model.CounselerList = Mapper.Map<List<CounselerModel>>(_counselerRepository.GetAll()).Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.FullName });
+            model.CounselerList = SelectList(CounselerRepository.GetAll(),
+                c => c.Id,
+                c => c.GetFullName());
         }
     }
 }

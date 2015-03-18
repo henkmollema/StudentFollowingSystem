@@ -1,4 +1,5 @@
-﻿using StudentFollowingSystem.Models;
+﻿using AutoMapper;
+using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,17 +20,21 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        //[HttpPost, ValidateAntiForgeryToken]
-        //public ActionResult Create(CounselingModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var subjects = Mapper.Map<Subject>(model);
-        //        _subjectRepository.Add(subjects);
-        //        return RedirectToAction("List");
-        //    }
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Create(CounselingModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Map counseling view model to domain model.
+                var counseling = Mapper.Map<Counseling>(model);
+                // todo: add counseling repository to class
+                //_counselingRepostiory.Add(counseling);
 
-        //    return View(model);
-        //}
+                // todo: redirect to details
+                //return RedirectToAction("List");
+            }
+        
+            return View(model);
+        }
     }
 }

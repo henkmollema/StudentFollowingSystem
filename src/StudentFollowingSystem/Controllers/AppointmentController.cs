@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using StudentFollowingSystem.Data.Repositories;
+using StudentFollowingSystem.Mails;
 using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
 
@@ -9,6 +10,7 @@ namespace StudentFollowingSystem.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly AppointmentRepository _appointmentRepository = new AppointmentRepository();
+        private readonly MailHelper _mailHelper = new MailHelper();
 
         public ActionResult AppointmentByCounseler(int? studentId)
         {
@@ -23,6 +25,7 @@ namespace StudentFollowingSystem.Controllers
 
             if (studentId.HasValue)
             {
+                // Prefill the student id from the querystring.
                 model.StudentId = studentId.Value;
             }
 
@@ -35,24 +38,61 @@ namespace StudentFollowingSystem.Controllers
             if (ModelState.IsValid)
             {
                 var counseler = Counseler;
-                var appointment = new Appointment
-                                      {
-                                          CounselerId = counseler.Id,
-                                          StudentId = model.StudentId,
-                                          DateTime = model.DateTime,
-                                          Location = model.Location
-                                      };
+                var student = StudentRepository.GetById(model.StudentId);
+                if (counseler != null && student != null)
+                {
+                    var appointment = new Appointment
+                                          {
+                                              CounselerId = counseler.Id,
+                                              StudentId = model.StudentId,
+                                              DateTime = model.DateTime,
+                                              Location = model.Location
+                                          };
 
-                _appointmentRepository.Add(appointment);
+                    int id = _appointmentRepository.Add(appointment);
 
-                // todo: send mail.
+                    var mail = new AppointmentMail
+                                   {
+                                       Counseler = counseler,
+                                       Student = student,
+                                       DateTime = appointment.DateTime,
+                                       Location = appointment.Location,
+                                       AcceptUrl = FullUrl("AnswerAppointmentRequest", new { id })
+                                   };
+                    _mailHelper.SendAppointmentByCounseler(mail);
 
-                // todo: redirect to appointment overview.
-                return RedirectToAction("Dashboard", "Counseler");
+                    return RedirectToAction("Details", "Appointment", new { id });
+                }
             }
 
             PrepareCounselerCounselingRequestModel(model);
             return View(model);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var appointment = _appointmentRepository.GetById(id);
+            if (appointment == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(appointment);
+        }
+
+        public ActionResult AnswerAppointmentRequest(int id)
+        {
+            var appointment = _appointmentRepository.GetById(id);
+            if (appointment == null)
+            {
+                return HttpNotFound();
+            }
+
+            appointment.Accepted = true;
+            _appointmentRepository.Update(appointment);
+
+            return Content("Accepted appointment " + id);
+            //return View();
         }
 
         private void PrepareCounselerCounselingRequestModel(AppointmentByCounselerModel model)

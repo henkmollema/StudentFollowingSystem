@@ -149,11 +149,8 @@
     </dl>
 </div>
 
-<div class="btn-group-sm">
-    <a href="@Url.Action("AppointmentByCounseler","Appointment", new { studentId = Model.Id})" class="btn btn-sm btn-primary">SLB gesprek aanvragen</a>
-</div>
-
 <p>
+    <a href="@Url.Action("AppointmentByCounseler","Appointment", new { studentId = Model.Id})" class="btn btn-sm btn-primary">SLB gesprek inplannen</a> |
     @Html.ActionLink("Wijzigen", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Terug naar het overzicht", "List")
 </p>

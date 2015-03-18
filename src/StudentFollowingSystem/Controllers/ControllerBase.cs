@@ -69,6 +69,33 @@ namespace StudentFollowingSystem.Controllers
         }
 
         /// <summary>
+        /// Generates a full url to the specified action including the current url.
+        /// </summary>
+        /// <param name="action">The name of the action method.</param>
+        /// <param name="routeValues">An object that contains the parameters for a route.</param>
+        /// <returns>A full url to the specified action including the current url.</returns>
+        protected string FullUrl(string action, object routeValues)
+        {
+            return FullUrl(action, null, routeValues);
+        }
+
+        /// <summary>
+        /// Generates a full url to the specified action and controller including the current url.
+        /// </summary>
+        /// <param name="action">The name of the action method.</param>
+        /// <param name="controller">The name of the controller.</param>
+        /// <param name="routeValues">An object that contains the parameters for a route.</param>
+        /// <returns>A full url to the specified action including the current url.</returns>
+        protected string FullUrl(string action, string controller, object routeValues)
+        {
+            string path = Url.Action(action, controller, routeValues);
+            var currentUrl = Request.Url;
+            string url = string.Format("{0}://{1}", currentUrl.Scheme, currentUrl.Authority);
+
+            return url + path;
+        }
+
+        /// <summary>
         /// Creates an MVC select list item collection using the specified source and value and text selectors.
         /// </summary>
         /// <typeparam name="TItem">The type of the item.</typeparam>

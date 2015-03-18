@@ -165,6 +165,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mails\AppointmentMail.cs" />
+    <Compile Include="Mails\MailHelper.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Counseler.cs" />
@@ -269,6 +271,7 @@
     <Content Include="Views\Subjects\Edit.cshtml" />
     <Content Include="Views\Appointment\AppointmentByCounseler.cshtml" />
     <Content Include="Views\Account\PasswordReset.cshtml" />
+    <Content Include="Views\Appointment\Details.cshtml" />
     <Content Include="Views\Counseling\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -57,7 +57,7 @@ namespace StudentFollowingSystem.Controllers
                                        Student = student,
                                        DateTime = appointment.DateTime,
                                        Location = appointment.Location,
-                                       AcceptUrl = Url.Action("AnswerAppointmentRequest", new { id })
+                                       AcceptUrl = FullUrl("AnswerAppointmentRequest", new { id })
                                    };
                     _mailHelper.SendAppointmentByCounseler(mail);
 
@@ -71,8 +71,13 @@ namespace StudentFollowingSystem.Controllers
 
         public ActionResult Details(int id)
         {
-            return Content("TODO. AppointmentId: " + id);
-            return View();
+            var appointment = _appointmentRepository.GetById(id);
+            if (appointment == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(appointment);
         }
 
         public ActionResult AnswerAppointmentRequest(int id)

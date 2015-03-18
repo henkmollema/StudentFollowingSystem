@@ -8,6 +8,27 @@ namespace StudentFollowingSystem.Data.Repositories
 {
     public class AppointmentRepository : RepositoryBase<Appointment>
     {
+        public override Appointment GetById(int id)
+        {
+            using (var con = ConnectionFactory.GetOpenConnection())
+            {
+                string sql = @"
+select * from Appointments a
+right join Counselers c on c.Id = a.CounselerId
+right join Students s on s.Id = a.StudentId
+where a.Id = @Id";
+
+                return con.Query<Appointment, Counseler, Student, Appointment>(sql,
+                    (a, c, s) =>
+                    {
+                        a.Counseler = c;
+                        a.Student = s;
+                        return a;
+                    },
+                    new { id }).FirstOrDefault();
+            }
+        }
+
         /// <summary>
         /// Gets all the appointments for te specified <paramref name="counselerId"/> 
         /// within the specified date range.

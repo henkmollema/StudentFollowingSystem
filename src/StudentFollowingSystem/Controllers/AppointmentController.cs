@@ -57,7 +57,7 @@ namespace StudentFollowingSystem.Controllers
                                        Student = student,
                                        DateTime = appointment.DateTime,
                                        Location = appointment.Location,
-                                       AcceptUrl = FullUrl("AnswerAppointmentRequest", new { id })
+                                       AcceptUrl = FullUrl("AppointmentResponse", new { id })
                                    };
                     _mailHelper.SendAppointmentByCounseler(mail);
 
@@ -80,7 +80,7 @@ namespace StudentFollowingSystem.Controllers
             return View(appointment);
         }
 
-        public ActionResult AnswerAppointmentRequest(int id)
+        public ActionResult AppointmentResponse(int id)
         {
             var appointment = _appointmentRepository.GetById(id);
             if (appointment == null)
@@ -88,11 +88,45 @@ namespace StudentFollowingSystem.Controllers
                 return HttpNotFound();
             }
 
-            appointment.Accepted = true;
-            _appointmentRepository.Update(appointment);
+            var model = new AppointmentResponseModel
+                            {
+                                Appointment = appointment,
+                                Accepted = true,
+                                AlreadyAccepted = appointment.Accepted
+                            };
 
-            return Content("Accepted appointment " + id);
-            //return View();
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult AppointmentResponse(AppointmentResponseModel model)
+        {
+            var appointment = _appointmentRepository.GetById(model.Id);
+            if (appointment == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                appointment.Accepted = model.Accepted;
+                _appointmentRepository.Update(appointment);
+
+                var mail = new AppointmentRepsonseMail
+                               {
+                                   Appointment = appointment,
+                                   Notes = model.Notes,
+                                   FromCounseler = true // todo...
+                               };
+                _mailHelper.SendAppointmentResponseMail(mail);
+
+
+                // todo: redirect to student dashboard as well.
+                return RedirectToAction("Dashboard", "Counseler");
+            }
+
+            model.Appointment = appointment;
+            return View(model);
         }
 
         private void PrepareCounselerCounselingRequestModel(AppointmentByCounselerModel model)

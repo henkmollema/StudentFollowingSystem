@@ -166,6 +166,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mails\AppointmentMail.cs" />
+    <Compile Include="Mails\AppointmentRepsonseMail.cs" />
     <Compile Include="Mails\MailHelper.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Class.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Services\PasswordGenerator.cs" />
     <Compile Include="Services\TimetableService.cs" />
     <Compile Include="ViewModels\AppointmentModel.cs" />
+    <Compile Include="ViewModels\AppointmentResponseModel.cs" />
     <Compile Include="ViewModels\ClassModel.cs" />
     <Compile Include="ViewModels\CounselerDashboardModel.cs" />
     <Compile Include="ViewModels\CounselerModel.cs" />
@@ -273,6 +275,7 @@
     <Content Include="Views\Account\PasswordReset.cshtml" />
     <Content Include="Views\Appointment\Details.cshtml" />
     <Content Include="Views\Counseling\Create.cshtml" />
+    <Content Include="Views\Appointment\AppointmentResponse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

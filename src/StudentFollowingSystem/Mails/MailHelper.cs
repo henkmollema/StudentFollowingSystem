@@ -19,5 +19,18 @@ namespace StudentFollowingSystem.Mails
 
             _mailEngine.Send(email);
         }
+
+        public void SendAppointmentResponseMail(AppointmentRepsonseMail mail)
+        {
+            string body = mail.MergeMessage();
+
+            var email = new EmailMessage
+            {
+                text = body,
+                to = new[] { new EmailAddress(mail.Appointment.Student.Email, mail.Appointment.Student.GetFullName()) }
+            };
+
+            _mailEngine.Send(email);
+        }
     }
 }

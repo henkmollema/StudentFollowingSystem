@@ -13,7 +13,7 @@ namespace StudentFollowingSystem.Services
 
         public void Send(EmailMessage mailMessage)
         {
-            mailMessage.from_email = "moll1400@nhl.nl";
+            mailMessage.from_email = "student-volg-systeem@nhl.nl";
             mailMessage.from_name = "Student Volg Systeem";
             var results = _api.SendMessage(mailMessage, null);
         }

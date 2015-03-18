@@ -1,10 +1,10 @@
-﻿@model CounselerCounselingRequestModel
+﻿@model AppointmentByCounselerModel
 
 @{
     ViewBag.Title = "SLB gesprek aanvragen";
 }
 
-<h2>SLB gepsrek aanvragen</h2>
+<h2>SLB gesprek aanvragen</h2>
 
 
 @using (Html.BeginForm()) 
@@ -46,7 +46,7 @@
 }
 
 <div>
-    @Html.ActionLink("Terug naar het dashboard", "Dashboard")
+    @Html.ActionLink("Terug naar het dashboard", "Dashboard", "Counseler")
 </div>
 
 @section Scripts {

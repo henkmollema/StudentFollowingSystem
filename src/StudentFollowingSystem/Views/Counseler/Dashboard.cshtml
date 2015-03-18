@@ -12,7 +12,7 @@
             {
                 foreach (var appointment in Model.Appointments)
                 {
-                    <a class="list-group-item" href="@Url.Action("Appointment", "Counseler", new { id = appointment.Id })">
+                    <a class="list-group-item" href="@Url.Action("Details", "Appointment", new { id = appointment.Id })">
                         <h4 class="list-group-item-heading">@appointment.Student.GetFullName()</h4>
                         <p class="list-group-item-text">
                             @appointment.DateTime.ToString("dddd d MMMM HH:mm")<br />

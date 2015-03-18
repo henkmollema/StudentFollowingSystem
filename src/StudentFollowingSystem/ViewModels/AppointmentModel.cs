@@ -1,17 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.Web.Mvc;
 
 namespace StudentFollowingSystem.ViewModels
 {
-    public class CounselerCounselingRequestModel : IValidatableObject
+    public class AppointmentModel : IValidatableObject
     {
-        [Required(ErrorMessage = "Kies een student")]
-        [Display(Name = "Student")]
-        public int StudentId { get; set; }
-
         [Required(ErrorMessage = "Datum en tijd is verplicht")]
         [Display(Name = "Datum en tijd")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
@@ -22,8 +17,6 @@ namespace StudentFollowingSystem.ViewModels
         [Required(ErrorMessage = "Een locatie is verplicht")]
         [Display(Name = "Locatie")]
         public string Location { get; set; }
-
-        public IEnumerable<SelectListItem> StudentsList { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

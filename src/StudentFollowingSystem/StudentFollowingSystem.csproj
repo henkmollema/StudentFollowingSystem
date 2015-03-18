@@ -139,6 +139,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AutoMapper\AutoMapperConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\CounselerController.cs" />
@@ -176,11 +177,12 @@
     <Compile Include="Services\MandrillMailEngine.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
     <Compile Include="Services\TimetableService.cs" />
+    <Compile Include="ViewModels\AppointmentModel.cs" />
     <Compile Include="ViewModels\ClassModel.cs" />
     <Compile Include="ViewModels\CounselerDashboardModel.cs" />
     <Compile Include="ViewModels\CounselerModel.cs" />
     <Compile Include="ViewModels\CounselingModel.cs" />
-    <Compile Include="ViewModels\CounselingRequestModel.cs" />
+    <Compile Include="ViewModels\AppointmentByCounselerModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\MenuModel.cs" />
     <Compile Include="ViewModels\PasswordResetModel.cs" />
@@ -265,7 +267,7 @@
     <Content Include="Views\Subjects\List.cshtml" />
     <Content Include="Views\Subjects\Create.cshtml" />
     <Content Include="Views\Subjects\Edit.cshtml" />
-    <Content Include="Views\Counseler\CounselingRequest.cshtml" />
+    <Content Include="Views\Appointment\AppointmentByCounseler.cshtml" />
     <Content Include="Views\Account\PasswordReset.cshtml" />
   </ItemGroup>
   <ItemGroup>

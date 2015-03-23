@@ -48,8 +48,9 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
-    <Reference Include="Dapper">
-      <HintPath>..\packages\Dapper.1.38\lib\net45\Dapper.dll</HintPath>
+    <Reference Include="Dapper, Version=1.39.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Dapper.1.39\lib\net45\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="Dapper.FluentMap, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -59,9 +60,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Dapper.FluentMap.Dommel.1.2.0\lib\Dapper.FluentMap.Dommel.dll</HintPath>
     </Reference>
-    <Reference Include="Dommel, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Dommel, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Dommel.1.3.3\lib\Dommel.dll</HintPath>
+      <HintPath>..\packages\Dommel.1.4.0-beta1\lib\Dommel.dll</HintPath>
     </Reference>
     <Reference Include="Mandrill, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -149,8 +150,6 @@
     <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Data\ConnectionFactory.cs" />
-    <Compile Include="Data\Dommel\CustomDommelPropertyResolver.cs" />
-    <Compile Include="Data\Dommel\DommelSelect.cs" />
     <Compile Include="Data\Dommel\EntityMaps.cs" />
     <Compile Include="Data\Repositories\AppointmentRepository.cs" />
     <Compile Include="Data\Repositories\ClassRepository.cs" />

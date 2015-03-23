@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Dapper;
+using Dommel;
 using StudentFollowingSystem.Models;
 
 namespace StudentFollowingSystem.Data.Repositories
@@ -15,15 +15,21 @@ namespace StudentFollowingSystem.Data.Repositories
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
-                string sql = @"
-select * from Classes class
-inner join Counselers counseler on class.CounselerId = counseler.Id";
-                return con.Query<Class, Counseler, Class>(sql, (@class, counseler) =>
-                                                               {
-                                                                   @class.Counseler = counseler;
-                                                                   return @class;
-                                                               })
-                          .ToList();
+                return con.GetAll<Class, Counseler, Class>((@class, counseler) =>
+                                                           {
+                                                               @class.Counseler = counseler;
+                                                               return @class;
+                                                           })
+                                                           .ToList();
+//                string sql = @"
+//select * from Classes class
+//inner join Counselers counseler on class.CounselerId = counseler.Id";
+//                return con.Query<Class, Counseler, Class>(sql, (@class, counseler) =>
+//                                                               {
+//                                                                   @class.Counseler = counseler;
+//                                                                   return @class;
+//                                                               })
+//                          .ToList();
             }
         }
     }

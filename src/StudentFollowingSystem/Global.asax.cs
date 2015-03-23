@@ -24,8 +24,6 @@ namespace StudentFollowingSystem
                                         c.AddMap(new ClassesMap());
                                         c.ForDommel();
                                     });
-
-            Dommel.DommelMapper.SetPropertyResolver(new CustomDommelPropertyResolver());
         }
     }
 }

@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using StudentFollowingSystem.Models;
 
 namespace StudentFollowingSystem.ViewModels
 {
-    public class AppointmentResponseModel
+    public class AppointmentResponseModel : IValidatableObject
     {
         public int Id { get; set; }
 
@@ -16,5 +17,13 @@ namespace StudentFollowingSystem.ViewModels
         public string Notes { get; set; }
 
         public bool AlreadyAccepted { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (!Accepted && string.IsNullOrEmpty(Notes))
+            {
+                yield return new ValidationResult("Een reden is verplicht als je de afspraak niet accepteerd");
+            }
+        }
     }
 }

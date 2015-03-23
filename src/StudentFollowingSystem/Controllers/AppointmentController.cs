@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Web.Mvc;
 using StudentFollowingSystem.Data.Repositories;
+using StudentFollowingSystem.Filters;
 using StudentFollowingSystem.Mails;
 using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
+    [AuthorizeCounseler]
     public class AppointmentController : ControllerBase
     {
         private readonly AppointmentRepository _appointmentRepository = new AppointmentRepository();

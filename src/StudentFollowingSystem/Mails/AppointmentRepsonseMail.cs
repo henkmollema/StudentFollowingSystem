@@ -20,14 +20,14 @@ namespace StudentFollowingSystem.Mails
 
             sb.AppendFormat("Beste {0},",
                 FromCounseler
-                    ? Appointment.Student.GetFullName()
-                    : Appointment.Counseler.GetFullName())
+                    ? Appointment.Counseler.GetFullName()
+                    : Appointment.Student.GetFullName())
               .AppendLine()
               .AppendLine()
               .AppendFormat("{0} heeft je uitnodiging voor een SLB gesprek {1}geaccepteerd.",
                   FromCounseler
-                      ? Appointment.Counseler.GetFullName()
-                      : Appointment.Student.GetFullName(),
+                      ? Appointment.Student.GetFullName()
+                      : Appointment.Counseler.GetFullName(),
                   !Appointment.Accepted
                       ? "niet "
                       : string.Empty);

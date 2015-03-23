@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using AutoMapper;
@@ -86,6 +87,66 @@ namespace StudentFollowingSystem.Controllers
 
             PrepareStudentModel(model);
             return View(model);
+        }
+
+        [AuthorizeCounseler]
+        public ActionResult Import()
+        {
+            return View();
+        }
+
+        [AuthorizeCounseler, HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Import(string csv)
+        {
+            foreach (string[] d in csv.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+                                      .Skip(1)
+                                      .Select(line => line.Split(new[] { ';' })))
+            {
+                // Try to parse the student number.
+                int studentNr;
+                if (!int.TryParse(d[1], out studentNr))
+                {
+                    ModelState.AddModelError("", string.Format("StudentNr '{0}' is geen geldig nummer", d[1]));
+                    break;
+                }
+
+                var existing = StudentRepository.GetByStudentNr(studentNr);
+                if (existing != null)
+                {
+                    // Skip existing students.
+                    continue;
+                }
+
+                var student = new Student
+                                  {
+                                      StudentNr = studentNr,
+                                      FirstName = d[2],
+                                      LastName = d[4],
+                                      SchoolEmail = d[5].ToLower(),
+                                      Email = d[6].ToLower(),
+                                      ClassId = int.Parse(d[7]),
+                                      Telephone = d[8],
+                                      StreetNumber = int.Parse(d[9]),
+                                      StreetName = d[10],
+                                      ZipCode = d[11],
+                                      City = d[12],
+                                      PreStudy = d[13],
+                                      Status = (Status)Enum.Parse(typeof (Status), d[14]),
+                                      Active = d[15] == "1",
+                                      EnrollDate = DateTime.Parse(d[16]),
+                                      LastAppointment = DateTime.Parse(d[16]),
+                                      BirthDate = DateTime.Parse(d[17])
+                                  };
+
+                string password = PasswordGenerator.CreateRandomPassword();
+                student.Password = Crypto.HashPassword(password);
+
+                // todo: mail
+
+                StudentRepository.Add(student);
+            }
+
+            return View();
         }
 
         [AuthorizeCounseler]

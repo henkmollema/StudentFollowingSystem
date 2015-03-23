@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -12,9 +13,9 @@ using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
-    [AuthorizeCounseler]
     public class StudentsController : ControllerBase
     {
+        private readonly SubjectRepository _subjectRepository = new SubjectRepository();
         private readonly ClassRepository _classRepository = new ClassRepository();
         private readonly MandrillMailEngine _mailEngine = new MandrillMailEngine();
 
@@ -22,15 +23,19 @@ namespace StudentFollowingSystem.Controllers
         public ActionResult Dashboard()
         {
             var model = new StudentDashboardModel();
+            var subjects = _subjectRepository.GetAll().Where(s => s.StartDate.Date == DateTime.Now.Date).ToList();
+            model.Subjects = subjects;
             return View(model);
         }
 
+        [AuthorizeCounseler]
         public ActionResult List()
         {
             var students = Mapper.Map<List<StudentModel>>(StudentRepository.GetAll());
             return View(students);
         }
 
+        [AuthorizeCounseler]
         public ActionResult Create()
         {
             var model = new StudentModel { EnrollDate = new DateTime(DateTime.Now.Year - 1, 9, 1) };
@@ -38,6 +43,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [AuthorizeCounseler]
         [HttpPost]
         public ActionResult Create(StudentModel model)
         {
@@ -82,6 +88,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [AuthorizeCounseler]
         public ActionResult Details(int id)
         {
             var student = StudentRepository.GetById(id);
@@ -95,6 +102,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [AuthorizeCounseler]
         public ActionResult Edit(int id)
         {
             var student = StudentRepository.GetById(id);
@@ -108,6 +116,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [AuthorizeCounseler]
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(StudentModel model)
         {

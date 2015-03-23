@@ -28,8 +28,13 @@ where s.Id = @Id";
                         s.Class = c;
                         return s;
                     },
-                    new { id }).FirstOrDefault();
+                    new { Id = id }).FirstOrDefault();
             }
+        }
+
+        public override int Add(Student entity)
+        {
+            return base.Add(entity);
         }
 
         /// <summary>

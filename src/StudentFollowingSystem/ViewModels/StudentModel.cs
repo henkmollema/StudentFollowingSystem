@@ -103,6 +103,11 @@ namespace StudentFollowingSystem.ViewModels
         [Display(Name = "Extra info")]
         public string Details { get; set; }
 
+        [Display(Name = "Volgende afspraak")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [DataType(DataType.Date, ErrorMessage = "Vul een geldige datum in.")]
+        public DateTime? NextAppointment { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (BirthDate.GetValueOrDefault().Year + 16 > DateTime.Now.Year)

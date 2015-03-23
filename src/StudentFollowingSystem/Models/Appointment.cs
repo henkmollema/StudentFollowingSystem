@@ -8,11 +8,11 @@ namespace StudentFollowingSystem.Models
 
         public DateTime DateTime { get; set; }
 
-        public int? StudentId { get; set; }
+        public int StudentId { get; set; }
 
         public Student Student { get; set; }
 
-        public int? CounselerId { get; set; }
+        public int CounselerId { get; set; }
 
         public Counseler Counseler { get; set; }
 

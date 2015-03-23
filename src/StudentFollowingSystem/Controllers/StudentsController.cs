@@ -49,7 +49,6 @@ namespace StudentFollowingSystem.Controllers
                     // Map the  student view model to the domain model.
                     var student = Mapper.Map<Student>(model);
                     student.Active = true;
-                    student.LastAppointment = model.EnrollDate.GetValueOrDefault();
 
                     // Generate a password for the student and hash it.
                     string password = PasswordGenerator.CreateRandomPassword();

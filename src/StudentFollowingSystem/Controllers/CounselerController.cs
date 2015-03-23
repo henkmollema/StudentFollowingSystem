@@ -28,9 +28,9 @@ namespace StudentFollowingSystem.Controllers
                                 Appointments = appointments,
                                 Students = students.Where(s => s.Status == Status.Orange ||
                                                                s.Status == Status.Red ||
-                                                               DateTime.Now > s.LastAppointment.AddMonths(3))
+                                                               DateTime.Now >= s.NextAppointment)
                                                    .OrderByDescending(s => s.Status)
-                                                   .ThenBy(s => s.LastAppointment)
+                                                   .ThenBy(s => s.NextAppointment)
                                                    .ToList()
                             };
 

@@ -1,4 +1,5 @@
 ﻿using StudentFollowingSystem.Models;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudentFollowingSystem.ViewModels
@@ -9,7 +10,7 @@ namespace StudentFollowingSystem.ViewModels
 
         public int StudentId { get; set; }
 
-        public Student Student { get; set; }
+        public StudentModel Student { get; set; }
 
         public int CounselerId { get; set; }
 
@@ -22,5 +23,9 @@ namespace StudentFollowingSystem.ViewModels
         public string Comment { get; set; }
 
         public bool Private { get; set; }
+
+        public DateTime LastAppointment { get; set; }
+
+        public DateTime? NextAppointment { get; set; }
     }
 }

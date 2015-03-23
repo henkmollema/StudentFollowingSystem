@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace StudentFollowingSystem.ViewModels
 {
@@ -14,5 +10,6 @@ namespace StudentFollowingSystem.ViewModels
         [EmailAddress(ErrorMessage = "Vul een geldig e-mailadres in.")]
         public string Email { get; set; }
 
+        public bool Success { get; set; }
     }
 }

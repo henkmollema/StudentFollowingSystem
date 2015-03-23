@@ -122,9 +122,7 @@ namespace StudentFollowingSystem.Controllers
                                };
                 _mailHelper.SendAppointmentResponseMail(mail);
 
-
-                // todo: redirect to student dashboard as well.
-                return RedirectToAction("Dashboard", "Counseler");
+                return RedirectToDashboard();
             }
 
             model.Appointment = appointment;

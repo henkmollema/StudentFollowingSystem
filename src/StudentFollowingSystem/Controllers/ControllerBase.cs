@@ -67,6 +67,14 @@ namespace StudentFollowingSystem.Controllers
                 return null;
             }
         }
+        
+        /// <summary>
+        /// Redirects the user to the corresponding dashboard.
+        /// </summary>
+        public ActionResult RedirectToDashboard()
+        {
+            return RedirectToAction("Dashboard", Student != null ? "Students" : "Counseler");
+        }
 
         /// <summary>
         /// Generates a full url to the specified action including the current url.

@@ -12,20 +12,25 @@
             {
                 foreach (var subject in Model.Subjects)
                 {
-                    string css = "";
+                    string css = "", title = "";
+                    bool present = Model.IsPresent(subject);
                     if (subject.IsPastSubject())
                     {
-                        css = " list-group-item-warning";
+                        if (present)
+                        {
+                            css = " list-group-item-success";
+                            title = "Je was hier aanwezig";
+                        }
+                        else
+                        {
+                            css = " list-group-item-warning";
+                            title = "Je hebt dit onderdeel gemist";
+                        }
                     }
                     else if (subject.IsCurrentSubject())
                     {
                         css = " list-group-item-info";
-                    }
-                    bool present = Model.IsPresent(subject);
-                    string title = "";
-                    if (subject.IsPastSubject() || subject.IsCurrentSubject())
-                    {
-                        title = present ? "Je was hier aanwezig" : "Je hebt dit onderdeel gemist";
+                        title = "Je bent hier aanwezig";
                     }
                     <a class="list-group-item@(css)" href="@Url.Action("Presence", new { subjectId = subject.Id })" title="@title">
                         <h4 class="list-group-item-heading">@subject.Name</h4>

@@ -11,5 +11,13 @@
         public int StudentId { get; set; }
 
         public Student Student { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the specified student is present on the specified subject.
+        /// </summary>
+        public bool IsPresent(int subjectId, int studentId)
+        {
+            return SubjectId == subjectId && StudentId == studentId;
+        }
     }
 }

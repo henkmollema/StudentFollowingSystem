@@ -155,6 +155,7 @@
     <Compile Include="Data\Repositories\ClassRepository.cs" />
     <Compile Include="Data\Repositories\CounselerRepository.cs" />
     <Compile Include="Data\Repositories\CounselingRepository.cs" />
+    <Compile Include="Data\Repositories\PresenceRepository.cs" />
     <Compile Include="Data\Repositories\RepositoryBase.cs" />
     <Compile Include="Data\Repositories\StudentRepository.cs" />
     <Compile Include="Data\Repositories\SubjectRepository.cs" />

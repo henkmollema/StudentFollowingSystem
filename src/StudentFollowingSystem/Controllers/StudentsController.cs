@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Helpers;
@@ -17,15 +16,23 @@ namespace StudentFollowingSystem.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly SubjectRepository _subjectRepository = new SubjectRepository();
+        private readonly PresenceRepository _presenceRepository = new PresenceRepository();
         private readonly ClassRepository _classRepository = new ClassRepository();
         private readonly MandrillMailEngine _mailEngine = new MandrillMailEngine();
 
         [AuthorizeStudent]
         public ActionResult Dashboard()
         {
+            var student = Student;
+
             var model = new StudentDashboardModel();
-            var subjects = _subjectRepository.GetAll().Where(s => s.StartDate.Date == DateTime.Now.Date).ToList();
+            var subjects = _subjectRepository.GetAll()
+                                             .Where(s => s.StartDate.Date == DateTime.Now.Date)
+                                             .ToList();
             model.Subjects = subjects;
+
+            var presence = _presenceRepository.GetByStudent(student.Id);
+            model.Presences = presence;
             return View(model);
         }
 
@@ -202,20 +209,43 @@ namespace StudentFollowingSystem.Controllers
                 return HttpNotFound();
             }
 
-            if (subject.IsPastSubject())
-            {
-                // Redirect if current subject is not the current subject.
-                return RedirectToAction("Dashboard");
-            }
+            int studentId = Student.Id;
+            var presence = _presenceRepository.GetByStudent(studentId);
 
             var subjectModel = Mapper.Map<SubjectModel>(subject);
-
             var presenceModel = new PresenceModel
                                     {
-                                        Subject = subjectModel
+                                        Subject = subjectModel,
+                                        // Check if student is already present.
+                                        AlreadyPresent = presence.Any(p => p.IsPresent(subjectId, studentId)),
+                                        PastSubject = subject.IsPastSubject()
                                     };
 
             return View(presenceModel);
+        }
+
+        [AuthorizeStudent, HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Presence(int subjectId, FormCollection form)
+        {
+            var subject = _subjectRepository.GetById(subjectId);
+            if (subject == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (subject.IsCurrentSubject())
+            {
+                int studentId = Student.Id;
+                var presence = _presenceRepository.GetByStudent(studentId);
+
+                // Check if student is not already present.
+                if (presence.All(p => p.StudentId != studentId))
+                {
+                    _presenceRepository.Add(new Presence { StudentId = Student.Id, SubjectId = subjectId });
+                }
+            }
+
+            return RedirectToAction("Dashboard");
         }
 
         private void PrepareStudentModel(StudentModel model)

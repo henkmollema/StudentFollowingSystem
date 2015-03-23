@@ -12,15 +12,36 @@
             {
                 foreach (var subject in Model.Subjects)
                 {
-                    string @class = subject.IsPastSubject() ? "list-group-item-warning" : "list-group-item-info";
-                    <a class="list-group-item @(@class)" href="@Url.Action("Presence", new { subjectId = subject.Id })">
+                    string css = "";
+                    if (subject.IsPastSubject())
+                    {
+                        css = " list-group-item-warning";
+                    }
+                    else if (subject.IsCurrentSubject())
+                    {
+                        css = " list-group-item-info";
+                    }
+                    bool present = Model.IsPresent(subject);
+                    string title = "";
+                    if (subject.IsPastSubject() || subject.IsCurrentSubject())
+                    {
+                        title = present ? "Je was hier aanwezig" : "Je hebt dit onderdeel gemist";
+                    }
+                    <a class="list-group-item@(css)" href="@Url.Action("Presence", new { subjectId = subject.Id })" title="@title">
                         <h4 class="list-group-item-heading">@subject.Name</h4>
                         <p class="list-group-item-text">
+                            @if (Model.IsPresent(subject))
+                            {
+                                <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span>
+                            }
+                            else if (!present && subject.IsPastSubject())
+                            {
+                                <span class="glyphicon glyphicon-exclamation-sign pull-right" aria-hidden="true"></span>
+                            }
                             @subject.StartDate.ToString("HH:mm") - @subject.EndDate.ToString("HH:mm")<br />
                             @subject.Locatie<br />
                         </p>
                     </a>
-
                 }
             }
             else

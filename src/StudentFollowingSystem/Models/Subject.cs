@@ -16,10 +16,21 @@ namespace StudentFollowingSystem.Models
 
         public int ClassId { get; set; }
 
-        public bool IsPastSubject()
+        /// <summary>
+        /// Gets a value indicating whether the current subject is ongoing at the moment.
+        /// </summary>
+        public bool IsCurrentSubject()
         {
             DateTime now = DateTime.Now;
-            return StartDate < now && now > EndDate.AddMinutes(30);
+            return StartDate < now && now < EndDate.AddMinutes(30);
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the current subject is in the past.
+        /// </summary>
+        public bool IsPastSubject()
+        {
+            return DateTime.Now > EndDate.AddMinutes(30);
         }
     }
 }

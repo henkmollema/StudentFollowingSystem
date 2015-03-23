@@ -5,15 +5,30 @@
 
 <h2>Aanwezigheid opgeven</h2>
 
-@using (Html.BeginForm())
+@if (Model.PastSubject)
 {
-    @Html.AntiForgeryToken()
+    <p class="bg-danger" style="margin-top: 15px; padding: 15px">
+        Je hebt dit onderdeel gemist en kunt niet meer je aanwezigheid opgeven.
+    </p>
+}
+else if (Model.AlreadyPresent)
+{
+    <p class="bg-success" style="margin-top: 15px; padding: 15px">
+        Je hebt je aanwezigheid voor dit onderdeel al opgegeven.
+    </p>
+}
+else
+{
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>@Model.Subject.Name van @Model.Subject.StartDate.Value.ToString("HH:mm") tot @Model.Subject.EndDate.Value.ToString("HH:mm")</h4>
-    </div>
+        <div class="form-horizontal">
+            <h4>@Model.Subject.Name van @Model.Subject.StartDate.Value.ToString("HH:mm") tot @Model.Subject.EndDate.Value.ToString("HH:mm")</h4>
+        </div>
 
-    <div class="btn-group-lg">
-        <button type="submit" class="btn btn-lg btn-success">Ik ben aanwezig</button>
-    </div>
+        <div class="btn-group-lg">
+            <button type="submit" class="btn btn-lg btn-success">Ik ben aanwezig</button>
+        </div>
+    }
 }

@@ -8,24 +8,25 @@
     <div class="col-md-6">
         <h3>Aankomende lessen:</h3>
         <div class="list-group">
-        @if (Model.Subjects.Count > 0)
-        {
-            foreach (var subject in Model.Subjects)
+            @if (Model.Subjects.Count > 0)
             {
-                <a class="list-group-item" href="@Url.Action("Presence", new { subjectId = subject.Id })">
-                    <h4 class="list-group-item-heading">@subject.Name</h4>
-                    <p class="list-group-item-text">
-                        @subject.StartDate.ToString("HH:mm") - @subject.EndDate.ToString("HH:mm")<br />
-                        @subject.Locatie<br />
-                    </p>
-                </a>
+                foreach (var subject in Model.Subjects)
+                {
+                    string @class = subject.IsPastSubject() ? "list-group-item-warning" : "list-group-item-info";
+                    <a class="list-group-item @(@class)" href="@Url.Action("Presence", new { subjectId = subject.Id })">
+                        <h4 class="list-group-item-heading">@subject.Name</h4>
+                        <p class="list-group-item-text">
+                            @subject.StartDate.ToString("HH:mm") - @subject.EndDate.ToString("HH:mm")<br />
+                            @subject.Locatie<br />
+                        </p>
+                    </a>
 
+                }
             }
-        }
-        else
-        {
-        <p class="list-group-item">Er zijn geen lessen meer voor vandaag.</p>
-        }
-</div>
+            else
+            {
+                <p class="list-group-item">Er zijn geen lessen meer voor vandaag.</p>
+            }
+        </div>
     </div>
 </div>

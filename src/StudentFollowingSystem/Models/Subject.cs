@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace StudentFollowingSystem.Models
 {
@@ -7,7 +6,7 @@ namespace StudentFollowingSystem.Models
     {
         public int Id { get; set; }
 
-        public string Name { get; set; } 
+        public string Name { get; set; }
 
         public DateTime StartDate { get; set; }
 
@@ -15,6 +14,12 @@ namespace StudentFollowingSystem.Models
 
         public string Locatie { get; set; }
 
-        public int ClassId{ get; set; }
+        public int ClassId { get; set; }
+
+        public bool IsPastSubject()
+        {
+            DateTime now = DateTime.Now;
+            return StartDate < now && now > EndDate.AddMinutes(30);
+        }
     }
 }

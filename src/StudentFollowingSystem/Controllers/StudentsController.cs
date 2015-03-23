@@ -202,8 +202,7 @@ namespace StudentFollowingSystem.Controllers
                 return HttpNotFound();
             }
 
-            DateTime now = DateTime.Now;
-            if (subject.StartDate < now && now > subject.EndDate.AddMinutes(30))
+            if (subject.IsPastSubject())
             {
                 // Redirect if current subject is not the current subject.
                 return RedirectToAction("Dashboard");

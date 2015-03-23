@@ -194,6 +194,32 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [AuthorizeStudent]
+        public ActionResult Presence(int subjectId)
+        {
+            var subject = _subjectRepository.GetById(subjectId);
+            if (subject == null)
+            {
+                return HttpNotFound();
+            }
+
+            DateTime now = DateTime.Now;
+            if (subject.StartDate < now && now > subject.EndDate.AddMinutes(30))
+            {
+                // Redirect if current subject is not the current subject.
+                return RedirectToAction("Dashboard");
+            }
+
+            var subjectModel = Mapper.Map<SubjectModel>(subject);
+
+            var presenceModel = new PresenceModel
+                                    {
+                                        Subject = subjectModel
+                                    };
+
+            return View(presenceModel);
+        }
+
         private void PrepareStudentModel(StudentModel model)
         {
             model.ClassesList = SelectList(_classRepository.GetAll(),

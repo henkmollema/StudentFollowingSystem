@@ -10,14 +10,13 @@
         <div class="list-group">
         @if (Model.Subjects.Count > 0)
         {
-            foreach (var subjects in Model.Subjects)
+            foreach (var subject in Model.Subjects)
             {
-                <a class="list-group-item list-group-item-success">
-                    <h4 class="list-group-item-heading">@subjects.Name</h4>
+                <a class="list-group-item" href="@Url.Action("Presence", new { subjectId = subject.Id })">
+                    <h4 class="list-group-item-heading">@subject.Name</h4>
                     <p class="list-group-item-text">
-                        @subjects.StartDate.ToString("HH:mm") - @subjects.EndDate.ToString("HH:mm")<br />
-                        
-                        @subjects.Locatie<br />
+                        @subject.StartDate.ToString("HH:mm") - @subject.EndDate.ToString("HH:mm")<br />
+                        @subject.Locatie<br />
                     </p>
                 </a>
 

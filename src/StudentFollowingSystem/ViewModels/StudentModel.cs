@@ -12,21 +12,21 @@ namespace StudentFollowingSystem.ViewModels
 
         
         [Display(Name = "Student nr")]
-        [Required(ErrorMessage = "Vul uw Studentnummer in.")]
+        [Required(ErrorMessage = "Vul een Studentnummer in.")]
         public int? StudentNr { get; set; }
 
 
         [Display(Name = "Voornaam")]
-        [Required(ErrorMessage = "Vul uw voornaam in.")]
+        [Required(ErrorMessage = "Vul een voornaam in.")]
         public string FirstName { get; set; }
 
         
         [Display(Name = "Achternaam")]
-        [Required(ErrorMessage = "Vul uw achternaam in.")]
+        [Required(ErrorMessage = "Vul een achternaam in.")]
         public string LastName { get; set; }
 
         [Display(Name = "Volledige naam")]
-        [Required(ErrorMessage = "Vul uw volledige naam in.")]
+        [Required(ErrorMessage = "Vul een volledige naam in.")]
         public string FullName
         {
             get
@@ -50,7 +50,7 @@ namespace StudentFollowingSystem.ViewModels
         public string SchoolEmail { get; set; }
 
         [Display(Name = "Klas")]
-        [Required(ErrorMessage = "Vul uw klas in.")]
+        [Required(ErrorMessage = "Vul een klas in.")]
         public int ClassId { get; set; }
 
         public ClassModel Class { get; set; }
@@ -62,19 +62,19 @@ namespace StudentFollowingSystem.ViewModels
         public string Telephone { get; set; }
 
         [Display(Name = "Straatnaam")]
-        [Required(ErrorMessage = "Vul uw straatnaam in.")]
+        [Required(ErrorMessage = "Vul een straatnaam in.")]
         public string StreetName { get; set; }
 
         [Display(Name = "Huisnummer")]
-        [Required(ErrorMessage = "Vul uw huisnummer in.")]
+        [Required(ErrorMessage = "Vul een huisnummer in.")]
         public int? StreetNumber { get; set; }
 
         [Display(Name = "Postcode")]
-        [Required(ErrorMessage = "Vul uw postcode in.")]
+        [Required(ErrorMessage = "Vul een postcode in.")]
         public string ZipCode { get; set; }
 
         [Display(Name = "Stad")]
-        [Required(ErrorMessage = "Vul uw woonplaats in.")]
+        [Required(ErrorMessage = "Vul een woonplaats in.")]
         public string City { get; set; }
 
         [Required(ErrorMessage = "Geboortedatum is verplicht (")]
@@ -91,7 +91,7 @@ namespace StudentFollowingSystem.ViewModels
         public DateTime? EnrollDate { get; set; }
 
         [Display(Name = "Vooropleiding")]
-        [Required(ErrorMessage = "Vul uw vooropleiding in.")]
+        [Required(ErrorMessage = "Vul een vooropleiding in.")]
         public string PreStudy { get; set; }
 
         [Display(Name = "Status")]

@@ -49,6 +49,8 @@ namespace StudentFollowingSystem.Models
 
         public string Details { get; set; }
 
-        public DateTime LastAppointment { get; set; }
+        public DateTime? LastAppointment { get; set; }
+
+        public DateTime? NextAppointment { get; set; }
     }
 }

@@ -8,3 +8,13 @@
     <Property Name="NewName" Value="ClassId" />
   </Operation>
 </Operations>
+<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="6d9f8b21-bf97-46c0-b935-a3648ddaddc6" ChangeDateTime="03/23/2015 13:40:27">
+    <Property Name="ElementName" Value="[dbo].[Students].[LastAppointment]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Students]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NextAppointment" />
+  </Operation>
+</Operations>

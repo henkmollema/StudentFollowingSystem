@@ -2,11 +2,20 @@
 using System.Web.Mvc;
 using System.Web.Security;
 using StudentFollowingSystem.ViewModels;
+using Mandrill;
+using StudentFollowingSystem.Services;
+using System;
+using System.Collections.Generic;
+using AutoMapper;
+using StudentFollowingSystem.Models;
 
 namespace StudentFollowingSystem.Controllers
 {
+
     public class AccountController : ControllerBase
     {
+        private readonly MandrillMailEngine _mailEngine = new MandrillMailEngine();
+
         [AllowAnonymous]
         public ActionResult Login()
         {
@@ -63,7 +72,44 @@ namespace StudentFollowingSystem.Controllers
         [AllowAnonymous]
         public ActionResult PasswordReset()
         {
-            return View(new LoginModel());
+            return View(new LoginModel()); 
         }
+
+        [HttpPost]
+        public ActionResult PasswordReset(PasswordResetModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var student = StudentRepository.GetByEmail(model.Email);
+                if (student != null)
+                {
+                        var a = student.FirstName;
+                        // Generate a password for the student and hash it.
+                        string password = PasswordGenerator.CreateRandomPassword();
+                        student.Password = Crypto.HashPassword(password);
+                        StudentRepository.Update(student);
+
+                        // Create a mail message with the password and mail it to the student.
+                        var msg = new EmailMessage
+                        {
+                            text = string.Format("Beste {1},{0}Er is een aavraag gedaan om je wachtwoord te resetten.{0}Inlognaam: {3} {0}Wachtwoord: {2}{0}{0}",
+                                Environment.NewLine,
+                                student.FirstName,
+                                password,
+                                student.Email),
+                            subject = "Studenten Volg Systeem wachtwoord reset",
+                            to = new List<EmailAddress>
+                                                {
+                                                    new EmailAddress(student.Email, string.Format("{0} {1}", student.FirstName, student.LastName))
+                                                },
+                        };
+                        _mailEngine.Send(msg);
+                        return RedirectToAction("", "inloggen");  
+          
+                }               
+            }
+            return View(model);
+        }
+
     }
 }

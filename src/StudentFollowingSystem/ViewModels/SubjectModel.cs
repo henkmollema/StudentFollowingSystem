@@ -13,6 +13,16 @@ namespace StudentFollowingSystem.ViewModels
         [Required(ErrorMessage = "Geef hier de naam van het vak aan.")]
         public string Name { get; set; }
 
+        [Display(Name = "Locatie")]
+        [Required(ErrorMessage = "Locatie van de les.")]
+        public string Locatie { get; set; }
+
+        [Display(Name = "Klas")]
+        [Required(ErrorMessage = "Vul een klas in.")]
+        public int ClassId { get; set; }
+
+        public IEnumerable<SelectListItem> ClassesList { get; set; }
+
         [Display(Name = "Start datum")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         [DataType(DataType.Date, ErrorMessage = "Vul een geldige datum in: (dd-mm-yyyy)")]

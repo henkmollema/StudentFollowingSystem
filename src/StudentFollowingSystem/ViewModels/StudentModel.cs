@@ -91,7 +91,6 @@ namespace StudentFollowingSystem.ViewModels
         public DateTime? EnrollDate { get; set; }
 
         [Display(Name = "Vooropleiding")]
-        [Required(ErrorMessage = "Vul een vooropleiding in.")]
         public string PreStudy { get; set; }
 
         [Display(Name = "Status")]

@@ -7,15 +7,20 @@ namespace StudentFollowingSystem.Mails
     {
         private readonly MandrillMailEngine _mailEngine = new MandrillMailEngine();
 
-        public void SendAppointmentByCounseler(AppointmentMail appointment)
+        public void SendAppointmentMail(AppointmentMail appointment)
         {
             string body = appointment.MergeMessage();
 
             var email = new EmailMessage
-                          {
-                              text = body,
-                              to = new[] { new EmailAddress(appointment.Student.Email, appointment.Student.GetFullName()) }
-                          };
+                            {
+                                text = body,
+                                to = new[]
+                                         {
+                                             appointment.FromCounseler
+                                                 ? new EmailAddress(appointment.Student.Email, appointment.Student.GetFullName())
+                                                 : new EmailAddress("henkmollema@gmail.com", appointment.Counseler.GetFullName())
+                                         }
+                            };
 
             _mailEngine.Send(email);
         }

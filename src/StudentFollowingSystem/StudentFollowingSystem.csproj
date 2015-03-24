@@ -180,6 +180,7 @@
     <Compile Include="Services\MandrillMailEngine.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
     <Compile Include="Services\TimetableService.cs" />
+    <Compile Include="ViewModels\AppointmentByStudentModel.cs" />
     <Compile Include="ViewModels\AppointmentModel.cs" />
     <Compile Include="ViewModels\AppointmentResponseModel.cs" />
     <Compile Include="ViewModels\ClassModel.cs" />
@@ -280,6 +281,7 @@
     <Content Include="Views\Students\Import.cshtml" />
     <Content Include="Views\Students\Presence.cshtml" />
     <Content Include="Views\Appointment\List.cshtml" />
+    <Content Include="Views\Appointment\AppointmentByStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

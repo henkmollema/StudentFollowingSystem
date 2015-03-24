@@ -15,6 +15,11 @@ namespace StudentFollowingSystem.Mails
 
         public string Location { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the response came from a counseler.
+        /// </summary>
+        public bool FromCounseler { get; set; }
+
         public string MergeMessage()
         {
             return string.Format(@"Beste {0},
@@ -29,8 +34,12 @@ Met vriendelijke groet,
 
 NHL Hogeschool
 ",
-                Student.GetFullName(),
-                Counseler.GetFullName(),
+                FromCounseler
+                    ? Student.GetFullName()
+                    : Counseler.GetFullName(),
+                FromCounseler
+                    ? Counseler.GetFullName()
+                    : Student.GetFullName(),
                 DateTime,
                 Location,
                 AcceptUrl);

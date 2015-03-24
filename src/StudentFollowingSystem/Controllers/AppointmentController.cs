@@ -10,11 +10,67 @@ using System.Collections.Generic;
 
 namespace StudentFollowingSystem.Controllers
 {
-    [AuthorizeCounseler]
     public class AppointmentController : ControllerBase
     {
         private readonly AppointmentRepository _appointmentRepository = new AppointmentRepository();
+        private readonly ClassRepository _classRepository = new ClassRepository();
         private readonly MailHelper _mailHelper = new MailHelper();
+
+        [AuthorizeStudent]
+        public ActionResult AppointmentByStudent()
+        {
+            DateTime tommorow = DateTime.Now.AddDays(1);
+            var model = new AppointmentByStudentModel
+            {
+                // Default appointment date is tomorrow 10:00.
+                DateTimeString = new DateTime(tommorow.Year, tommorow.Month, tommorow.Day, 10, 0, 0).ToString("dd-MM-yyyy HH:mm")
+            };
+
+            PrepareStudentCounselingRequestModel(model);
+
+            return View(model);
+        }
+
+        [AuthorizeStudent, HttpPost, ValidateAntiForgeryToken]
+        public ActionResult AppointmentByStudent(AppointmentByStudentModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var student = Student;
+                var @class = _classRepository.GetById(student.ClassId);
+                var counseler = CounselerRepository.GetById(@class.CounselerId);
+
+                if (counseler != null && student != null)
+                {
+                    var appointment = new Appointment
+                                          {
+                                              CounselerId = counseler.Id,
+                                              StudentId = student.Id,
+                                              DateTime = model.DateTime,
+                                              Location = model.Location
+                                          };
+
+                    int id = _appointmentRepository.Add(appointment);
+
+                    var mail = new AppointmentMail
+                                   {
+                                       Counseler = counseler,
+                                       Student = student,
+                                       DateTime = appointment.DateTime,
+                                       Location = appointment.Location,
+                                       AcceptUrl = FullUrl("AppointmentResponse", new { id }),
+                                       FromCounseler = false
+                                   };
+
+                    _mailHelper.SendAppointmentMail(mail);
+
+                    return RedirectToAction("Details", "Appointment", new { id });
+                }
+            }
+
+            PrepareStudentCounselingRequestModel(model);
+            return View(model);
+        }
 
         public ActionResult AppointmentByCounseler(int? studentId)
         {
@@ -61,9 +117,10 @@ namespace StudentFollowingSystem.Controllers
                                        Student = student,
                                        DateTime = appointment.DateTime,
                                        Location = appointment.Location,
-                                       AcceptUrl = FullUrl("AppointmentResponse", new { id })
+                                       AcceptUrl = FullUrl("AppointmentResponse", new { id }),
+                                       FromCounseler = true
                                    };
-                    _mailHelper.SendAppointmentByCounseler(mail);
+                    _mailHelper.SendAppointmentMail(mail);
 
                     return RedirectToAction("Details", "Appointment", new { id });
                 }
@@ -137,6 +194,16 @@ namespace StudentFollowingSystem.Controllers
             model.StudentsList = SelectList(StudentRepository.GetAll(),
                 s => s.Id,
                 s => string.Format("{0} ({1})", s.GetFullName(), s.StudentNr));
+        }
+
+        private void PrepareStudentCounselingRequestModel(AppointmentByStudentModel model)
+        {
+            // Add the corresponding counseler to the view model.
+            var student = Student;
+            var @class = _classRepository.GetById(student.ClassId);
+            var counseler = CounselerRepository.GetById(@class.CounselerId);
+
+            model.Counseler = Mapper.Map<CounselerModel>(counseler);
         }
 
         [AuthorizeCounseler]

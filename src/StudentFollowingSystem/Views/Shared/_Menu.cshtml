@@ -17,6 +17,7 @@
                 {
                     <li>@Html.ActionLink("Dashboard", "Dashboard", "Students")</li>
                     <li>@Html.ActionLink("Gegevens wijzigen", "Edit", "Students")</li>
+                    <li>@Html.ActionLink("SLB gesprek aanvragen", "AppointmentByStudent", "Appointment")</li>
                 }
                 else if (Model.IsCounseler)
                 {
@@ -30,7 +31,7 @@
                             <li>@Html.ActionLink("Gearchiveerde afspraken", "List", "Appointment")</li>
                         </ul>
                     </li>
-                    <li>@Html.ActionLink("Gesprek aanvragen", "AppointmentByCounseler", "Appointment")</li>
+                    <li>@Html.ActionLink("SLB gesprek aanvragen", "AppointmentByCounseler", "Appointment")</li>
                 }
             </ul>
             <ul class="nav navbar-nav navbar-right">

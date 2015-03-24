@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Dapper;
 using Dommel;
 using StudentFollowingSystem.Models;
@@ -32,9 +33,16 @@ where s.Id = @Id";
             }
         }
 
-        public override int Add(Student entity)
+        public override List<Student> GetAll()
         {
-            return base.Add(entity);
+            using (var con = ConnectionFactory.GetOpenConnection())
+            {
+                return con.GetAll<Student, Class, Student>((s, c) =>
+                                                           {
+                                                               s.Class = c;
+                                                               return s;
+                                                           }).ToList();
+            }
         }
 
         /// <summary>

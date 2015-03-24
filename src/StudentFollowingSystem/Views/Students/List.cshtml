@@ -1,13 +1,13 @@
-﻿@model IEnumerable<StudentFollowingSystem.ViewModels.StudentModel>
+﻿@model IEnumerable<StudentModel>
 
 @{
     ViewBag.Title = "Studenten";
 }
 
-<h2>Studenten</h2>
+<h2>Studenten overzicht</h2>
 
 <p>
-    @Html.ActionLink("Nieuwe student toevoegen", "Create")
+    @Html.ActionLink("Nieuwe student toevoegen", "Create") | @Html.ActionLink("Studenten importeren", "Import")
 </p>
 <table class="table">
     <tr>
@@ -19,6 +19,9 @@
         </th>
         <th>
             Achternaam
+        </th>
+        <th>
+            Klas
         </th>
         <th>
             E-mailadres
@@ -41,7 +44,10 @@
             @item.LastName
         </td>
         <td>
-            @item.Email
+            @item.Class.Name
+        </td>
+        <td>
+            <a href="maito:@item.Email">@item.Email</a>
         </td>
         <td>
             @{

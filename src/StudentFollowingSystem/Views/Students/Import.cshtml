@@ -9,16 +9,12 @@
 
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>CSV data</h4>
+    <div class="form-horizontal">>
         <p>Kopieer het CSV bestand in het veld hieronder.</p>
-        <hr />
         <textarea name="csv" id="csv" class="form-control"></textarea>
     </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+    <div class="btn-group" style="margin-top: 15px">
             <button type="submit" class="btn btn-primary">Importeren</button>
-        </div>
     </div>
 }

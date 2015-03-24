@@ -57,6 +57,26 @@ order by a.DateTime desc";
             }
         }
 
+        public List<Appointment> GetAppointmentsByStudent(int studentId, DateTime toDate, DateTime nowDate)
+        {
+            using (var con = ConnectionFactory.GetOpenConnection())
+            {
+                string sql = @"
+select * from Appointments a
+inner join Counselers c on a.CounselerId = c.Id
+where a.Accepted = 1 and a.StudentId = @StudentId and a.DateTime < @toDate and a.DateTime >= @nowDate
+order by a.DateTime desc";
+
+                return con.Query<Appointment, Counseler, Appointment>(sql, (a, c) =>
+                                                                           {
+                                                                               a.Counseler = c;
+                                                                               return a;
+                                                                           },
+                    new { studentId, toDate, nowDate })
+                          .ToList();
+            }
+        }
+
         public override List<Appointment> GetAll()
         {
             using (var con = ConnectionFactory.GetOpenConnection())

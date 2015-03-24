@@ -15,6 +15,7 @@ namespace StudentFollowingSystem.Controllers
 {
     public class StudentsController : ControllerBase
     {
+        private readonly AppointmentRepository _appointmentRepository = new AppointmentRepository();
         private readonly SubjectRepository _subjectRepository = new SubjectRepository();
         private readonly PresenceRepository _presenceRepository = new PresenceRepository();
         private readonly ClassRepository _classRepository = new ClassRepository();
@@ -25,14 +26,16 @@ namespace StudentFollowingSystem.Controllers
         {
             var student = Student;
 
-            var model = new StudentDashboardModel();
-            var subjects = _subjectRepository.GetAll()
-                                             .Where(s => s.StartDate.Date == DateTime.Now.Date)
-                                             .ToList();
-            model.Subjects = subjects;
+            var model = new StudentDashboardModel
+                            {
+                                Subjects = _subjectRepository.GetAll()
+                                                             .Where(s => s.StartDate.Date == DateTime.Now.Date)
+                                                             .ToList(),
+                                Presences = _presenceRepository.GetByStudent(student.Id),
+                                Appointments = _appointmentRepository.GetAppointmentsByStudent(student.Id, GetFirstSaturday(), DateTime.Now)
+                            };
 
-            var presence = _presenceRepository.GetByStudent(student.Id);
-            model.Presences = presence;
+
             return View(model);
         }
 
@@ -255,6 +258,39 @@ namespace StudentFollowingSystem.Controllers
                 c => c.Name + (!string.IsNullOrEmpty(c.Section)
                                    ? string.Format(" ({0})", c.Section)
                                    : string.Empty));
+        }
+
+        private static DateTime GetFirstSaturday()
+        {
+            DateTime date = DateTime.Now;
+            int days = 0;
+
+            switch (date.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    days = 5;
+                    break;
+                case DayOfWeek.Tuesday:
+                    days = 4;
+                    break;
+                case DayOfWeek.Wednesday:
+                    days = 3;
+                    break;
+                case DayOfWeek.Thursday:
+                    days = 2;
+                    break;
+                case DayOfWeek.Friday:
+                    days = 1;
+                    break;
+                case DayOfWeek.Saturday:
+                    days = 7;
+                    break;
+                case DayOfWeek.Sunday:
+                    days = 6;
+                    break;
+            }
+
+            return date.AddDays(days);
         }
     }
 }

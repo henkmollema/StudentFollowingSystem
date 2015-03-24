@@ -11,6 +11,8 @@ namespace StudentFollowingSystem.ViewModels
             Subjects = new List<Subject>();
         }
 
+        public List<Appointment> Appointments { get; set; }
+
         public List<Subject> Subjects { get; set; }
 
         public List<Presence> Presences { get; set; }

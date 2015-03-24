@@ -22,7 +22,9 @@ namespace StudentFollowingSystem.Controllers
             var student = _studentRepository.GetById(_appointmentRepository.GetById(appointmentId).StudentId);
             var studentModel = Mapper.Map<StudentModel>(student);
             model.Student = studentModel;
-            model.Student.NextAppointment = DateTime.Now.AddDays(7);
+            model.NextAppointment = DateTime.Now.AddDays(7);
+            model.Status = student.Status;
+            model.AppointmentId = appointmentId;
 
             return View(model);
         }
@@ -39,12 +41,12 @@ namespace StudentFollowingSystem.Controllers
                 counseling.CounselerId = appointment.CounselerId;
                 // Map student view model to domain model.
                 var student = _studentRepository.GetById(counseling.StudentId);
-                student.Status = counseling.Student.Status;
-                student.NextAppointment = counseling.Student.NextAppointment;
+                student.Status = model.Status;
+                student.NextAppointment = model.NextAppointment;
 
                 // todo: add counseling repository to class
                 _counselingRepository.Add(counseling);
-                _studentRepository.Add(student);
+                _studentRepository.Update(student);
 
                 // todo: redirect to details
                 return RedirectToAction("Dashboard", "Counseler");

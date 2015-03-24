@@ -24,7 +24,7 @@ namespace StudentFollowingSystem.ViewModels
 
         public bool Private { get; set; }
 
-        public DateTime LastAppointment { get; set; }
+        public Status Status { get; set; }
 
         public DateTime? NextAppointment { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿namespace StudentFollowingSystem.Models
+﻿using System;
+namespace StudentFollowingSystem.Models
 {
     public class Counseling
     {

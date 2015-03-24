@@ -4,6 +4,12 @@
     ViewBag.Title = "Afspraken";
 }
 
+<style>
+    .tableRowData:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+
 <h2>Afspraken</h2>
 
 <p>
@@ -20,12 +26,15 @@
         <th>
             Achternaam
         </th>
+        <th>
+            Geaccepteerd
+        </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr class="tableRowData" onclick="location.href = '@Url.Action("Details", "Appointment", new { id = item.Id })'">
             <td>
                 @item.DateTime.ToString("dd.MM.yyyy")
             </td>
@@ -34,7 +43,10 @@
             </td>
             <td>
                 @item.Student.LastName
+            </td>
+            <td>
+                @item.Accepted
+            </td>
         </tr>
     }
-
 </table>

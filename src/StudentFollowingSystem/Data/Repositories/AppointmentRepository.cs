@@ -45,7 +45,7 @@ where a.Id = @Id";
 select * from Appointments a
 inner join Students s on a.StudentId = s.Id
 where a.Accepted = 1 and a.CounselerId = @counselerId and a.DateTime < @toDate and a.DateTime >= @nowDate
-order by a.DateTime";
+order by a.DateTime desc";
 
                 return con.Query<Appointment, Student, Appointment>(sql, (a, s) =>
                                                                          {

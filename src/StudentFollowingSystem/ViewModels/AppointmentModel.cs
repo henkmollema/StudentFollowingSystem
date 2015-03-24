@@ -20,6 +20,10 @@ namespace StudentFollowingSystem.ViewModels
 
         public StudentModel Student { get; set; }
 
+        public bool Accepted { get; set; }
+
+        public int Id { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             DateTime dateTime;

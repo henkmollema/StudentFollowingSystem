@@ -5,6 +5,8 @@ using StudentFollowingSystem.Filters;
 using StudentFollowingSystem.Mails;
 using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
+using AutoMapper;
+using System.Collections.Generic;
 
 namespace StudentFollowingSystem.Controllers
 {
@@ -135,6 +137,13 @@ namespace StudentFollowingSystem.Controllers
             model.StudentsList = SelectList(StudentRepository.GetAll(),
                 s => s.Id,
                 s => string.Format("{0} ({1})", s.GetFullName(), s.StudentNr));
+        }
+
+        [AuthorizeCounseler]
+        public ActionResult List()
+        {
+            var model = Mapper.Map<List<AppointmentModel>>(_appointmentRepository.GetAll());
+            return View(model);
         }
     }
 }

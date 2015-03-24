@@ -18,6 +18,8 @@ namespace StudentFollowingSystem.ViewModels
         [Display(Name = "Locatie")]
         public string Location { get; set; }
 
+        public StudentModel Student { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             DateTime dateTime;

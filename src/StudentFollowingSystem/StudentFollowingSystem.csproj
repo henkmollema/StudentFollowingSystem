@@ -279,6 +279,7 @@
     <Content Include="Views\Appointment\AppointmentResponse.cshtml" />
     <Content Include="Views\Students\Import.cshtml" />
     <Content Include="Views\Students\Presence.cshtml" />
+    <Content Include="Views\Appointment\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

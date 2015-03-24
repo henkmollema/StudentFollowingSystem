@@ -1,0 +1,40 @@
+﻿@model IEnumerable<StudentFollowingSystem.ViewModels.AppointmentModel>
+
+@{
+    ViewBag.Title = "Afspraken";
+}
+
+<h2>Afspraken</h2>
+
+<p>
+    @Html.ActionLink("Nieuwe afspraak maken", "AppointmentByCounseler")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Datum
+        </th>
+        <th>
+            Voornaam
+        </th>
+        <th>
+            Achternaam
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.DateTime.ToString("dd.MM.yyyy")
+            </td>
+            <td>
+                @item.Student.FirstName
+            </td>
+            <td>
+                @item.Student.LastName
+        </tr>
+    }
+
+</table>

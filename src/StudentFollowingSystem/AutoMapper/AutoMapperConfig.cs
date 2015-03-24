@@ -37,6 +37,9 @@ namespace StudentFollowingSystem.AutoMapper
 
             CreateMap<Counseling, CounselingModel>();
             CreateMap<CounselingModel, Counseling>();
+
+            CreateMap<Appointment, AppointmentModel>();
+            CreateMap<AppointmentModel, Appointment>();
         }
     }
 }

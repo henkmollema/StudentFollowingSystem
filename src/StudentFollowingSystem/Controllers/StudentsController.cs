@@ -72,7 +72,7 @@ namespace StudentFollowingSystem.Controllers
                     // Create a mail message with the password and mail it to the student.
                     var msg = new EmailMessage
                                   {
-                                      text = string.Format("Beste {1},{0}{0}Inlognaam: {3} {0}Wachtwoord: {2}{0}{0}",
+                                      text = string.Format("Beste {1},{0}{0}Hogeschool NHL maakt gebruikt van het Student volg systeem.{0}Hier kunnen studenten en SLB'ers de studie voortgang bekijken en bij houden. {0}De NHL heeft alvast een acount voor je aangenaakt, Dit zijn de gegevens: {0}{0}Inlognaam: {3} {0}Wachtwoord: {2}{0}{0}Met Vriendelijke groet,{0}{0} NHL Hogeschool",
                                           Environment.NewLine,
                                           student.FirstName,
                                           password,

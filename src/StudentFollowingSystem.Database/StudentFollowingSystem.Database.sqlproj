@@ -77,5 +77,6 @@
   <ItemGroup>
     <None Include="StudentFollowingSystem.Database.publish.xml" />
     <None Include="SchemaCompareWithLocalDb.scmp" />
+    <None Include="HelpScripts\ReseedTable.sql" />
   </ItemGroup>
 </Project>

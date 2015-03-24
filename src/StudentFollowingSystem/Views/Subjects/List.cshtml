@@ -15,6 +15,12 @@
             Vak:
         </th>
         <th>
+            Locatie:
+        </th>
+        <th>
+            Klas:
+        </th>
+        <th>
             Start tijd:
         </th>
         <th>
@@ -27,6 +33,12 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Locatie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.StartDate)

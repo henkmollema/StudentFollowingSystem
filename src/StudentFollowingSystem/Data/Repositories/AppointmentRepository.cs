@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dapper;
+using Dommel;
 using StudentFollowingSystem.Models;
 
 namespace StudentFollowingSystem.Data.Repositories
@@ -81,20 +82,12 @@ order by a.DateTime desc";
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
-                string sql = @"
-select * from Appointments a
-right join Counselers c on c.Id = a.CounselerId
-right join Students s on s.Id = a.StudentId
-order by a.Datetime";
-
-                return con.Query<Appointment, Counseler, Student, Appointment>(sql,
-                    (a, c, s) =>
-                    {
-                        a.Counseler = c;
-                        a.Student = s;
-                        return a;
-                    }
-                    ).ToList();
+                return con.GetAll<Appointment, Counseler, Student, Appointment>((a, c, s) =>
+                                                                                {
+                                                                                    a.Counseler = c;
+                                                                                    a.Student = s;
+                                                                                    return a;
+                                                                                }).ToList();
             }
         }
     }

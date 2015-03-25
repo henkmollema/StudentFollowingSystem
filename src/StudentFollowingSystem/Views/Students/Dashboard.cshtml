@@ -30,7 +30,10 @@
                     else if (subject.IsCurrentSubject())
                     {
                         css = " list-group-item-info";
-                        title = "Je bent hier aanwezig";
+                        if (present)
+                        {
+                            title = "Je bent hier aanwezig";
+                        }
                     }
                     <a class="list-group-item@(css)" href="@Url.Action("Presence", new { subjectId = subject.Id })" title="@title">
                         <h4 class="list-group-item-heading">@subject.Name</h4>

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Web.Mvc;
-using StudentFollowingSystem.Models;
+
 namespace StudentFollowingSystem.ViewModels
 {
     public class SubjectModel : IValidatableObject
@@ -23,18 +24,44 @@ namespace StudentFollowingSystem.ViewModels
 
         public IEnumerable<SelectListItem> ClassesList { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
+        public DateTime StartDate { get; set; }
+
         [Display(Name = "Start datum")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
-        [DataType(DataType.Date, ErrorMessage = "Vul een geldige datum in: (dd-mm-yyyy)")]
-        public DateTime? StartDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
+        public string StartDateString { get; set; }
+
+
+        [Display(Name = "Start datum")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
+        public DateTime EndDate { get; set; }
 
         [Display(Name = "Eind datum")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
-        [DataType(DataType.Date, ErrorMessage = "Vul een geldige datum in: (dd-mm-yyyy)")]
-        public DateTime? EndDate { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
+        public string EndDateString { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+            DateTime startDate;
+            if (DateTime.TryParseExact(StartDateString, "dd-MM-yyyy HH:mm", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate))
+            {
+                StartDate = startDate;
+            }
+            else
+            {
+                yield return new ValidationResult("Opgegeven start datum/tijd is niet geldig");
+            }
+
+            DateTime endDate;
+            if (DateTime.TryParseExact(EndDateString, "dd-MM-yyyy HH:mm", CultureInfo.CurrentCulture, DateTimeStyles.None, out endDate))
+            {
+                EndDate = endDate;
+            }
+            else
+            {
+                yield return new ValidationResult("Opgegeven eind datum/tijd is niet geldig");
+            }
+
             if (StartDate > EndDate)
             {
                 // Start date is after end date.

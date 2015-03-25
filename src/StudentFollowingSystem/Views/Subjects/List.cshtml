@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StudentFollowingSystem.ViewModels.SubjectModel>
+﻿@model IEnumerable<SubjectModel>
 
 @{
     ViewBag.Title = "Overzicht";
@@ -7,7 +7,7 @@
 <h2>Overzicht</h2>
 
 <p>
-    @Html.ActionLink("Nieuwe Les", "Create")
+    @Html.ActionLink("Nieuw onderdeel toevoegen", "Create")
 </p>
 <table class="table">
     <tr>
@@ -47,9 +47,8 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
+            @Html.ActionLink("Wijzigen", "Edit", new { id=item.Id })
         </td>
     </tr>
 }
-
 </table>

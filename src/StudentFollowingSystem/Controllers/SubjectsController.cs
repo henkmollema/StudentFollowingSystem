@@ -2,11 +2,13 @@
 using System.Web.Mvc;
 using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
+using StudentFollowingSystem.Filters;
 using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
+    [AuthorizeCounseler]
     public class SubjectsController : ControllerBase
     {
         private readonly SubjectRepository _subjectRepository = new SubjectRepository();
@@ -49,6 +51,25 @@ namespace StudentFollowingSystem.Controllers
             }
 
             var model = Mapper.Map<SubjectModel>(subjects);
+            model.StartDateString = model.StartDate.ToString("dd-MM-yyyy HH:mm");
+            model.EndDateString = model.EndDate.ToString("dd-MM-yyyy HH:mm");
+            PrepareSubjectModel(model);
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Edit(SubjectModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var subject = Mapper.Map<Subject>(model);
+                _subjectRepository.Update(subject);
+                return RedirectToAction("List");
+            }
+
+            model.StartDateString = model.StartDate.ToString("dd-MM-yyyy HH:mm");
+            model.EndDateString = model.EndDate.ToString("dd-MM-yyyy HH:mm");
             PrepareSubjectModel(model);
             return View(model);
         }

@@ -5,5 +5,6 @@
     [CounselerId] NCHAR(10) NULL, 
     [Datetime] DATETIME NOT NULL, 
     [Location] NVARCHAR(50) NOT NULL, 
-    [Accepted] BIT NOT NULL DEFAULT 0
+    [Accepted] BIT NOT NULL DEFAULT 0, 
+    [Noted] BIT NOT NULL DEFAULT 0
 )

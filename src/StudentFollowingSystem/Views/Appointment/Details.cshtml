@@ -49,10 +49,26 @@
             @Html.CheckBoxFor(m => m.Accepted, new { @readonly = "readonly", disabled = "disabled" })
         </dd>
 
+        <dt>
+            Vastgelegd
+        </dt>
+
+        <dd>
+            @Html.CheckBoxFor(m => m.Noted, new { @readonly = "readonly", disabled = "disabled" })
+        </dd>
+
     </dl>
 </div>
 
 <p>
-    <a href="@Url.Action("Create", "Counseling", new { appointmentId = Model.Id})" class="btn btn-primary">SLB gesprek invoeren</a> |
-    @Html.ActionLink("Terug naar het dashboard", "RedirectToDashboard")
+    @if (Model.Noted)
+    {
+        <a href="@Url.Action("Details", "Counseling", new { appointmentId = Model.Id})" class="btn btn-primary">Vastlegging bekijken</a>
+    }
+    else
+    {
+        <a href="@Url.Action("Create", "Counseling", new { appointmentId = Model.Id})" class="btn btn-primary">Gesprek vastleggen</a>
+    }
+     |
+    @Html.ActionLink("Terug naar het overzicht", "List", "Appointment")
 </p>

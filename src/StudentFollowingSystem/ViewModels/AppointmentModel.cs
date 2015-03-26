@@ -22,6 +22,8 @@ namespace StudentFollowingSystem.ViewModels
 
         public bool Accepted { get; set; }
 
+        public bool Noted { get; set; }
+
         public int Id { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

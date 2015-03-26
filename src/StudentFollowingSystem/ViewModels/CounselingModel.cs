@@ -8,14 +8,6 @@ namespace StudentFollowingSystem.ViewModels
     {
         public int Id { get; set; }
 
-        public int StudentId { get; set; }
-
-        public StudentModel Student { get; set; }
-
-        public int CounselerId { get; set; }
-
-        public Counseler Counseler { get; set; }
-
         public int AppointmentId { get; set; }
 
         public Appointment Appointment { get; set; }
@@ -27,5 +19,9 @@ namespace StudentFollowingSystem.ViewModels
         public Status Status { get; set; }
 
         public DateTime? NextAppointment { get; set; }
+
+        public DateTime AppointmentDate { get; set; }
+
+        public string StudentName { get; set; }
     }
 }

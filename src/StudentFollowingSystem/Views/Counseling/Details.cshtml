@@ -1,0 +1,46 @@
+﻿@model StudentFollowingSystem.ViewModels.CounselingModel
+
+@{
+    ViewBag.Title = "SLB gesprek";
+}
+
+<h2>SLB gesprek</h2>
+<h3>@Model.StudentName</h3>
+<h4>@Model.AppointmentDate</h4>
+
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Notitie
+        </dt>
+
+        <dd>
+            <!--todo: notitie laten zien als het origineel (de juiste enters etc.)-->
+            @Model.Comment
+        </dd>
+
+        <dt>
+            Prive
+        </dt>
+
+        <dd>
+            @Model.Private
+        </dd>
+
+        <dt>
+            Status
+        </dt>
+
+        <dd>
+            @Model.Status
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    <!--todo: vastlegging wijzigen-->
+    <a href="@Url.Action("Create", "Counseling", new { appointmentId = Model.Id})" class="btn btn-primary">Vastlegging wijzigen</a> |
+    <a href="@Url.Action("Details", "Appointment", new { id = @Model.AppointmentId })">Terug naar de afspraak</a>
+</p>

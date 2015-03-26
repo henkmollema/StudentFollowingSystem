@@ -21,10 +21,11 @@ namespace StudentFollowingSystem.Controllers
             var model = new CounselingModel();
             var student = _studentRepository.GetById(_appointmentRepository.GetById(appointmentId).StudentId);
             var studentModel = Mapper.Map<StudentModel>(student);
-            model.Student = studentModel;
             model.NextAppointment = DateTime.Now.AddDays(7);
             model.Status = student.Status;
             model.AppointmentId = appointmentId;
+            model.StudentName = student.GetFullName();
+            model.AppointmentDate = _appointmentRepository.GetById(appointmentId).DateTime;
 
             return View(model);
         }
@@ -37,21 +38,38 @@ namespace StudentFollowingSystem.Controllers
                 // Map counseling view model to domain model.
                 var counseling = Mapper.Map<Counseling>(model);
                 var appointment = _appointmentRepository.GetById(model.AppointmentId);
-                counseling.StudentId = appointment.StudentId;
-                counseling.CounselerId = appointment.CounselerId;
+                appointment.Noted = true;
                 // Map student view model to domain model.
-                var student = _studentRepository.GetById(counseling.StudentId);
+                var student = _studentRepository.GetById(_appointmentRepository.GetById(appointment.Id).StudentId);
                 student.Status = model.Status;
                 student.NextAppointment = model.NextAppointment;
 
                 // todo: add counseling repository to class
                 _counselingRepository.Add(counseling);
                 _studentRepository.Update(student);
+                _appointmentRepository.Update(appointment);
 
                 // todo: redirect to details
                 return RedirectToAction("Dashboard", "Counseler");
             }
         
+            return View(model);
+        }
+
+        public ActionResult Details(int appointmentId)
+        {
+            var counseling = _counselingRepository.GetByAppointmentId(appointmentId);
+            var model = Mapper.Map<CounselingModel>(counseling);
+            var student = _studentRepository.GetById(_appointmentRepository.GetById(appointmentId).StudentId);
+            model.StudentName = student.GetFullName();
+            model.AppointmentDate = _appointmentRepository.GetById(appointmentId).DateTime;
+
+            if (counseling == null)
+            {
+                return RedirectToAction("Create");
+            }
+
+            //PrepareStudentModel(model);
             return View(model);
         }
     }

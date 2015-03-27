@@ -72,5 +72,43 @@ namespace StudentFollowingSystem.Controllers
             //PrepareStudentModel(model);
             return View(model);
         }
+
+        public ActionResult Edit(int appointmentId)
+        {
+            var counseling = _counselingRepository.GetByAppointmentId(appointmentId);
+            var model = Mapper.Map<CounselingModel>(counseling);
+            var student = _studentRepository.GetById(_appointmentRepository.GetById(appointmentId).StudentId);
+            model.StudentName = student.GetFullName();
+            model.AppointmentDate = _appointmentRepository.GetById(appointmentId).DateTime;
+            model.NextAppointment = student.NextAppointment;
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Edit(CounselingModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Map counseling view model to domain model.
+                var counseling = _counselingRepository.GetByAppointmentId(model.AppointmentId);
+                counseling.Comment = model.Comment;
+                counseling.Private = model.Private;
+                counseling.Status = model.Status;
+                // Map student view model to domain model.
+                var student = _studentRepository.GetById(_appointmentRepository.GetById(model.AppointmentId).StudentId);
+                student.Status = model.Status;
+                student.NextAppointment = model.NextAppointment;
+
+                // todo: add counseling repository to class
+                _counselingRepository.Update(counseling);
+                _studentRepository.Update(student);
+
+                // todo: redirect to details
+                return RedirectToAction("Details", "Counseling", new { appointmentId = model.AppointmentId });
+            }
+
+            return View(model);
+        }
     }
 }

@@ -259,7 +259,6 @@
     <Content Include="Views\Students\List.cshtml" />
     <Content Include="Views\Students\Create.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
-    <Content Include="Views\Home\Help.cshtml" />
     <Content Include="Views\Class\List.cshtml" />
     <Content Include="Views\Class\Create.cshtml" />
     <Content Include="Views\Class\Edit.cshtml" />
@@ -283,6 +282,7 @@
     <Content Include="Views\Appointment\List.cshtml" />
     <Content Include="Views\Appointment\AppointmentByStudent.cshtml" />
     <Content Include="Views\Counseling\Details.cshtml" />
+    <Content Include="Views\Counseling\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

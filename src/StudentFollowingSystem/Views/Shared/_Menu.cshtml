@@ -25,17 +25,16 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Overzichten <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>@Html.ActionLink("Klassen overzicht", "List", "Class")</li>
-                            <li>@Html.ActionLink("Studenten overzicht", "List", "Students")</li>
-                            <li>@Html.ActionLink("Onderdelen overzicht", "List", "Subjects")</li>
-                            <li>@Html.ActionLink("Gearchiveerde afspraken", "List", "Appointment")</li>
+                            <li>@Html.ActionLink("Klassen", "List", "Class")</li>
+                            <li>@Html.ActionLink("Studenten", "List", "Students")</li>
+                            <li>@Html.ActionLink("Vakken", "List", "Subjects")</li>
+                            <li>@Html.ActionLink("Afspraken", "List", "Appointment")</li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("SLB gesprek aanvragen", "AppointmentByCounseler", "Appointment")</li>
                 }
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>@Html.ActionLink("Help", "Help", "Home")</li>
                 @if (Model.IsAuthenticated)
                 {
                     <li><p class="navbar-text">Welkom @Model.Username | @Html.ActionLink("Uitloggen", "Logout", "Account", null, new { @class = "navbar-link" })</p></li>

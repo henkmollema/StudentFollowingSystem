@@ -6,7 +6,7 @@
 
 <h2>SLB gesprek</h2>
 <h3>@Model.StudentName</h3>
-<h4>@Model.AppointmentDate</h4>
+<h4>@Model.AppointmentDate.ToString("dddd d MMMM HH:mm")u</h4>
 
 <hr />
 <div>
@@ -41,6 +41,6 @@
 
 <p>
     <!--todo: vastlegging wijzigen-->
-    <a href="@Url.Action("Create", "Counseling", new { appointmentId = Model.Id})" class="btn btn-primary">Vastlegging wijzigen</a> |
+    <a href="@Url.Action("Edit", "Counseling", new { appointmentId = Model.AppointmentId})" class="btn btn-primary">Vastlegging wijzigen</a> |
     <a href="@Url.Action("Details", "Appointment", new { id = @Model.AppointmentId })">Terug naar de afspraak</a>
 </p>

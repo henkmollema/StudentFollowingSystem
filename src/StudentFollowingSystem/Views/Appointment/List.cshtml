@@ -29,7 +29,9 @@
         <th>
             Geaccepteerd
         </th>
-        <th></th>
+        <th>
+            Vastgelegd
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -46,6 +48,9 @@
             </td>
             <td>
                 @item.Accepted
+            </td>
+            <td>
+                @item.Noted
             </td>
         </tr>
     }

@@ -43,6 +43,7 @@ namespace StudentFollowingSystem.Controllers
                 var student = _studentRepository.GetById(_appointmentRepository.GetById(appointment.Id).StudentId);
                 student.Status = model.Status;
                 student.NextAppointment = model.NextAppointment;
+                student.LastAppointment = appointment.DateTime;
 
                 // todo: add counseling repository to class
                 _counselingRepository.Add(counseling);

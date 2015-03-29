@@ -12,5 +12,7 @@ namespace StudentFollowingSystem.Models
         public string Comment { get; set; }
 
         public bool Private { get; set; }
+
+        public Status Status { get; set; }
     }
 }

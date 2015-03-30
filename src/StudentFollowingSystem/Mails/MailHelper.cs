@@ -14,12 +14,14 @@ namespace StudentFollowingSystem.Mails
             var email = new EmailMessage
                             {
                                 text = body,
-                                to = new[]
-                                         {
-                                             appointment.FromCounseler
-                                                 ? new EmailAddress(appointment.Student.Email, appointment.Student.GetFullName())
-                                                 : new EmailAddress("henkmollema@gmail.com", appointment.Counseler.GetFullName())
-                                         }
+                                to =
+                                    appointment.FromCounseler
+                                        ? new[]
+                                              {
+                                                  new EmailAddress(appointment.Student.Email, appointment.Student.GetFullName()),
+                                                  new EmailAddress(appointment.Student.SchoolEmail, appointment.Student.GetFullName(), "cc")
+                                              }
+                                        : new[] { new EmailAddress(appointment.Counseler.Email, appointment.Counseler.GetFullName()) }
                             };
 
             _mailEngine.Send(email);
@@ -30,10 +32,14 @@ namespace StudentFollowingSystem.Mails
             string body = mail.MergeMessage();
 
             var email = new EmailMessage
-            {
-                text = body,
-                to = new[] { new EmailAddress(mail.Appointment.Student.Email, mail.Appointment.Student.GetFullName()) }
-            };
+                            {
+                                text = body,
+                                to = new[]
+                                         {
+                                             new EmailAddress(mail.Appointment.Student.Email, mail.Appointment.Student.GetFullName()), 
+                                             new EmailAddress(mail.Appointment.Student.SchoolEmail, mail.Appointment.Student.GetFullName(), "cc")
+                                         }
+                            };
 
             _mailEngine.Send(email);
         }

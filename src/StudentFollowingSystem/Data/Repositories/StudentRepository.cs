@@ -54,7 +54,7 @@ where s.Id = @Id";
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
-                return con.Select<Student>(s => s.Email == email).FirstOrDefault();
+                return con.Select<Student>(s => s.Email == email || s.SchoolEmail == email).FirstOrDefault();
             }
         }
 

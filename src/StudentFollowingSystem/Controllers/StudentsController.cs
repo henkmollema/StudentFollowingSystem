@@ -83,7 +83,8 @@ namespace StudentFollowingSystem.Controllers
                                       subject = "Studenten Volg Systeem wachtwoord",
                                       to = new List<EmailAddress>
                                                {
-                                                   new EmailAddress(student.Email, string.Format("{0} {1}", student.FirstName, student.LastName))
+                                                   new EmailAddress(student.Email, string.Format("{0} {1}", student.FirstName, student.LastName)),
+                                                   new EmailAddress(student.SchoolEmail, string.Format("{0} {1}", student.FirstName, student.LastName, "cc"))
                                                },
                                   };
                     _mailEngine.Send(msg);

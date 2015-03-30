@@ -9,67 +9,106 @@
 <p>
     @Html.ActionLink("Nieuwe student toevoegen", "Create") | @Html.ActionLink("Studenten importeren", "Import")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Studentnummer
-        </th>
-        <th>
-            Voornaam
-        </th>
-        <th>
-            Achternaam
-        </th>
-        <th>
-            Klas
-        </th>
-        <th>
-            E-mailadres
-        </th>
-        <th>
-            Status
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.StudentNr
-        </td>
-        <td>
-            @item.FirstName
-        </td>
-        <td>
-            @item.LastName
-        </td>
-        <td>
-            @item.Class.Name
-        </td>
-        <td>
-            <a href="maito:@item.Email">@item.Email</a>
-        </td>
-        <td>
-            @{
-                switch (item.Status)
-                {
-                    case Status.Green:
-                        <img src="~/Content/images/green.png" alt="Groen" title="Groen" width="20" />
-                        break;
-                    case Status.Orange:
-                        <img src="~/Content/images/orange.png" alt="Oranje" title="Oranje" width="20" />
-                        break;
-                    case Status.Red:
-                        <img src="~/Content/images/red.png" alt="Rood" title="Rood" width="20" />
-                        break;
-                }
+<div class="form-inline">
+    <div class="form-group">
+        <input type="text" id="search" name="search" placeholder="Zoeken..." class="form-control" />
+    </div>
+</div>
+
+<table id="students" class="table table-sorted" data-toggle="table" data-sort-name="lastName">
+    <thead>
+        <tr>
+            <th data-field="studentId" data-sortable="true">
+                Studentnummer
+            </th>
+            <th data-field="firstName" data-sortable="true">
+                Voornaam
+            </th>
+            <th data-field="lastName" data-sortable="true">
+                Achternaam
+            </th>
+            <th data-field="class" data-sortable="true">
+                Klas
+            </th>
+            <th data-field="email" data-sortable="true">
+                E-mailadres
+            </th>
+            <th>
+                Status
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="students-data">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.StudentNr
+                </td>
+                <td>
+                    @item.FirstName
+                </td>
+                <td>
+                    @item.LastName
+                </td>
+                <td>
+                    @item.Class.Name
+                </td>
+                <td>
+                    <a href="maito:@item.Email">@item.Email</a>
+                </td>
+                <td>
+                    @{
+            switch (item.Status)
+            {
+                case Status.Green:
+                    <img src="~/Content/images/green.png" alt="Groen" title="Groen" width="20" />
+                    break;
+                case Status.Orange:
+                <img src="~/Content/images/orange.png" alt="Oranje" title="Oranje" width="20" />
+                    break;
+                case Status.Red:
+                <img src="~/Content/images/red.png" alt="Rood" title="Rood" width="20" />
+                    break;
             }
-        </td>
-        <td>
-            @Html.ActionLink("Wijzigen", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id })
-        </td>
-    </tr>
-}
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Wijzigen", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 
 </table>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            $('#search').keyup(function() {
+                var $this = $(this);
+
+                var data = $this.val().split(' ');
+                var cols = $('#students-data').find('tr');
+                cols.hide();
+
+                if ($this.val() == '') {
+                    cols.show();
+                }
+
+                cols.filter(function (index, value) {
+                    var $row = $(this);
+                    for (var i = 0; i < data.length; i++) {
+                        if ($row.is(':contains("' + data[i] + '")')) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }).show();
+            });
+        });
+    </script>
+}

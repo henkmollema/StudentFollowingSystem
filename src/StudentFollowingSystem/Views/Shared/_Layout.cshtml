@@ -6,6 +6,16 @@
     <title>@ViewBag.Title - NHL SVS</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.6.0/bootstrap-table.min.css" />*@
+    <style type="text/css">
+        .fixed-table-loading {
+            display: none;
+        }
+        
+        table.table-sorted th {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     @Html.Action("Menu", "Home")
@@ -19,6 +29,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.6.0/bootstrap-table.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

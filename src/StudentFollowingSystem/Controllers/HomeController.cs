@@ -25,6 +25,7 @@ namespace StudentFollowingSystem.Controllers
                 {
                     model.IsStudent = true;
                     model.Username = student.GetFullName();
+                    model.Id = student.Id;
                 }
                 else
                 {
@@ -33,6 +34,7 @@ namespace StudentFollowingSystem.Controllers
                     {
                         model.IsCounseler = true;
                         model.Username = counseler.GetFullName();
+                        model.Id = counseler.Id;
                     }
                 }
             }

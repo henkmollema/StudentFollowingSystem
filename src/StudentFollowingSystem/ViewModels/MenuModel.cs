@@ -8,6 +8,8 @@
 
         public string Username { get; set; }
 
+        public int Id { get; set; }
+
         public bool IsAuthenticated
         {
             get

@@ -70,9 +70,12 @@
     <Build Include="dbo\Tables\Classes.sql" />
     <Build Include="dbo\Tables\Appointments.sql" />
     <Build Include="dbo\Tables\Presences.sql" />
+    <Build Include="dbo\Tables\ExamUnits.sql" />
+    <Build Include="dbo\Tables\Grades.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="HelpScripts\CreateAdmin.sql" />
+    <None Include="HelpScripts\CreateAdmin.sql" />
+    <PostDeploy Include="HelpScripts\InsertExamUnits.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StudentFollowingSystem.Database.publish.xml" />

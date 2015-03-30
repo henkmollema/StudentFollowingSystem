@@ -145,6 +145,7 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\CounselerController.cs" />
     <Compile Include="Controllers\CounselingController.cs" />
+    <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Data\Repositories\ClassRepository.cs" />
     <Compile Include="Data\Repositories\CounselerRepository.cs" />
     <Compile Include="Data\Repositories\CounselingRepository.cs" />
+    <Compile Include="Data\Repositories\GradeRepository.cs" />
     <Compile Include="Data\Repositories\PresenceRepository.cs" />
     <Compile Include="Data\Repositories\RepositoryBase.cs" />
     <Compile Include="Data\Repositories\StudentRepository.cs" />
@@ -172,6 +174,8 @@
     <Compile Include="Models\Class.cs" />
     <Compile Include="Models\Counseler.cs" />
     <Compile Include="Models\Counseling.cs" />
+    <Compile Include="Models\ExamUnit.cs" />
+    <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\Presence.cs" />
     <Compile Include="Models\Status.cs" />
     <Compile Include="Models\Student.cs" />
@@ -283,6 +287,7 @@
     <Content Include="Views\Appointment\AppointmentByStudent.cshtml" />
     <Content Include="Views\Counseling\Details.cshtml" />
     <Content Include="Views\Counseling\Edit.cshtml" />
+    <Content Include="Views\Grade\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

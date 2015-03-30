@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Grade>
+
+@{
+    ViewBag.Title = "Cijfers";
+}
+
+<h2>Cijfers</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            Onderdeel
+        </th>
+        <th>
+            Resultaat
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.ExamUnit.Name
+            </td>
+            <td>
+                @item.Result.ToString("n1")
+            </td>
+        </tr>
+    }
+</table>
+
+<a href="@Url.Action("Dashboard", "Students")">Terug naar het dashboard</a>

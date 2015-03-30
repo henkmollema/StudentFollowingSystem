@@ -22,7 +22,7 @@ namespace StudentFollowingSystem.ViewModels
         {
             if (!Accepted && string.IsNullOrEmpty(Notes))
             {
-                yield return new ValidationResult("Een reden is verplicht als je de afspraak niet accepteerdt");
+                yield return new ValidationResult("Een reden is verplicht als je de afspraak niet accepteert");
             }
         }
     }

@@ -33,6 +33,10 @@ where s.Id = @Id";
             }
         }
 
+        /// <summary>
+        /// Gets all the stdeunt 
+        /// </summary>
+        /// <returns></returns>
         public override List<Student> GetAll()
         {
             using (var con = ConnectionFactory.GetOpenConnection())

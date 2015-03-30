@@ -163,7 +163,6 @@
     <Compile Include="Data\Repositories\SubjectRepository.cs" />
     <Compile Include="Filters\AuthorizeCounselerAttribute.cs" />
     <Compile Include="Filters\AuthorizeStudentAttribute.cs" />
-    <Compile Include="Filters\ValidateAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -9,6 +9,10 @@ namespace StudentFollowingSystem.Data.Repositories
 {
     public class AppointmentRepository : RepositoryBase<Appointment>
     {
+        /// <summary>
+        /// Gets an appointment by its id joined with the counseler and student.
+        /// </summary>
+        /// <param name="id">The id of the appointment.</param>
         public override Appointment GetById(int id)
         {
             using (var con = ConnectionFactory.GetOpenConnection())
@@ -58,6 +62,14 @@ order by a.DateTime desc";
             }
         }
 
+        /// <summary>
+        /// Gets all the appointments  for te specified <paramref name="studentId"/> 
+        /// within the specified date range.
+        /// </summary>
+        /// <param name="studentId">The student id.</param>
+        /// <param name="toDate">The starting date.</param>
+        /// <param name="nowDate">The end date.</param>
+        /// <returns>A collection of appointments.</returns>
         public List<Appointment> GetAppointmentsByStudent(int studentId, DateTime toDate, DateTime nowDate)
         {
             using (var con = ConnectionFactory.GetOpenConnection())

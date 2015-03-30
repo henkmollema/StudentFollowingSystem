@@ -20,16 +20,7 @@ namespace StudentFollowingSystem.Data.Repositories
                                                                @class.Counseler = counseler;
                                                                return @class;
                                                            })
-                                                           .ToList();
-//                string sql = @"
-//select * from Classes class
-//inner join Counselers counseler on class.CounselerId = counseler.Id";
-//                return con.Query<Class, Counseler, Class>(sql, (@class, counseler) =>
-//                                                               {
-//                                                                   @class.Counseler = counseler;
-//                                                                   return @class;
-//                                                               })
-//                          .ToList();
+                          .ToList();
             }
         }
     }

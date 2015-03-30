@@ -7,6 +7,9 @@ namespace StudentFollowingSystem.Data.Repositories
 {
     public class PresenceRepository : RepositoryBase<Presence>
     {
+        /// <summary>
+        /// Get all the presence records joined with the subject and student.
+        /// </summary>
         public override List<Presence> GetAll()
         {
             using (var con = ConnectionFactory.GetOpenConnection())
@@ -21,6 +24,10 @@ namespace StudentFollowingSystem.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Gets a presence record by its id joined with the subject and student.
+        /// </summary>
+        /// <param name="id">The id of the presence record.</param>
         public override Presence GetById(int id)
         {
             using (var con = ConnectionFactory.GetOpenConnection())
@@ -35,6 +42,10 @@ namespace StudentFollowingSystem.Data.Repositories
             }
         }
 
+        /// <summary>
+        /// Gets all the presence records for a student.
+        /// </summary>
+        /// <param name="studentId">The id of the student.</param>
         public List<Presence> GetByStudent(int studentId)
         {
             using (var con = ConnectionFactory.GetOpenConnection())

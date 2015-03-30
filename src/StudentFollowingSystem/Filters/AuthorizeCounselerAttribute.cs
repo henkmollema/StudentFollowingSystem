@@ -5,7 +5,10 @@ using StudentFollowingSystem.Data.Repositories;
 
 namespace StudentFollowingSystem.Filters
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
+    /// <summary>
+    /// Authorizes a counseler when executing an action.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class AuthorizeCounselerAttribute : AuthorizeAttribute
     {
         private readonly CounselerRepository _counselerRepository = new CounselerRepository();

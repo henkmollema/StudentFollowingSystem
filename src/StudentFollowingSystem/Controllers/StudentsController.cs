@@ -203,10 +203,11 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeStudent, Route("gegevens-wijzigen/{id}")]
-        public ActionResult EditInfo(int id)
+        [AuthorizeStudent, Route("gegevens-wijzigen")]
+        public ActionResult EditInfo()
         {
-            var student = StudentRepository.GetById(id);
+            // Get the currently logged in student.
+            var student = Student;
             if (student == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -217,13 +218,18 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeStudent, HttpPost, ValidateAntiForgeryToken, Route("gegevens-wijzigen/{id}")]
+        [AuthorizeStudent, HttpPost, ValidateAntiForgeryToken, Route("gegevens-wijzigen")]
         public ActionResult EditInfo(StudentInfoModel model)
         {
             if (ModelState.IsValid)
             {
-                var student = StudentRepository.GetById(model.Id);
+                // Get the currently logged in student.
+                var student = Student;
+
+                // Map the new values from the view model to the current student.
                 Mapper.Map(model, student);
+                
+                // Updat the student in the database.
                 StudentRepository.Update(student);
 
                 return RedirectToAction("Dashboard");

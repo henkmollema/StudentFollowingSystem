@@ -59,7 +59,7 @@ namespace StudentFollowingSystem.Controllers
 
         public ActionResult Details(int appointmentId)
         {
-            var counseling = _counselingRepository.GetByAppointmentId(appointmentId);
+            var counseling = _counselingRepository.GetByAppointment(appointmentId);
             var model = Mapper.Map<CounselingModel>(counseling);
             var student = _studentRepository.GetById(_appointmentRepository.GetById(appointmentId).StudentId);
             model.StudentName = student.GetFullName();
@@ -76,7 +76,7 @@ namespace StudentFollowingSystem.Controllers
 
         public ActionResult Edit(int appointmentId)
         {
-            var counseling = _counselingRepository.GetByAppointmentId(appointmentId);
+            var counseling = _counselingRepository.GetByAppointment(appointmentId);
             var model = Mapper.Map<CounselingModel>(counseling);
             var student = _studentRepository.GetById(_appointmentRepository.GetById(appointmentId).StudentId);
             model.StudentName = student.GetFullName();
@@ -92,7 +92,7 @@ namespace StudentFollowingSystem.Controllers
             if (ModelState.IsValid)
             {
                 // Map counseling view model to domain model.
-                var counseling = _counselingRepository.GetByAppointmentId(model.AppointmentId);
+                var counseling = _counselingRepository.GetByAppointment(model.AppointmentId);
                 counseling.Comment = model.Comment;
                 counseling.Private = model.Private;
                 counseling.Status = model.Status;

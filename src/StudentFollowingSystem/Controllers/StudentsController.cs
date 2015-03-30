@@ -13,6 +13,7 @@ using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
+    [RoutePrefix("studenten")]
     public class StudentsController : ControllerBase
     {
         private readonly AppointmentRepository _appointmentRepository = new AppointmentRepository();
@@ -21,7 +22,7 @@ namespace StudentFollowingSystem.Controllers
         private readonly ClassRepository _classRepository = new ClassRepository();
         private readonly MandrillMailEngine _mailEngine = new MandrillMailEngine();
 
-        [AuthorizeStudent]
+        [AuthorizeStudent, Route("dashboard")]
         public ActionResult Dashboard()
         {
             var student = Student;
@@ -39,14 +40,14 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeCounseler]
+        [AuthorizeCounseler, Route("overzicht")]
         public ActionResult List()
         {
             var students = Mapper.Map<List<StudentModel>>(StudentRepository.GetAll());
             return View(students);
         }
 
-        [AuthorizeCounseler]
+        [AuthorizeCounseler, Route("nieuw")]
         public ActionResult Create()
         {
             var model = new StudentModel { EnrollDate = new DateTime(DateTime.Now.Year - 1, 9, 1) };
@@ -54,8 +55,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeCounseler]
-        [HttpPost]
+        [AuthorizeCounseler, HttpPost]
         public ActionResult Create(StudentModel model)
         {
             if (ModelState.IsValid)
@@ -99,13 +99,13 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeCounseler]
+        [AuthorizeCounseler, Route("importeren")]
         public ActionResult Import()
         {
             return View();
         }
 
-        [AuthorizeCounseler, HttpPost, ValidateAntiForgeryToken]
+        [AuthorizeCounseler, HttpPost, ValidateAntiForgeryToken, Route("importeren")]
         public ActionResult Import(string csv)
         {
             foreach (string[] d in csv.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
@@ -159,7 +159,7 @@ namespace StudentFollowingSystem.Controllers
             return View();
         }
 
-        [AuthorizeCounseler]
+        [AuthorizeCounseler, Route("details/{id}")]
         public ActionResult Details(int id)
         {
             var student = StudentRepository.GetById(id);
@@ -173,7 +173,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeCounseler]
+        [AuthorizeCounseler, Route("wijzigen/{id}")]
         public ActionResult Edit(int id)
         {
             var student = StudentRepository.GetById(id);
@@ -187,8 +187,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeCounseler]
-        [HttpPost, ValidateAntiForgeryToken]
+        [AuthorizeCounseler, HttpPost, ValidateAntiForgeryToken, Route("wijzigen/{id}")]
         public ActionResult Edit(StudentModel model)
         {
             if (ModelState.IsValid)
@@ -204,7 +203,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeStudent]
+        [AuthorizeStudent, Route("gegevens-wijzigen/{id}")]
         public ActionResult EditInfo(int id)
         {
             var student = StudentRepository.GetById(id);
@@ -218,8 +217,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeStudent]
-        [HttpPost, ValidateAntiForgeryToken]
+        [AuthorizeStudent, HttpPost, ValidateAntiForgeryToken, Route("gegevens-wijzigen/{id}")]
         public ActionResult EditInfo(StudentInfoModel model)
         {
             if (ModelState.IsValid)
@@ -234,7 +232,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeStudent]
+        [AuthorizeStudent, Route("aanwezigheid/{subjectId}")]
         public ActionResult Presence(int subjectId)
         {
             var subject = _subjectRepository.GetById(subjectId);
@@ -258,7 +256,7 @@ namespace StudentFollowingSystem.Controllers
             return View(presenceModel);
         }
 
-        [AuthorizeStudent, HttpPost, ValidateAntiForgeryToken]
+        [AuthorizeStudent, HttpPost, ValidateAntiForgeryToken, Route("aanwezigheid/{subjectId}")]
         public ActionResult Presence(int subjectId, FormCollection form)
         {
             var subject = _subjectRepository.GetById(subjectId);

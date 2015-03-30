@@ -35,8 +35,8 @@
             @item.Counseler.FullName
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            <a href="/klas/wijzigen/@item.Id">Wijzigen</a> |
+            <a href="/klas/verwijderen/@item.Id">Verwijderen</a>
         </td>
     </tr>
 }

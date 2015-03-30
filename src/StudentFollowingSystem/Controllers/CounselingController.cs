@@ -10,12 +10,14 @@ using System.Web.Mvc;
 
 namespace StudentFollowingSystem.Controllers
 {
+    [RoutePrefix("slb-gesprek")]
     public class CounselingController : Controller
     {
         private readonly CounselingRepository _counselingRepository = new CounselingRepository();
         private readonly AppointmentRepository _appointmentRepository = new AppointmentRepository();
         private readonly StudentRepository _studentRepository = new StudentRepository();
 
+        [Route("nieuw/{appointmentId}")]
         public ActionResult Create(int appointmentId)
         {
             var model = new CounselingModel();
@@ -30,7 +32,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, Route("nieuw/{appointmentId}")]
         public ActionResult Create(CounselingModel model)
         {
             if (ModelState.IsValid)
@@ -57,6 +59,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [Route("details/{appointmentId}")]
         public ActionResult Details(int appointmentId)
         {
             var counseling = _counselingRepository.GetByAppointment(appointmentId);
@@ -74,6 +77,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [Route("wijzigen/{appointmentId}")]
         public ActionResult Edit(int appointmentId)
         {
             var counseling = _counselingRepository.GetByAppointment(appointmentId);
@@ -86,7 +90,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, Route("wijzigen/{appointmentId}")]
         public ActionResult Edit(CounselingModel model)
         {
             if (ModelState.IsValid)

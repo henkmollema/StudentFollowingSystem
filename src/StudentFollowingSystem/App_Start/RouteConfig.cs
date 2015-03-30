@@ -9,6 +9,7 @@ namespace StudentFollowingSystem
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapMvcAttributeRoutes();
             routes.MapRoute(null, "inloggen", new { controller = "Account", action = "Login" });
 
             routes.MapRoute(

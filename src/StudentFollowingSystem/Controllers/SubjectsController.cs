@@ -8,12 +8,13 @@ using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
-    [AuthorizeCounseler]
+    [AuthorizeCounseler, RoutePrefix("onderdelen")]
     public class SubjectsController : ControllerBase
     {
         private readonly SubjectRepository _subjectRepository = new SubjectRepository();
         private readonly ClassRepository _classRepository = new ClassRepository();
 
+        [Route("overzicht")]
         public ActionResult List()
         {
             var subjects = _subjectRepository.GetAll();
@@ -21,6 +22,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [Route("nieuw")]
         public ActionResult Create()
         {
             var model = new SubjectModel();
@@ -28,7 +30,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, Route("nieuw")]
         public ActionResult Create(SubjectModel model)
         {
             if (ModelState.IsValid)
@@ -42,6 +44,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [Route("wijzigen/{id}")]
         public ActionResult Edit(int id)
         {
             var subjects = _subjectRepository.GetById(id);
@@ -58,7 +61,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, Route("wijzigen/{id}")]
         public ActionResult Edit(SubjectModel model)
         {
             if (ModelState.IsValid)

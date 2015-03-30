@@ -3,13 +3,16 @@ using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
+    [RoutePrefix("")]
     public class HomeController : ControllerBase
     {
+        [Route("")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Route("help")]
         public ActionResult Help()
         {
             return View();

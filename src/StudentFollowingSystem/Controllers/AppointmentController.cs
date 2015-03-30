@@ -10,13 +10,14 @@ using System.Collections.Generic;
 
 namespace StudentFollowingSystem.Controllers
 {
+    [RoutePrefix("afspraken")]
     public class AppointmentController : ControllerBase
     {
         private readonly AppointmentRepository _appointmentRepository = new AppointmentRepository();
         private readonly ClassRepository _classRepository = new ClassRepository();
         private readonly MailHelper _mailHelper = new MailHelper();
 
-        [AuthorizeStudent]
+        [AuthorizeStudent, Route("afspraak-met-docent")]
         public ActionResult AppointmentByStudent()
         {
             DateTime tommorow = DateTime.Now.AddDays(1);
@@ -31,7 +32,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeStudent, HttpPost, ValidateAntiForgeryToken]
+        [AuthorizeStudent, HttpPost, ValidateAntiForgeryToken, Route("afspraak-met-docent")]
         public ActionResult AppointmentByStudent(AppointmentByStudentModel model)
         {
             if (ModelState.IsValid)
@@ -72,6 +73,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [AuthorizeCounseler, Route("afspraak-met-student/{studentId?}")]
         public ActionResult AppointmentByCounseler(int? studentId)
         {
             DateTime tommorow = DateTime.Now.AddDays(1);
@@ -92,7 +94,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, Route("afspraak-met-student/{studentId?}")]
         public ActionResult AppointmentByCounseler(AppointmentByCounselerModel model)
         {
             if (ModelState.IsValid)
@@ -129,7 +131,8 @@ namespace StudentFollowingSystem.Controllers
             PrepareCounselerCounselingRequestModel(model);
             return View(model);
         }
-
+        
+        [Route("details/{id}")]
         public ActionResult Details(int id)
         {
             var appointment = _appointmentRepository.GetById(id);
@@ -141,6 +144,7 @@ namespace StudentFollowingSystem.Controllers
             return View(appointment);
         }
 
+        [Route("reageren/{id}")]
         public ActionResult AppointmentResponse(int id)
         {
             var appointment = _appointmentRepository.GetById(id);

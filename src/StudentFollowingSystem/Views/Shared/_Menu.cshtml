@@ -16,7 +16,7 @@
                 @if (Model.IsStudent)
                 {
                     <li>@Html.ActionLink("Dashboard", "Dashboard", "Students")</li>
-                    <li>@Html.ActionLink("Gegevens wijzigen", "Edit", "Students")</li>
+                    <li>@Html.ActionLink("Gegevens wijzigen", "EditInfo", "Students")</li>
                     <li>@Html.ActionLink("SLB gesprek aanvragen", "AppointmentByStudent", "Appointment")</li>
                 }
                 else if (Model.IsCounseler)
@@ -41,7 +41,7 @@
                 }
                 else if (Model.IsAuthenticated && Model.IsStudent)
                 {
-                    <li><p class="navbar-text">Welkom <a href="@Url.Action("EditInfo", "Students", new { id = Model.Id })">@Model.Username</a> | @Html.ActionLink("Uitloggen", "Logout", "Account", null, new { @class = "navbar-link" })</p></li>
+                    <li><p class="navbar-text">Welkom <a href="@Url.Action("EditInfo", "Students")">@Model.Username</a> | @Html.ActionLink("Uitloggen", "Logout", "Account", null, new { @class = "navbar-link" })</p></li>
                 }
                 else
                 {

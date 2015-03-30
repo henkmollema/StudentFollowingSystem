@@ -8,11 +8,12 @@ using StudentFollowingSystem.Filters;
 
 namespace StudentFollowingSystem.Controllers
 {
+    [RoutePrefix("cijfers")]
     public class GradeController : ControllerBase
     {
         private readonly GradeRepository _gradeRepository = new GradeRepository();
 
-        [AuthorizeStudent]
+        [AuthorizeStudent, Route("overzicht")]
         public ActionResult List()
         {
             // Get all the grades for the currently logged in student.

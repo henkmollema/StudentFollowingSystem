@@ -8,11 +8,12 @@ using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
-    [AuthorizeCounseler]
+    [AuthorizeCounseler, RoutePrefix("docent")]
     public class CounselerController : ControllerBase
     {
         private readonly AppointmentRepository _appointmentRepository = new AppointmentRepository();
 
+        [Route("dashboard")]
         public ActionResult Dashboard()
         {
             Counseler counseler = Counseler;

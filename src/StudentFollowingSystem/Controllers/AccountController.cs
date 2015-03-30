@@ -9,6 +9,7 @@ using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
+    [RoutePrefix("account")]
     public class AccountController : ControllerBase
     {
         private readonly MandrillMailEngine _mailEngine = new MandrillMailEngine();
@@ -60,19 +61,20 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [Route("uitloggen")]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
-        [AllowAnonymous]
+        [AllowAnonymous, Route("wachtwoord-vergeten")]
         public ActionResult PasswordReset()
         {
             return View(new PasswordResetModel());
         }
 
-        [HttpPost, AllowAnonymous, ValidateAntiForgeryToken]
+        [HttpPost, AllowAnonymous, ValidateAntiForgeryToken, Route("wachtwoord-vergeten")]
         public ActionResult PasswordReset(PasswordResetModel model)
         {
             if (ModelState.IsValid)

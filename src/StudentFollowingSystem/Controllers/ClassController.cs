@@ -8,17 +8,19 @@ using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
-    [AuthorizeCounseler]
+    [AuthorizeCounseler, RoutePrefix("klas")]
     public class ClassController : ControllerBase
     {
         private readonly ClassRepository _classRepository = new ClassRepository();
 
+        [Route("overzicht")]
         public ActionResult List()
         {
             var classes = Mapper.Map<List<ClassModel>>(_classRepository.GetAll());
             return View(classes);
         }
 
+        [Route("nieuw")]
         public ActionResult Create()
         {
             var model = new ClassModel();
@@ -26,7 +28,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, Route("nieuw")]
         public ActionResult Create(ClassModel model)
         {
             if (ModelState.IsValid)
@@ -40,6 +42,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        [Route("wijzigen/{id}")]
         public ActionResult Edit(int id)
         {
             var @class = _classRepository.GetById(id);
@@ -54,7 +57,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, Route("wijzigen/{id}")]
         public ActionResult Edit(ClassModel model)
         {
             if (ModelState.IsValid)
@@ -69,6 +72,7 @@ namespace StudentFollowingSystem.Controllers
             return View();
         }
 
+        [Route("verwijderen/{id}")]
         public ActionResult Delete(int id)
         {
             var @class = _classRepository.GetById(id);
@@ -82,7 +86,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, Route("verwijderen/{id}")]
         public ActionResult Delete(ClassModel model)
         {
             var @class = _classRepository.GetById(model.Id);

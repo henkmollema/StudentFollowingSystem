@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Dapper;
-using Dommel;
+﻿using Dommel;
 using StudentFollowingSystem.Models;
 
 namespace StudentFollowingSystem.Data.Repositories
@@ -12,18 +9,12 @@ namespace StudentFollowingSystem.Data.Repositories
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
-                string sql = @"
-select * from Counselings c
-inner join Appointments a on a.Id = c.AppointmentId
-where a.Id = @Id";
-
-                return con.Query<Counseling, Appointment, Counseling>(sql,
+                return con.Get<Counseling, Appointment, Counseling>(id,
                     (c, a) =>
                     {
                         c.Appointment = a;
                         return c;
-                    },
-                    new { id }).FirstOrDefault();
+                    });
             }
         }
     }

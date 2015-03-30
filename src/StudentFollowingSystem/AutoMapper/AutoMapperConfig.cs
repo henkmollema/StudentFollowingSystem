@@ -40,6 +40,9 @@ namespace StudentFollowingSystem.AutoMapper
 
             CreateMap<Appointment, AppointmentModel>();
             CreateMap<AppointmentModel, Appointment>();
+
+            CreateMap<Student, StudentInfoModel>();
+            CreateMap<StudentInfoModel, Student>();
         }
     }
 }

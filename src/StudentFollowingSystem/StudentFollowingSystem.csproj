@@ -193,6 +193,7 @@
     <Compile Include="ViewModels\PasswordResetModel.cs" />
     <Compile Include="ViewModels\PresenceModel.cs" />
     <Compile Include="ViewModels\StudentDashboardModel.cs" />
+    <Compile Include="ViewModels\StudentInfoModel.cs" />
     <Compile Include="ViewModels\StudentModel.cs" />
     <Compile Include="ViewModels\SubjectModel.cs" />
   </ItemGroup>
@@ -283,6 +284,7 @@
     <Content Include="Views\Appointment\AppointmentByStudent.cshtml" />
     <Content Include="Views\Counseling\Details.cshtml" />
     <Content Include="Views\Counseling\Edit.cshtml" />
+    <Content Include="Views\Students\EditInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

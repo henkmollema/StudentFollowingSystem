@@ -204,6 +204,36 @@ namespace StudentFollowingSystem.Controllers
         }
 
         [AuthorizeStudent]
+        public ActionResult EditInfo(int id)
+        {
+            var student = StudentRepository.GetById(id);
+            if (student == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = Mapper.Map<StudentInfoModel>(student);
+
+            return View(model);
+        }
+
+        [AuthorizeStudent]
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult EditInfo(StudentInfoModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var student = StudentRepository.GetById(model.Id);
+                Mapper.Map(model, student);
+                StudentRepository.Update(student);
+
+                return RedirectToAction("Dashboard");
+            }
+
+            return View(model);
+        }
+
+        [AuthorizeStudent]
         public ActionResult Presence(int subjectId)
         {
             var subject = _subjectRepository.GetById(subjectId);

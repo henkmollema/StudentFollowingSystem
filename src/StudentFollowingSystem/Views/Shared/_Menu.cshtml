@@ -16,6 +16,7 @@
                 @if (Model.IsStudent)
                 {
                     <li>@Html.ActionLink("Dashboard", "Dashboard", "Students")</li>
+                    <li>@Html.ActionLink("Cijfers", "List", "Grade")</li>
                     <li>@Html.ActionLink("Gegevens wijzigen", "EditInfo", "Students")</li>
                     <li>@Html.ActionLink("SLB gesprek aanvragen", "AppointmentByStudent", "Appointment")</li>
                 }

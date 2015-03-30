@@ -9,46 +9,51 @@
 <p>
     @Html.ActionLink("Nieuw onderdeel toevoegen", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Vak:
-        </th>
-        <th>
-            Locatie:
-        </th>
-        <th>
-            Klas:
-        </th>
-        <th>
-            Start tijd:
-        </th>
-        <th>
-            Eind tijd:
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Locatie)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClassId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.ActionLink("Wijzigen", "Edit", new { id=item.Id })
-        </td>
-    </tr>
-}
+<table class="table table-hover table-sorted data-toggle="table" data-sort-name="subject">
+    <thead>
+        <tr>
+            <th data-field="subject" data-sortable="true">
+                Onderdeel
+            </th>
+            <th data-field="location" data-sortable="true">
+                Locatie
+            </th>
+            <th data-field="class" data-sortable="true">
+                Klas
+            </th>
+            <th data-field="startDate" data-sortable="true">
+                Begin datum/tijd
+            </th>
+            <th data-field="endDate" data-sortable="true">
+                Eind datum/tijd
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locatie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Wijzigen", "Edit", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<StudentFollowingSystem.ViewModels.ClassModel>
+﻿@model IEnumerable<ClassModel>
 
 @{
     ViewBag.Title = "Overzicht";
@@ -9,36 +9,40 @@
 <p>
     @Html.ActionLink("Nieuwe klas toevoegen", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Klas naam
-        </th>
-        <th>
-            Afdeling
-        </th>
-        <th>
-            SLB'er
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @item.Name
-        </td>
-        <td>
-            @item.Section
-        </td>
-        <td>
-            @item.Counseler.FullName
-        </td>
-        <td>
-            <a href="/klas/wijzigen/@item.Id">Wijzigen</a> |
-            <a href="/klas/verwijderen/@item.Id">Verwijderen</a>
-        </td>
-    </tr>
-}
-
+<table class="table table-hover table-sorted" data-toggle="table" data-sort-name="name">
+    <thead>
+        <tr>
+            <th data-field="name" data-sortable="true">
+                Klas naam
+            </th>
+            <th data-field="section" data-sortable="true">
+                Afdeling
+            </th>
+            <th data-field="counseler" data-sortable="true">
+                SLB'er
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Section
+                </td>
+                <td>
+                    @item.Counseler.FullName
+                </td>
+                <td>
+                    <a href="/klas/wijzigen/@item.Id">Wijzigen</a> |
+                    <a href="/klas/verwijderen/@item.Id">Verwijderen</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

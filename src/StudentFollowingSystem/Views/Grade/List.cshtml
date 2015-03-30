@@ -6,27 +6,31 @@
 
 <h2>Cijfers</h2>
 
-<table class="table table-hover">
-    <tr>
-        <th>
-            Onderdeel
-        </th>
-        <th>
-            Resultaat
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model) {
+<table class="table table-hover table-sorted" data-toggle="table" data-sort-name="examUnit">
+    <thead>
         <tr>
-            <td>
-                @item.ExamUnit.Name
-            </td>
-            <td>
-                @item.Result.ToString("n1")
-            </td>
+            <th data-field="examUnit" data-sortable="true">
+                Onderdeel
+            </th>
+            <th data-field="result" data-sortable="true">
+                Resultaat
+            </th>
+            <th></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.ExamUnit.Name
+                </td>
+                <td>
+                    @item.Result.ToString("n1")
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 <a href="@Url.Action("Dashboard", "Students")">Terug naar het dashboard</a>

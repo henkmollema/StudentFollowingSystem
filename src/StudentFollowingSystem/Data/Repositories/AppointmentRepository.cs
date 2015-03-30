@@ -10,6 +10,23 @@ namespace StudentFollowingSystem.Data.Repositories
     public class AppointmentRepository : RepositoryBase<Appointment>
     {
         /// <summary>
+        /// Gets all the appointments joined with the counseler and student.
+        /// </summary>
+        public override List<Appointment> GetAll()
+        {
+            using (var con = ConnectionFactory.GetOpenConnection())
+            {
+                return con.GetAll<Appointment, Counseler, Student, Appointment>(
+                    (a, c, s) =>
+                    {
+                        a.Counseler = c;
+                        a.Student = s;
+                        return a;
+                    }).ToList();
+            }
+        }
+
+        /// <summary>
         /// Gets an appointment by its id joined with the counseler and student.
         /// </summary>
         /// <param name="id">The id of the appointment.</param>
@@ -17,20 +34,13 @@ namespace StudentFollowingSystem.Data.Repositories
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
-                string sql = @"
-select * from Appointments a
-right join Counselers c on c.Id = a.CounselerId
-right join Students s on s.Id = a.StudentId
-where a.Id = @Id";
-
-                return con.Query<Appointment, Counseler, Student, Appointment>(sql,
+                return con.Get<Appointment, Counseler, Student, Appointment>(id,
                     (a, c, s) =>
                     {
                         a.Counseler = c;
                         a.Student = s;
                         return a;
-                    },
-                    new { id }).FirstOrDefault();
+                    });
             }
         }
 
@@ -87,19 +97,6 @@ order by a.DateTime desc";
                                                                            },
                     new { studentId, toDate, nowDate })
                           .ToList();
-            }
-        }
-
-        public override List<Appointment> GetAll()
-        {
-            using (var con = ConnectionFactory.GetOpenConnection())
-            {
-                return con.GetAll<Appointment, Counseler, Student, Appointment>((a, c, s) =>
-                                                                                {
-                                                                                    a.Counseler = c;
-                                                                                    a.Student = s;
-                                                                                    return a;
-                                                                                }).ToList();
             }
         }
     }

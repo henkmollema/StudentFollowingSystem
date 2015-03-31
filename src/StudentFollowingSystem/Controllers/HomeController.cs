@@ -12,12 +12,6 @@ namespace StudentFollowingSystem.Controllers
             return View();
         }
 
-        [Route("help")]
-        public ActionResult Help()
-        {
-            return View();
-        }
-
         public ActionResult Menu()
         {
             var model = new MenuModel();

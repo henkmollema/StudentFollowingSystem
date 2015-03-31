@@ -8,9 +8,10 @@ namespace StudentFollowingSystem.ViewModels
 {
     public class StudentModel : IValidatableObject
     {
+        //Create student field and the necessary validations
         public int Id { get; set; }
 
-        
+
         [Display(Name = "Student nr")]
         [Required(ErrorMessage = "Vul een Studentnummer in.")]
         public int? StudentNr { get; set; }
@@ -107,15 +108,18 @@ namespace StudentFollowingSystem.ViewModels
         [DataType(DataType.Date, ErrorMessage = "Vul een geldige datum in.")]
         public DateTime? NextAppointment { get; set; }
 
+        
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (BirthDate.GetValueOrDefault().Year + 16 > DateTime.Now.Year)
             {
+                //Making sure a student is atleast 16 years.
                 yield return new ValidationResult("De geboortedatum van de student klopt niet. Een student moet minimaal 16 jaar zijn.");
             }
 
             if (BirthDate > EnrollDate)
             {
+                //Enroll date cant be before birthdate.
                 yield return new ValidationResult("De inschrijfdatum kan niet voor de geboortedatum liggen.");
             }
         }

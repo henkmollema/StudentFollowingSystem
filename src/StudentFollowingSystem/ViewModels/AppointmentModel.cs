@@ -7,6 +7,7 @@ namespace StudentFollowingSystem.ViewModels
 {
     public class AppointmentModel : IValidatableObject
     {
+        //Create a new appointment.
         [Required(ErrorMessage = "Datum en tijd is verplicht")]
         [Display(Name = "Datum en tijd")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy HH:mm}")]
@@ -35,11 +36,13 @@ namespace StudentFollowingSystem.ViewModels
             }
             else
             {
+                //Making sure a valid date is given.
                 yield return new ValidationResult("Opgegeven datum is niet geldig");
             }
 
             if (DateTime < DateTime.Now)
             {
+                //Making sure the date planned is in the future.
                 yield return new ValidationResult("De datum/tijd moet in de toekomst liggen");
             }
         }

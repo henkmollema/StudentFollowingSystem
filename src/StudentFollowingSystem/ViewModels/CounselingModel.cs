@@ -21,6 +21,7 @@ namespace StudentFollowingSystem.ViewModels
 
         public Status Status { get; set; }
 
+        //Making sure a new appointment is planned.
         [Required(ErrorMessage = "Een nieuwe datum is verplicht. (")]
         [Display(Name = "Volgende afspraak")]
         public DateTime? NextAppointment { get; set; }

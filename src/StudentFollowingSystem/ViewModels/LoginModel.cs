@@ -4,6 +4,7 @@ namespace StudentFollowingSystem.ViewModels
 {
     public class LoginModel
     {
+        //Login page with the necessary validations.
         [Display(Name = "E-mailadres")]
         [Required(ErrorMessage = "Vul een e-mailadres in.")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Vul een geldig e-mailadres in.")]

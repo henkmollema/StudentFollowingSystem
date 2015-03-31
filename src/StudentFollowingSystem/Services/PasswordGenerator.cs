@@ -2,8 +2,11 @@
 
 namespace StudentFollowingSystem.Services
 {
-    public class PasswordGenerator
+    public static class PasswordGenerator
     {
+        /// <summary>
+        /// Creates a random password of 8 characters.
+        /// </summary>
         public static string CreateRandomPassword()
         {
             string password = "";

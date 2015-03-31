@@ -1,5 +1,8 @@
 ﻿namespace StudentFollowingSystem.Models
 {
+    /// <summary>
+    /// A class with a counseler.
+    /// </summary>
     public class Class
     {
         public int Id { get; set; }

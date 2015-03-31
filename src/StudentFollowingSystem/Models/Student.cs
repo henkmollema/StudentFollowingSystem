@@ -2,6 +2,9 @@
 
 namespace StudentFollowingSystem.Models
 {
+    /// <summary>
+    /// A student with a class.
+    /// </summary>
     public class Student
     {
         public int Id { get; set; }

@@ -1,6 +1,8 @@
-﻿using System;
-namespace StudentFollowingSystem.Models
+﻿namespace StudentFollowingSystem.Models
 {
+    /// <summary>
+    /// A counseling between a counseler and student.
+    /// </summary>
     public class Counseling
     {
         public int Id { get; set; }

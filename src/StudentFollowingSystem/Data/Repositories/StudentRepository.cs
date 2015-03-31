@@ -34,9 +34,8 @@ where s.Id = @Id";
         }
 
         /// <summary>
-        /// Gets all the stdeunt 
+        /// Gets all the students joined with their class. 
         /// </summary>
-        /// <returns></returns>
         public override List<Student> GetAll()
         {
             using (var con = ConnectionFactory.GetOpenConnection())

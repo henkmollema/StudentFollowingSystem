@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
-namespace StudentFollowingSystem.Models
+﻿namespace StudentFollowingSystem.Models
 {
+    /// <summary>
+    /// A counseler.
+    /// </summary>
     public class Counseler
     {
         public int Id { get; set; }

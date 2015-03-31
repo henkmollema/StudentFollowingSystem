@@ -7,6 +7,7 @@ namespace StudentFollowingSystem.Data.Dommel
     {
         public ClassesMap()
         {
+            // Map entity 'Class' to table 'Classes'.
             ToTable("Classes");
         }
     }

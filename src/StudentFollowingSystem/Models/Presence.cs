@@ -1,5 +1,8 @@
 ﻿namespace StudentFollowingSystem.Models
 {
+    /// <summary>
+    /// Presence of a student on a subject.
+    /// </summary>
     public class Presence
     {
         public int Id { get; set; }

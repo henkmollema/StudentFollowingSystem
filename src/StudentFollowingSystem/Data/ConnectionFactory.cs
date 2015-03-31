@@ -9,7 +9,7 @@ namespace StudentFollowingSystem.Data
         /// <summary>
         /// Gets an open connection to the database using the configured connection string.
         /// </summary>
-        /// <returns>An open connection to the database.s</returns>
+        /// <returns>An open connection to the database.</returns>
         public static IDbConnection GetOpenConnection()
         {
             var con = new SqlConnection(ConfigurationManager.ConnectionStrings["SVS"].ConnectionString);

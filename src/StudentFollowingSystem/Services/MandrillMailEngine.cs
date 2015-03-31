@@ -10,7 +10,10 @@ namespace StudentFollowingSystem.Services
         {
             _api = new MandrillApi("WzIKKJSUZAXYaRLWVqPyVA");
         }
-
+        
+        /// <summary>
+        /// Sends the specified mail using the Mandrill mail engine.
+        /// </summary>
         public void Send(EmailMessage mailMessage)
         {
             mailMessage.from_email = "student-volg-systeem@nhl.nl";

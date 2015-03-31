@@ -1,5 +1,8 @@
 ﻿namespace StudentFollowingSystem.Models
 {
+    /// <summary>
+    /// A grade of a student for an exam unit with a result.
+    /// </summary>
     public class Grade
     {
         public int Id { get; set; }

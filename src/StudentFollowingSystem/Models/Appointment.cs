@@ -2,6 +2,9 @@
 
 namespace StudentFollowingSystem.Models
 {
+    /// <summary>
+    /// An appointment for a counseling between an counseler and student.
+    /// </summary>
     public class Appointment
     {
         public int Id { get; set; }

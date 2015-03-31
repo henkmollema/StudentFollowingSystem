@@ -2,6 +2,9 @@
 
 namespace StudentFollowingSystem.Models
 {
+    /// <summary>
+    /// A subject which a student can attend.
+    /// </summary>
     public class Subject
     {
         public int Id { get; set; }

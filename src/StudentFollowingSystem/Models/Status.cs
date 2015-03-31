@@ -2,6 +2,9 @@
 
 namespace StudentFollowingSystem.Models
 {
+    /// <summary>
+    /// Represents the status of a student.
+    /// </summary>
     public enum Status
     {
         [Display(Name = "Groen")]

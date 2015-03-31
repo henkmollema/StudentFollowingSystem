@@ -3,6 +3,9 @@ using StudentFollowingSystem.Models;
 
 namespace StudentFollowingSystem.Mails
 {
+    /// <summary>
+    /// The mail for an appointment.
+    /// </summary>
     public class AppointmentMail
     {
         public Student Student { get; set; }
@@ -20,6 +23,9 @@ namespace StudentFollowingSystem.Mails
         /// </summary>
         public bool FromCounseler { get; set; }
 
+        /// <summary>
+        /// Merge the data in the model in the mail message.
+        /// </summary>
         public string MergeMessage()
         {
             return string.Format(@"Beste {0},

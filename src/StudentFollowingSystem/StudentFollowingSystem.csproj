@@ -182,7 +182,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MandrillMailEngine.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
-    <Compile Include="Services\TimetableService.cs" />
     <Compile Include="ViewModels\AppointmentByStudentModel.cs" />
     <Compile Include="ViewModels\AppointmentModel.cs" />
     <Compile Include="ViewModels\AppointmentResponseModel.cs" />

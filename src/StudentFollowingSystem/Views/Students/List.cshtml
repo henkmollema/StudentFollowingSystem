@@ -60,19 +60,17 @@
                     <a href="maito:@item.Email">@item.Email</a>
                 </td>
                 <td>
-                    @{
-            switch (item.Status)
-            {
-                case Status.Green:
-                    <img src="~/Content/images/green.png" alt="Groen" title="Groen" width="20" />
-                    break;
-                case Status.Orange:
-                <img src="~/Content/images/orange.png" alt="Oranje" title="Oranje" width="20" />
-                    break;
-                case Status.Red:
-                <img src="~/Content/images/red.png" alt="Rood" title="Rood" width="20" />
-                    break;
-            }
+                    @switch (item.Status)
+                    {
+                        case Status.Green:
+                            <img src="~/Content/images/green.png" alt="Groen" title="Groen" width="20" />
+                            break;
+                        case Status.Orange:
+                            <img src="~/Content/images/orange.png" alt="Oranje" title="Oranje" width="20" />
+                            break;
+                        case Status.Red:
+                            <img src="~/Content/images/red.png" alt="Rood" title="Rood" width="20" />
+                            break;
                     }
                 </td>
                 <td>

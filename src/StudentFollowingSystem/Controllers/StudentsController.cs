@@ -55,7 +55,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [AuthorizeCounseler, HttpPost]
+        [AuthorizeCounseler, HttpPost, Route("nieuw")]
         public ActionResult Create(StudentModel model)
         {
             if (ModelState.IsValid)

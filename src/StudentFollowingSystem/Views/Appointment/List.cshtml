@@ -32,9 +32,9 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr class="tableRowData" onclick="location.href = '@Url.Action("Details", "Appointment", new { id = item.Id })'">
+            <tr>
                 <td>
-                    @item.DateTime.ToString("d MMMM yyyy")
+                    @item.DateTime.ToString("d MMMM yyyy HH:mm")
                 </td>
                 <td>
                     @item.Student.FirstName
@@ -43,10 +43,17 @@
                     @item.Student.LastName
                 </td>
                 <td>
-                    @item.Accepted
+                    @(item.Accepted ? "Ja" : "Nee")
                 </td>
                 <td>
-                    @item.Noted
+                    @if (item.Noted)
+                    {
+                        <a href="@Url.Action("Details", "Appointment", new { id = item.Id })">Vastgelegd</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Details", "Appointment", new { id = item.Id })">Niet vastgelegd</a>
+                    }
                 </td>
             </tr>
         }

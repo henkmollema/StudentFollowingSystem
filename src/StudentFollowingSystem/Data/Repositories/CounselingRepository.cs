@@ -16,7 +16,7 @@ namespace StudentFollowingSystem.Data.Repositories
             {
                 string sql = @"
 select * from Counselings c
-join Appointments a on a.Id = c.AppointmendId
+join Appointments a on a.Id = c.AppointmentId
 where c.AppointmentId = @Id";
 
                 return con.Query<Counseling, Appointment, Counseling>(sql,

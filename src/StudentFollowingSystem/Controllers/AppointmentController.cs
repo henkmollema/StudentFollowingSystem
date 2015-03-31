@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
+using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
 using StudentFollowingSystem.Filters;
 using StudentFollowingSystem.Mails;
 using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
-using AutoMapper;
-using System.Collections.Generic;
 
 namespace StudentFollowingSystem.Controllers
 {
@@ -17,15 +17,22 @@ namespace StudentFollowingSystem.Controllers
         private readonly ClassRepository _classRepository = new ClassRepository();
         private readonly MailHelper _mailHelper = new MailHelper();
 
+        [AuthorizeCounseler, Route("overzicht")]
+        public ActionResult List()
+        {
+            var model = Mapper.Map<List<AppointmentModel>>(_appointmentRepository.GetAll());
+            return View(model);
+        }
+
         [AuthorizeStudent, Route("afspraak-met-docent")]
         public ActionResult AppointmentByStudent()
         {
             DateTime tommorow = DateTime.Now.AddDays(1);
             var model = new AppointmentByStudentModel
-            {
-                // Default appointment date is tomorrow 10:00.
-                DateTimeString = new DateTime(tommorow.Year, tommorow.Month, tommorow.Day, 10, 0, 0).ToString("dd-MM-yyyy HH:mm")
-            };
+                            {
+                                // Default appointment date is tomorrow 10:00.
+                                DateTimeString = new DateTime(tommorow.Year, tommorow.Month, tommorow.Day, 10, 0, 0).ToString("dd-MM-yyyy HH:mm")
+                            };
 
             PrepareStudentCounselingRequestModel(model);
 
@@ -94,7 +101,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken, Route("afspraak-met-student/{studentId?}")]
+        [AuthorizeCounseler, HttpPost, ValidateAntiForgeryToken, Route("afspraak-met-student/{studentId?}")]
         public ActionResult AppointmentByCounseler(AppointmentByCounselerModel model)
         {
             if (ModelState.IsValid)
@@ -131,8 +138,8 @@ namespace StudentFollowingSystem.Controllers
             PrepareCounselerCounselingRequestModel(model);
             return View(model);
         }
-        
-        [Route("details/{id}")]
+
+        [Authorize, Route("details/{id}")]
         public ActionResult Details(int id)
         {
             var appointment = _appointmentRepository.GetById(id);
@@ -144,7 +151,7 @@ namespace StudentFollowingSystem.Controllers
             return View(appointment);
         }
 
-        [Route("reageren/{id}")]
+        [Authorize, Route("afspraak-bevestigen/{id}")]
         public ActionResult AppointmentResponse(int id)
         {
             var appointment = _appointmentRepository.GetById(id);
@@ -163,7 +170,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [Authorize, HttpPost, ValidateAntiForgeryToken, Route("afspraak-bevestigen/{id}")]
         public ActionResult AppointmentResponse(AppointmentResponseModel model)
         {
             var appointment = _appointmentRepository.GetById(model.Id);
@@ -181,7 +188,7 @@ namespace StudentFollowingSystem.Controllers
                                {
                                    Appointment = appointment,
                                    Notes = model.Notes,
-                                   FromCounseler = true // todo...
+                                   FromCounseler = Counseler != null
                                };
                 _mailHelper.SendAppointmentResponseMail(mail);
 
@@ -208,13 +215,6 @@ namespace StudentFollowingSystem.Controllers
             var counseler = CounselerRepository.GetById(@class.CounselerId);
 
             model.Counseler = Mapper.Map<CounselerModel>(counseler);
-        }
-
-        [AuthorizeCounseler]
-        public ActionResult List()
-        {
-            var model = Mapper.Map<List<AppointmentModel>>(_appointmentRepository.GetAll());
-            return View(model);
         }
     }
 }

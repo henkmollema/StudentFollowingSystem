@@ -1,12 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Web.Mvc;
+using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
 using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace StudentFollowingSystem.Controllers
 {
@@ -20,14 +16,17 @@ namespace StudentFollowingSystem.Controllers
         [Route("nieuw/{appointmentId}")]
         public ActionResult Create(int appointmentId)
         {
-            var model = new CounselingModel();
-            var student = _studentRepository.GetById(_appointmentRepository.GetById(appointmentId).StudentId);
-            var studentModel = Mapper.Map<StudentModel>(student);
-            model.NextAppointment = DateTime.Now.AddDays(7);
-            model.Status = student.Status;
-            model.AppointmentId = appointmentId;
-            model.StudentName = student.GetFullName();
-            model.AppointmentDate = _appointmentRepository.GetById(appointmentId).DateTime;
+            var appointment = _appointmentRepository.GetById(appointmentId);
+            var student = _studentRepository.GetById(appointment.StudentId);
+
+            var model = new CounselingModel
+                            {
+                                NextAppointment = appointment.DateTime.AddMonths(3),
+                                Status = student.Status,
+                                AppointmentId = appointmentId,
+                                StudentName = student.GetFullName(),
+                                AppointmentDate = appointment.DateTime
+                            };
 
             return View(model);
         }
@@ -37,54 +36,66 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Map counseling view model to domain model.
-                var counseling = Mapper.Map<Counseling>(model);
+                // Set the appointment to 'noted'.
                 var appointment = _appointmentRepository.GetById(model.AppointmentId);
                 appointment.Noted = true;
-                // Map student view model to domain model.
-                var student = _studentRepository.GetById(_appointmentRepository.GetById(appointment.Id).StudentId);
+                _appointmentRepository.Update(appointment);
+
+                // Map the view model to a domain model.
+                var counseling = Mapper.Map<Counseling>(model);
+                _counselingRepository.Add(counseling);
+
+                // Update student data based on the appointment.
+                var student = _studentRepository.GetById(appointment.StudentId);
                 student.Status = model.Status;
                 student.NextAppointment = model.NextAppointment;
                 student.LastAppointment = appointment.DateTime;
 
-                // todo: add counseling repository to class
-                _counselingRepository.Add(counseling);
                 _studentRepository.Update(student);
-                _appointmentRepository.Update(appointment);
-
-                // todo: redirect to details
-                return RedirectToAction("Dashboard", "Counseler");
+                return RedirectToAction("Details", new { appointmentId = appointment.Id });
             }
-        
+
             return View(model);
         }
 
         [Route("details/{appointmentId}")]
         public ActionResult Details(int appointmentId)
         {
+            // Get the counseling by the appointment id and map it to a view model.
             var counseling = _counselingRepository.GetByAppointment(appointmentId);
-            var model = Mapper.Map<CounselingModel>(counseling);
-            var student = _studentRepository.GetById(_appointmentRepository.GetById(appointmentId).StudentId);
-            model.StudentName = student.GetFullName();
-            model.AppointmentDate = _appointmentRepository.GetById(appointmentId).DateTime;
-
             if (counseling == null)
             {
                 return RedirectToAction("Create");
             }
 
-            //PrepareStudentModel(model);
+            var model = Mapper.Map<CounselingModel>(counseling);
+
+            // Add the data of the corresponding student to the view model.
+            var appointment = _appointmentRepository.GetById(appointmentId);
+            var student = _studentRepository.GetById(appointment.StudentId);
+            model.StudentName = student.GetFullName();
+            model.AppointmentDate = appointment.DateTime;
+
             return View(model);
         }
 
         [Route("wijzigen/{appointmentId}")]
         public ActionResult Edit(int appointmentId)
         {
+            // Get the counseling by the appointment id and map it to a view model.
             var counseling = _counselingRepository.GetByAppointment(appointmentId);
+            if (counseling == null)
+            {
+                return RedirectToAction("Create");
+            }
+
             var model = Mapper.Map<CounselingModel>(counseling);
-            var student = _studentRepository.GetById(_appointmentRepository.GetById(appointmentId).StudentId);
+
+            // Add the data of the corresponding student to the view model.
+            var appointment = _appointmentRepository.GetById(appointmentId);
+            var student = _studentRepository.GetById(appointment.StudentId);
             model.StudentName = student.GetFullName();
-            model.AppointmentDate = _appointmentRepository.GetById(appointmentId).DateTime;
+            model.AppointmentDate = appointment.DateTime;
             model.NextAppointment = student.NextAppointment;
 
             return View(model);
@@ -95,22 +106,19 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Map counseling view model to domain model.
                 var counseling = _counselingRepository.GetByAppointment(model.AppointmentId);
                 counseling.Comment = model.Comment;
                 counseling.Private = model.Private;
                 counseling.Status = model.Status;
-                // Map student view model to domain model.
+
                 var student = _studentRepository.GetById(_appointmentRepository.GetById(model.AppointmentId).StudentId);
                 student.Status = model.Status;
                 student.NextAppointment = model.NextAppointment;
 
-                // todo: add counseling repository to class
                 _counselingRepository.Update(counseling);
                 _studentRepository.Update(student);
 
-                // todo: redirect to details
-                return RedirectToAction("Details", "Counseling", new { appointmentId = model.AppointmentId });
+                return RedirectToAction("Details", new { appointmentId = model.AppointmentId });
             }
 
             return View(model);

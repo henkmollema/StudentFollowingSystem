@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
@@ -16,7 +17,7 @@ namespace StudentFollowingSystem.Controllers
         [Route("overzicht")]
         public ActionResult List()
         {
-            var classes = Mapper.Map<List<ClassModel>>(_classRepository.GetAll());
+            var classes = Mapper.Map<List<ClassModel>>(_classRepository.GetAll().Where(c => c.CounselerId == Counseler.Id));
             return View(classes);
         }
 

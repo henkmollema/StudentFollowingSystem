@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
@@ -20,7 +21,7 @@ namespace StudentFollowingSystem.Controllers
         [AuthorizeCounseler, Route("overzicht")]
         public ActionResult List()
         {
-            var model = Mapper.Map<List<AppointmentModel>>(_appointmentRepository.GetAll());
+            var model = Mapper.Map<List<AppointmentModel>>(_appointmentRepository.GetAll().Where(a => a.CounselerId == Counseler.Id));
             return View(model);
         }
 
@@ -148,7 +149,25 @@ namespace StudentFollowingSystem.Controllers
                 return HttpNotFound();
             }
 
+            if (!AuthorizeAppointment(appointment))
+            {
+                return new HttpUnauthorizedResult();
+            }
+
             return View(appointment);
+        }
+
+        private bool AuthorizeAppointment(Appointment appointment)
+        {
+            var student = Student;
+            var counseler = Counseler;
+            if (student != null && appointment.StudentId != student.Id ||
+                counseler != null && appointment.CounselerId != counseler.Id)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         [Authorize, Route("afspraak-bevestigen/{id}")]
@@ -158,6 +177,11 @@ namespace StudentFollowingSystem.Controllers
             if (appointment == null)
             {
                 return HttpNotFound();
+            }
+
+            if (!AuthorizeAppointment(appointment))
+            {
+                return new HttpUnauthorizedResult();
             }
 
             var model = new AppointmentResponseModel

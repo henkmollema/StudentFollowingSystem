@@ -43,7 +43,7 @@ namespace StudentFollowingSystem.Controllers
         [AuthorizeCounseler, Route("overzicht")]
         public ActionResult List()
         {
-            var students = Mapper.Map<List<StudentModel>>(StudentRepository.GetAll());
+            var students = Mapper.Map<List<StudentModel>>(StudentRepository.GetAll().Where(s => s.Class.CounselerId == Counseler.Id));
             return View(students);
         }
 

@@ -42,7 +42,7 @@
 }
 
 <div>
-    @Html.ActionLink("Terug naar het dashboard", "Dashboard")
+    <a href="@Url.Action("ChangePassword", "Account")">Wachtwoord wijzigen</a> | @Html.ActionLink("Terug naar het dashboard", "Dashboard")
 </div>
 
 @section Scripts {

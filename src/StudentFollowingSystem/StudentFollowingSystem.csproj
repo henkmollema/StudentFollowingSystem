@@ -186,6 +186,7 @@
     <Compile Include="ViewModels\AppointmentByStudentModel.cs" />
     <Compile Include="ViewModels\AppointmentModel.cs" />
     <Compile Include="ViewModels\AppointmentResponseModel.cs" />
+    <Compile Include="ViewModels\ChangePasswordModel.cs" />
     <Compile Include="ViewModels\ClassModel.cs" />
     <Compile Include="ViewModels\CounselerDashboardModel.cs" />
     <Compile Include="ViewModels\CounselerModel.cs" />
@@ -289,6 +290,7 @@
     <Content Include="Views\Counseling\Edit.cshtml" />
     <Content Include="Views\Grade\List.cshtml" />
     <Content Include="Views\Students\EditInfo.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

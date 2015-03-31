@@ -4,6 +4,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using Mandrill;
+using StudentFollowingSystem.Filters;
 using StudentFollowingSystem.Services;
 using StudentFollowingSystem.ViewModels;
 
@@ -66,6 +67,34 @@ namespace StudentFollowingSystem.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        [AuthorizeStudent, Route("wachtwoord-wijzigen")]
+        public ActionResult ChangePassword()
+        {
+            return View(new ChangePasswordModel());
+        }
+
+        [AuthorizeStudent, HttpPost, Route("wachtwoord-wijzigen")]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var student = Student;
+                string password = Student.Password;
+                if (Crypto.VerifyHashedPassword(password, model.OldPassword))
+                {
+                    student.Password = Crypto.HashPassword(model.NewPassword);
+                    StudentRepository.Update(student);
+                    model.Success = true;
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Oude wachtwoord komt niet overeen");
+                }
+            }
+
+            return View(model);
         }
 
         [AllowAnonymous, Route("wachtwoord-vergeten")]

@@ -72,6 +72,7 @@
     <Build Include="dbo\Tables\Presences.sql" />
     <Build Include="dbo\Tables\ExamUnits.sql" />
     <Build Include="dbo\Tables\Grades.sql" />
+    <Build Include="dbo\Tables\Counselings.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HelpScripts\CreateAdmin.sql" />

@@ -26,6 +26,7 @@ namespace StudentFollowingSystem.ViewModels
         {
             if (NewPassword != ConfirmPassword)
             {
+                //Check if the 2 new passwords are equal.
                 yield return new ValidationResult("De opgegeven wachtwoorden moeten gelijk zijn.");
             }
         }

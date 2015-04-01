@@ -8,6 +8,7 @@ namespace StudentFollowingSystem.ViewModels
 {
     public class SubjectModel : IValidatableObject
     {
+        //Creating a new subject and the necessary validations
         public int Id { get; set; }
 
         [Display(Name = "Vak naam")]

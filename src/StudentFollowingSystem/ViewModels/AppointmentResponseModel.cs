@@ -22,6 +22,7 @@ namespace StudentFollowingSystem.ViewModels
         {
             if (!Accepted && string.IsNullOrEmpty(Notes))
             {
+                //Reason needs to be given why a appointment is denied.
                 yield return new ValidationResult("Een reden is verplicht als je de afspraak niet accepteert");
             }
         }

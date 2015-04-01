@@ -1,19 +1,20 @@
 ﻿using System.Web.Mvc;
 using AutoMapper;
 using StudentFollowingSystem.Data.Repositories;
+using StudentFollowingSystem.Filters;
 using StudentFollowingSystem.Models;
 using StudentFollowingSystem.ViewModels;
 
 namespace StudentFollowingSystem.Controllers
 {
     [RoutePrefix("slb-gesprek")]
-    public class CounselingController : Controller
+    public class CounselingController : ControllerBase
     {
         private readonly CounselingRepository _counselingRepository = new CounselingRepository();
         private readonly AppointmentRepository _appointmentRepository = new AppointmentRepository();
         private readonly StudentRepository _studentRepository = new StudentRepository();
 
-        [Route("nieuw/{appointmentId}")]
+        [AuthorizeCounseler, Route("nieuw/{appointmentId}")]
         public ActionResult Create(int appointmentId)
         {
             // Get the corresponding appointment and student.
@@ -33,7 +34,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken, Route("nieuw/{appointmentId}")]
+        [AuthorizeCounseler, HttpPost, ValidateAntiForgeryToken, Route("nieuw/{appointmentId}")]
         public ActionResult Create(CounselingModel model)
         {
             if (ModelState.IsValid)
@@ -60,7 +61,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [Route("details/{appointmentId}")]
+        [Authorize, Route("details/{appointmentId}")]
         public ActionResult Details(int appointmentId)
         {
             // Get the counseling by the appointment id and map it to a view model.
@@ -81,7 +82,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [Route("wijzigen/{appointmentId}")]
+        [AuthorizeCounseler, Route("wijzigen/{appointmentId}")]
         public ActionResult Edit(int appointmentId)
         {
             // Get the counseling by the appointment id and map it to a view model.
@@ -103,7 +104,7 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken, Route("wijzigen/{appointmentId}")]
+        [AuthorizeCounseler, HttpPost, ValidateAntiForgeryToken, Route("wijzigen/{appointmentId}")]
         public ActionResult Edit(CounselingModel model)
         {
             if (ModelState.IsValid)

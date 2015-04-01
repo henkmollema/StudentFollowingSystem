@@ -24,7 +24,7 @@
         <dd>
             @Model.Counseler.GetFullName()
         </dd>
-        
+
         <dt>
             Datum
         </dt>
@@ -61,14 +61,21 @@
 </div>
 
 <p>
-    @if (Model.Noted)
+    @if (ViewBag.IsCounseler)
     {
-        <a href="@Url.Action("Details", "Counseling", new { appointmentId = Model.Id})" class="btn btn-primary">Vastlegging bekijken</a>
+        if (Model.Noted)
+        {
+            <a href="@Url.Action("Details", "Counseling", new { appointmentId = Model.Id })" class="btn btn-primary">Vastlegging bekijken</a>
+        }
+        else
+        {
+            <a href="@Url.Action("Create", "Counseling", new { appointmentId = Model.Id })" class="btn btn-primary">Gesprek vastleggen</a>
+        }
+        @:|
+        @Html.ActionLink("Terug naar het overzicht", "List", "Appointment")
     }
     else
     {
-        <a href="@Url.Action("Create", "Counseling", new { appointmentId = Model.Id})" class="btn btn-primary">Gesprek vastleggen</a>
+        <a href="/">Terug naar home</a>
     }
-     |
-    @Html.ActionLink("Terug naar het overzicht", "List", "Appointment")
 </p>

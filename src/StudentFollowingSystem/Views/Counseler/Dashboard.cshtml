@@ -12,7 +12,7 @@
             {
                 foreach (var appointment in Model.Appointments)
                 {
-                    <a class="list-group-item" href="@Url.Action("Create", "Counseling", new { appointmentId = appointment.Id })">
+                    <a class="list-group-item" href="@Url.Action("Details", "Appointment", new { id = appointment.Id })">
                         <h4 class="list-group-item-heading">@appointment.Student.GetFullName()</h4>
                         <p class="list-group-item-text">
                             @appointment.DateTime.ToString("dddd d MMMM HH:mm")<br />
@@ -51,7 +51,7 @@
                     <h4 class="list-group-item-heading">@students.GetFullName() (@students.StudentNr)</h4>
                     @if (students.LastAppointment.HasValue)
                     {
-                        <p class="list-group-item-text">Laatste gesprek: @students.LastAppointment.Value.ToShortDateString()</p>
+                        <p class="list-group-item-text">Laatste gesprek: @students.LastAppointment.Value.ToString("d MMMM yyyy")</p>
                     }
                 </a>
             }

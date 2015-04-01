@@ -25,7 +25,7 @@ where c.AppointmentId = @Id";
                         c.Appointment = a;
                         return c;
                     },
-                    new { id }).FirstOrDefault();
+                    new { Id = id }).FirstOrDefault();
             }
         }
     }

@@ -28,7 +28,7 @@ namespace StudentFollowingSystem.Controllers
             // Create the dashboard view model.
             var model = new CounselerDashboardModel
                             {
-                                Appointments = appointments,
+                                Appointments = appointments.Where(a => !a.Noted).ToList(),
                                 Students = students.Where(s => s.Status == Status.Orange ||
                                                                s.Status == Status.Red ||
                                                                DateTime.Now >= s.NextAppointment)

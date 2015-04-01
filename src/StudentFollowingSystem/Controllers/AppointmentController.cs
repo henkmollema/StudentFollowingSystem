@@ -164,6 +164,8 @@ namespace StudentFollowingSystem.Controllers
                 return new HttpUnauthorizedResult();
             }
 
+            ViewBag.IsCounseler = Counseler != null;
+
             return View(appointment);
         }
 
@@ -232,8 +234,8 @@ namespace StudentFollowingSystem.Controllers
         {
             var student = Student;
             var counseler = Counseler;
-            return student != null && appointment.StudentId != student.Id ||
-                   counseler != null && appointment.CounselerId != counseler.Id;
+            return student != null && appointment.StudentId == student.Id ||
+                   counseler != null && appointment.CounselerId == counseler.Id;
         }
 
         private void PrepareCounselerCounselingRequestModel(AppointmentByCounselerModel model)

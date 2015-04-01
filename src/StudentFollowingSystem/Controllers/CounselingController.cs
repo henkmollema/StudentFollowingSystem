@@ -16,9 +16,11 @@ namespace StudentFollowingSystem.Controllers
         [Route("nieuw/{appointmentId}")]
         public ActionResult Create(int appointmentId)
         {
+            // Get the corresponding appointment and student.
             var appointment = _appointmentRepository.GetById(appointmentId);
             var student = _studentRepository.GetById(appointment.StudentId);
 
+            // Create the counseling view model.
             var model = new CounselingModel
                             {
                                 NextAppointment = appointment.DateTime.AddMonths(3),
@@ -106,16 +108,20 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Get the counseling by the appointment and update counseling data.
                 var counseling = _counselingRepository.GetByAppointment(model.AppointmentId);
                 counseling.Comment = model.Comment;
                 counseling.Private = model.Private;
                 counseling.Status = model.Status;
+                _counselingRepository.Update(counseling);
 
-                var student = _studentRepository.GetById(_appointmentRepository.GetById(model.AppointmentId).StudentId);
+                // Get the corresponding appointment and student.
+                var appointment = _appointmentRepository.GetById(model.AppointmentId);
+                var student = _studentRepository.GetById(appointment.StudentId);
+
+                // Update student data based on the counseling.
                 student.Status = model.Status;
                 student.NextAppointment = model.NextAppointment;
-
-                _counselingRepository.Update(counseling);
                 _studentRepository.Update(student);
 
                 return RedirectToAction("Details", new { appointmentId = model.AppointmentId });

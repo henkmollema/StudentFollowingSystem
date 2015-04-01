@@ -17,18 +17,22 @@ namespace StudentFollowingSystem.Controllers
             var model = new MenuModel();
             if (Request.IsAuthenticated && User != null && User.Identity.IsAuthenticated)
             {
-                var student = StudentRepository.GetByEmail(User.Identity.Name);
+                // Is the logged in user a student?
+                var student = Student;
                 if (student != null)
                 {
+                    // Add student data to the view model.
                     model.IsStudent = true;
                     model.Username = student.GetFullName();
                     model.Id = student.Id;
                 }
                 else
                 {
-                    var counseler = CounselerRepository.GetByEmail(User.Identity.Name);
+                    // Is the logged in user a counseler?
+                    var counseler = Counseler;
                     if (counseler != null)
                     {
+                        // Add counseler data to the view model.
                         model.IsCounseler = true;
                         model.Username = counseler.GetFullName();
                         model.Id = counseler.Id;
@@ -36,6 +40,7 @@ namespace StudentFollowingSystem.Controllers
                 }
             }
 
+            // Render the menu partial view.
             return PartialView("_Menu", model);
         }
     }

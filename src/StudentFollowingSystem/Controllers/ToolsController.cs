@@ -7,6 +7,7 @@ namespace StudentFollowingSystem.Controllers
     {
         public ActionResult HashPassword(string q)
         {
+            // Hash the querystring value.
             string password = Crypto.HashPassword(q);
             return Content(password);
         }

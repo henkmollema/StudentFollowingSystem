@@ -21,6 +21,7 @@ namespace StudentFollowingSystem.Controllers
         [AuthorizeCounseler, Route("overzicht")]
         public ActionResult List()
         {
+            // Get all the appointments for the logged in counseler.
             var model = Mapper.Map<List<AppointmentModel>>(_appointmentRepository.GetAll().Where(a => a.CounselerId == Counseler.Id));
             return View(model);
         }
@@ -43,14 +44,17 @@ namespace StudentFollowingSystem.Controllers
         [AuthorizeStudent, HttpPost, ValidateAntiForgeryToken, Route("afspraak-met-docent")]
         public ActionResult AppointmentByStudent(AppointmentByStudentModel model)
         {
+            // A student wishes to make an appointment with their counseler.
             if (ModelState.IsValid)
             {
+                // Get the logged in student and counseler of the class the student is in.
                 var student = Student;
                 var @class = _classRepository.GetById(student.ClassId);
                 var counseler = CounselerRepository.GetById(@class.CounselerId);
 
                 if (counseler != null && student != null)
                 {
+                    // Create the appointment for the student and couseler.
                     var appointment = new Appointment
                                           {
                                               CounselerId = counseler.Id,
@@ -61,6 +65,7 @@ namespace StudentFollowingSystem.Controllers
 
                     int id = _appointmentRepository.Add(appointment);
 
+                    // Send the appointment request mail.
                     var mail = new AppointmentMail
                                    {
                                        Counseler = counseler,
@@ -84,6 +89,7 @@ namespace StudentFollowingSystem.Controllers
         [AuthorizeCounseler, Route("afspraak-met-student/{studentId?}")]
         public ActionResult AppointmentByCounseler(int? studentId)
         {
+            // A counseler wishes to create an appointment with their student.
             DateTime tommorow = DateTime.Now.AddDays(1);
             var model = new AppointmentByCounselerModel
                             {
@@ -107,10 +113,12 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Get the logged in counseler and the chosen student.
                 var counseler = Counseler;
                 var student = StudentRepository.GetById(model.StudentId);
                 if (counseler != null && student != null)
                 {
+                    // Create the appointment for the counseler and student.
                     var appointment = new Appointment
                                           {
                                               CounselerId = counseler.Id,
@@ -121,6 +129,7 @@ namespace StudentFollowingSystem.Controllers
 
                     int id = _appointmentRepository.Add(appointment);
 
+                    // Send the appointment mail.
                     var mail = new AppointmentMail
                                    {
                                        Counseler = counseler,
@@ -143,6 +152,7 @@ namespace StudentFollowingSystem.Controllers
         [Authorize, Route("details/{id}")]
         public ActionResult Details(int id)
         {
+            // Get the appointment by its id.
             var appointment = _appointmentRepository.GetById(id);
             if (appointment == null)
             {
@@ -157,22 +167,10 @@ namespace StudentFollowingSystem.Controllers
             return View(appointment);
         }
 
-        private bool AuthorizeAppointment(Appointment appointment)
-        {
-            var student = Student;
-            var counseler = Counseler;
-            if (student != null && appointment.StudentId != student.Id ||
-                counseler != null && appointment.CounselerId != counseler.Id)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         [Authorize, Route("afspraak-bevestigen/{id}")]
         public ActionResult AppointmentResponse(int id)
         {
+            // Student or counseler wants to respond on the appointment request.
             var appointment = _appointmentRepository.GetById(id);
             if (appointment == null)
             {
@@ -205,9 +203,11 @@ namespace StudentFollowingSystem.Controllers
 
             if (ModelState.IsValid)
             {
+                // Update the appointment status.
                 appointment.Accepted = model.Accepted;
                 _appointmentRepository.Update(appointment);
 
+                // Create a repsonse mail.
                 var mail = new AppointmentRepsonseMail
                                {
                                    Appointment = appointment,
@@ -223,10 +223,25 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Checks that the specified <paramref name="appointment"/> belongs to the 
+        /// logged in student or counseler.
+        /// </summary>
+        /// <param name="appointment">The appointment to authorize.</param>
+        private bool AuthorizeAppointment(Appointment appointment)
+        {
+            var student = Student;
+            var counseler = Counseler;
+            return student != null && appointment.StudentId != student.Id ||
+                   counseler != null && appointment.CounselerId != counseler.Id;
+        }
+
         private void PrepareCounselerCounselingRequestModel(AppointmentByCounselerModel model)
         {
-            // Populate the select list with all the students.
-            model.StudentsList = SelectList(StudentRepository.GetAll(),
+            var counseler = Counseler;
+
+            // Populate the select list with all the students of the logged in counseler.
+            model.StudentsList = SelectList(StudentRepository.GetAll().Where(s => s.Class.CounselerId == counseler.Id),
                 s => s.Id,
                 s => string.Format("{0} ({1})", s.GetFullName(), s.StudentNr));
         }

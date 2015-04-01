@@ -26,36 +26,46 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Check if the email exists in the students table.
                 var student = StudentRepository.GetByEmail(model.Email);
                 if (student != null)
                 {
+                    // Verify the hashed password in the database with the specified password.
                     if (Crypto.VerifyHashedPassword(student.Password, model.Password))
                     {
+                        // Set an authentication cookie.
                         FormsAuthentication.SetAuthCookie(student.Email, true);
 
                         if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                         {
+                            // Redirect to the returl url in the query string, if specified.
                             return Redirect(returnUrl);
                         }
                         return RedirectToAction("Dashboard", "Students");
                     }
                 }
 
+                // The email address is not from a student, 
+                // check if a counseler with the email address exists.
                 var counseler = CounselerRepository.GetByEmail(model.Email);
                 if (counseler != null)
                 {
+                    // Verify the hashed password in the database with the specified password.
                     if (Crypto.VerifyHashedPassword(counseler.Password, model.Password))
                     {
+                        // Set an authentication cookie.
                         FormsAuthentication.SetAuthCookie(counseler.Email, true);
 
                         if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                         {
+                            // Redirect to the returl url in the query string, if specified.
                             return Redirect(returnUrl);
                         }
                         return RedirectToAction("Dashboard", "Counseler");
                     }
                 }
 
+                // Email adress is not a student nor a counseler.
                 ModelState.AddModelError("", "Je gebruikersnaam of wachtwoord klopt niet.");
             }
 
@@ -65,6 +75,7 @@ namespace StudentFollowingSystem.Controllers
         [Route("uitloggen")]
         public ActionResult Logout()
         {
+            // Remove the auth cookie.
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
@@ -82,14 +93,18 @@ namespace StudentFollowingSystem.Controllers
             {
                 var student = Student;
                 string password = Student.Password;
+
+                // Verify the old password.
                 if (Crypto.VerifyHashedPassword(password, model.OldPassword))
                 {
+                    // Hash and salt the new password and save it in the database.
                     student.Password = Crypto.HashPassword(model.NewPassword);
                     StudentRepository.Update(student);
                     model.Success = true;
                 }
                 else
                 {
+                    // Passwords don't match.
                     ModelState.AddModelError("", "Oude wachtwoord komt niet overeen");
                 }
             }
@@ -108,6 +123,7 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Check if the student exists.
                 var student = StudentRepository.GetByEmail(model.Email);
                 if (student != null)
                 {

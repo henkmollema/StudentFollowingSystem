@@ -17,6 +17,7 @@ namespace StudentFollowingSystem.Controllers
         [Route("overzicht")]
         public ActionResult List()
         {
+            // Get all the classes of the logged in counseler.
             var classes = Mapper.Map<List<ClassModel>>(_classRepository.GetAll().Where(c => c.CounselerId == Counseler.Id));
             return View(classes);
         }
@@ -34,6 +35,7 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Map the class view model to a domain model and add it.
                 var @class = Mapper.Map<Class>(model);
                 _classRepository.Add(@class);
                 return RedirectToAction("List");
@@ -46,6 +48,7 @@ namespace StudentFollowingSystem.Controllers
         [Route("wijzigen/{id}")]
         public ActionResult Edit(int id)
         {
+            // Get the existing class.
             var @class = _classRepository.GetById(id);
             if (@class == null)
             {
@@ -53,6 +56,7 @@ namespace StudentFollowingSystem.Controllers
                 return RedirectToAction("List");
             }
 
+            // Map the class to a view model.
             var model = Mapper.Map<ClassModel>(@class);
             PrepareClassModel(model);
             return View(model);
@@ -61,9 +65,18 @@ namespace StudentFollowingSystem.Controllers
         [HttpPost, ValidateAntiForgeryToken, Route("wijzigen/{id}")]
         public ActionResult Edit(ClassModel model)
         {
+            // Get the existing class.
+            var @class = _classRepository.GetById(model.Id);
+            if (@class == null)
+            {
+                // Class does not exists, show the overview page.
+                return RedirectToAction("List");
+            }
+
             if (ModelState.IsValid)
             {
-                var @class = Mapper.Map<Class>(model);
+                // Map the new values from the view model into the existing class model.
+                Mapper.Map(model, @class);
                 _classRepository.Update(@class);
 
                 return RedirectToAction("List");
@@ -83,6 +96,7 @@ namespace StudentFollowingSystem.Controllers
                 return RedirectToAction("List");
             }
 
+            // Map the domain model to a view model.
             var model = Mapper.Map<ClassModel>(@class);
             return View(model);
         }
@@ -93,6 +107,7 @@ namespace StudentFollowingSystem.Controllers
             var @class = _classRepository.GetById(model.Id);
             if (@class != null)
             {
+                // Remove the class from the database.
                 _classRepository.Delete(@class);
             }
 

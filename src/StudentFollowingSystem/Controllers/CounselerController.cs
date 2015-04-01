@@ -16,14 +16,16 @@ namespace StudentFollowingSystem.Controllers
         [Route("dashboard")]
         public ActionResult Dashboard()
         {
-            Counseler counseler = Counseler;
-            var appointments = _appointmentRepository.GetAppointmentsByCounseler(counseler.Id, GetFirstSaturday(), DateTime.Now);
-            var students = StudentRepository.GetAll();
-            foreach (var appointment in appointments)
-            {
-                appointment.Counseler = counseler;
-            }
+            // Get the logged in counseler.
+            var counseler = Counseler;
 
+            // Get the appointments for a counseler.
+            var appointments = _appointmentRepository.GetAppointmentsByCounseler(counseler.Id, GetFirstSaturday(), DateTime.Now);
+
+            // Get the students of a counseler.
+            var students = StudentRepository.GetAll().Where(s => s.Class.CounselerId == counseler.Id);
+
+            // Create the dashboard view model.
             var model = new CounselerDashboardModel
                             {
                                 Appointments = appointments,
@@ -38,6 +40,9 @@ namespace StudentFollowingSystem.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Gets the first saturday from today.
+        /// </summary>
         private static DateTime GetFirstSaturday()
         {
             DateTime date = DateTime.Now;

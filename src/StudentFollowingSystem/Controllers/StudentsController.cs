@@ -25,8 +25,8 @@ namespace StudentFollowingSystem.Controllers
         [AuthorizeStudent, Route("dashboard")]
         public ActionResult Dashboard()
         {
+            // Create the dashboard for a student with their subjects, presences and appointments.
             var student = Student;
-
             var model = new StudentDashboardModel
                             {
                                 Subjects = _subjectRepository.GetAll()
@@ -43,6 +43,7 @@ namespace StudentFollowingSystem.Controllers
         [AuthorizeCounseler, Route("overzicht")]
         public ActionResult List()
         {
+            // Show all the students of the currently logged in counseler.
             var students = Mapper.Map<List<StudentModel>>(StudentRepository.GetAll().Where(s => s.Class.CounselerId == Counseler.Id));
             return View(students);
         }
@@ -50,7 +51,13 @@ namespace StudentFollowingSystem.Controllers
         [AuthorizeCounseler, Route("nieuw")]
         public ActionResult Create()
         {
-            var model = new StudentModel { EnrollDate = new DateTime(DateTime.Now.Year - 1, 9, 1) };
+            // Prepare the student view model.
+            var model = new StudentModel
+                            {
+                                // Default enroll date is September of last year.
+                                EnrollDate = new DateTime(DateTime.Now.Year - 1, 9, 1)
+                            };
+
             PrepareStudentModel(model);
             return View(model);
         }
@@ -60,6 +67,7 @@ namespace StudentFollowingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Check for duplicate students.
                 var duplicate = StudentRepository.GetByStudentNr(model.StudentNr.GetValueOrDefault());
                 if (duplicate == null)
                 {
@@ -75,16 +83,16 @@ namespace StudentFollowingSystem.Controllers
                     // Create a mail message with the password and mail it to the student.
                     var msg = new EmailMessage
                                   {
-                                      text = string.Format("Beste {1},{0}{0}Hogeschool NHL maakt gebruikt van het Student volg systeem.{0}Hier kunnen studenten en SLB'ers de studie voortgang bekijken en bij houden. {0}De NHL heeft alvast een acount voor je aangenaakt, Dit zijn de gegevens: {0}{0}Inlognaam: {3} {0}Wachtwoord: {2}{0}{0}Met Vriendelijke groet,{0}{0} NHL Hogeschool",
+                                      text = string.Format("Beste {1},{0}{0}NHL Hogeschool maakt gebruikt van het Studenten Volg Systeem.{0}Hier kunnen studenten en SLB'ers de studie voortgang bekijken en bijhouden. {0}De NHL heeft een acount voor je aangenaakt. Dit zijn de gegevens: {0}{0}Inlognaam: {3} {0}Wachtwoord: {2}{0}{0}Met vriendelijke groet,{0}{0}NHL Hogeschool",
                                           Environment.NewLine,
                                           student.FirstName,
                                           password,
                                           student.Email),
-                                      subject = "Studenten Volg Systeem wachtwoord",
+                                      subject = "Studenten Volg Systeem account",
                                       to = new List<EmailAddress>
                                                {
                                                    new EmailAddress(student.Email, string.Format("{0} {1}", student.FirstName, student.LastName)),
-                                                   new EmailAddress(student.SchoolEmail, string.Format("{0} {1}", student.FirstName, student.LastName, "cc"))
+                                                   new EmailAddress(student.SchoolEmail, string.Format("{0} {1}", student.FirstName, student.LastName), "cc")
                                                },
                                   };
                     _mailEngine.Send(msg);
@@ -92,6 +100,7 @@ namespace StudentFollowingSystem.Controllers
                     return RedirectToAction("List");
                 }
 
+                // Student is a duplicate.
                 ModelState.AddModelError("", "Studentnummer komt al voor in de database.");
             }
 
@@ -108,6 +117,7 @@ namespace StudentFollowingSystem.Controllers
         [AuthorizeCounseler, HttpPost, ValidateAntiForgeryToken, Route("importeren")]
         public ActionResult Import(string csv)
         {
+            // A csv is supplied, try to parse it.
             foreach (string[] d in csv.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
                                       .Skip(1)
                                       .Select(line => line.Split(new[] { ';' })))
@@ -117,7 +127,7 @@ namespace StudentFollowingSystem.Controllers
                 if (!int.TryParse(d[1], out studentNr))
                 {
                     ModelState.AddModelError("", string.Format("StudentNr '{0}' is geen geldig nummer", d[1]));
-                    break;
+                    continue;
                 }
 
                 var existing = StudentRepository.GetByStudentNr(studentNr);
@@ -127,6 +137,7 @@ namespace StudentFollowingSystem.Controllers
                     continue;
                 }
 
+                // Create a new student from the csv data.
                 var student = new Student
                                   {
                                       StudentNr = studentNr,
@@ -148,6 +159,7 @@ namespace StudentFollowingSystem.Controllers
                                       BirthDate = DateTime.Parse(d[17])
                                   };
 
+                // Generate a password.
                 string password = PasswordGenerator.CreateRandomPassword();
                 student.Password = Crypto.HashPassword(password);
 
@@ -168,6 +180,7 @@ namespace StudentFollowingSystem.Controllers
                 return RedirectToAction("List");
             }
 
+            // Map the student to a view model.
             var model = Mapper.Map<StudentModel>(student);
             PrepareStudentModel(model);
             return View(model);
@@ -182,6 +195,7 @@ namespace StudentFollowingSystem.Controllers
                 return RedirectToAction("List");
             }
 
+            // Map the student to a view model.
             var model = Mapper.Map<StudentModel>(student);
             PrepareStudentModel(model);
             return View(model);
@@ -193,6 +207,12 @@ namespace StudentFollowingSystem.Controllers
             if (ModelState.IsValid)
             {
                 var student = StudentRepository.GetById(model.Id);
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Map the new values from the view model to the existing student.
                 Mapper.Map(model, student);
                 StudentRepository.Update(student);
 
@@ -213,8 +233,8 @@ namespace StudentFollowingSystem.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            // Map the student to a view model.
             var model = Mapper.Map<StudentInfoModel>(student);
-
             return View(model);
         }
 
@@ -228,8 +248,8 @@ namespace StudentFollowingSystem.Controllers
 
                 // Map the new values from the view model to the current student.
                 Mapper.Map(model, student);
-                
-                // Updat the student in the database.
+
+                // Update the student in the database.
                 StudentRepository.Update(student);
 
                 return RedirectToAction("Dashboard");
@@ -241,16 +261,21 @@ namespace StudentFollowingSystem.Controllers
         [AuthorizeStudent, Route("aanwezigheid/{subjectId}")]
         public ActionResult Presence(int subjectId)
         {
+            // Get the specified subject.
             var subject = _subjectRepository.GetById(subjectId);
             if (subject == null)
             {
                 return HttpNotFound();
             }
 
+            // Get the current presence.
             int studentId = Student.Id;
             var presence = _presenceRepository.GetByStudent(studentId);
 
+            // Map the subject to a view model.
             var subjectModel = Mapper.Map<SubjectModel>(subject);
+
+            // Create the presence view model.
             var presenceModel = new PresenceModel
                                     {
                                         Subject = subjectModel,
@@ -265,14 +290,17 @@ namespace StudentFollowingSystem.Controllers
         [AuthorizeStudent, HttpPost, ValidateAntiForgeryToken, Route("aanwezigheid/{subjectId}")]
         public ActionResult Presence(int subjectId, FormCollection form)
         {
+            // Get the specified subject.
             var subject = _subjectRepository.GetById(subjectId);
             if (subject == null)
             {
                 return HttpNotFound();
             }
 
+            // Validate that the subject is currently going on.
             if (subject.IsCurrentSubject())
             {
+                // Get the current presence of a student.
                 int studentId = Student.Id;
                 var presence = _presenceRepository.GetByStudent(studentId);
 
@@ -288,6 +316,7 @@ namespace StudentFollowingSystem.Controllers
 
         private void PrepareStudentModel(StudentModel model)
         {
+            // Create a select list of classes.
             model.ClassesList = SelectList(_classRepository.GetAll(),
                 c => c.Id,
                 c => c.Name + (!string.IsNullOrEmpty(c.Section)
@@ -295,6 +324,9 @@ namespace StudentFollowingSystem.Controllers
                                    : string.Empty));
         }
 
+        /// <summary>
+        /// Gets the first saturday from today.
+        /// </summary>
         private static DateTime GetFirstSaturday()
         {
             DateTime date = DateTime.Now;

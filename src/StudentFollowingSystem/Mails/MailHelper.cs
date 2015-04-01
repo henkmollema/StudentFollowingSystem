@@ -18,6 +18,7 @@ namespace StudentFollowingSystem.Mails
             var email = new EmailMessage
                             {
                                 text = body,
+                                subject = "Studenten Volg Systeem",
                                 to =
                                     appointment.FromCounseler
                                         ? new[]
@@ -42,6 +43,7 @@ namespace StudentFollowingSystem.Mails
             var email = new EmailMessage
                             {
                                 text = body,
+                                subject = "Studenten Volg Systeem",
                                 to = new[]
                                          {
                                              new EmailAddress(mail.Appointment.Student.Email, mail.Appointment.Student.GetFullName()), 

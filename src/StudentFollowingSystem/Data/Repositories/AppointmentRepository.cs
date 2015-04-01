@@ -46,7 +46,7 @@ namespace StudentFollowingSystem.Data.Repositories
 
         /// <summary>
         /// Gets all the appointments for te specified <paramref name="counselerId"/> 
-        /// within the specified date range.
+        /// within the specified date range joined with the student and counseler.
         /// </summary>
         /// <param name="counselerId">The counseler id.</param>
         /// <param name="toDate">The starting date.</param>
@@ -58,13 +58,15 @@ namespace StudentFollowingSystem.Data.Repositories
             {
                 string sql = @"
 select * from Appointments a
-inner join Students s on a.StudentId = s.Id
+join Students s on a.StudentId = s.Id
+join Counselers c on a.CounselerId = c.Id
 where a.Accepted = 1 and a.CounselerId = @counselerId and a.DateTime < @toDate and a.DateTime >= @nowDate
 order by a.DateTime desc";
 
-                return con.Query<Appointment, Student, Appointment>(sql, (a, s) =>
+                return con.Query<Appointment, Student, Counseler, Appointment>(sql, (a, s, c) =>
                                                                          {
                                                                              a.Student = s;
+                                                                             a.Counseler = c;
                                                                              return a;
                                                                          },
                     new { counselerId = counselerId, toDate = toDate, nowDate = nowDate })

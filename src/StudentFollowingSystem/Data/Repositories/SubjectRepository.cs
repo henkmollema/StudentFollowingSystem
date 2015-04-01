@@ -31,7 +31,7 @@ namespace StudentFollowingSystem.Data.Repositories
         {
             using (var con = ConnectionFactory.GetOpenConnection())
             {
-                con.Get<Subject, Class, Subject>(id,
+                return con.Get<Subject, Class, Subject>(id,
                     (s, c) =>
                     {
                         s.Class = c;

@@ -22,6 +22,8 @@ namespace StudentFollowingSystem.ViewModels
         [Required(ErrorMessage = "Vul een klas in.")]
         public int ClassId { get; set; }
 
+        public ClassModel Class { get; set; }
+
         public IEnumerable<SelectListItem> ClassesList { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy HH:mm}")]

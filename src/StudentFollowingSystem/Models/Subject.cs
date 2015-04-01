@@ -19,6 +19,8 @@ namespace StudentFollowingSystem.Models
 
         public int ClassId { get; set; }
 
+        public Class Class { get; set; }
+
         /// <summary>
         /// Gets a value indicating whether the current subject is ongoing at the moment.
         /// </summary>

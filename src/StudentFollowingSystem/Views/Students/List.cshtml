@@ -85,6 +85,12 @@
 
 @section Scripts{
     <script type="text/javascript">
+        $.extend($.expr[':'], {
+            'containsi': function (elem, i, match, array) {
+                return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+            }
+        });
+
         $(function () {
             $('#search').keyup(function() {
                 var $this = $(this);
@@ -97,10 +103,10 @@
                     cols.show();
                 }
 
-                cols.filter(function (index, value) {
+                cols.filter(function () {
                     var $row = $(this);
                     for (var i = 0; i < data.length; i++) {
-                        if ($row.is(':contains("' + data[i] + '")')) {
+                        if ($row.is(':containsi("' + data[i] + '")')) {
                             return true;
                         }
                     }

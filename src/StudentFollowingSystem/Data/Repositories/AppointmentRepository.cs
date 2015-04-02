@@ -60,7 +60,7 @@ namespace StudentFollowingSystem.Data.Repositories
 select * from Appointments a
 join Students s on a.StudentId = s.Id
 join Counselers c on a.CounselerId = c.Id
-where a.Accepted = 1 and a.CounselerId = @counselerId and a.DateTime < @toDate and a.DateTime >= @nowDate
+where a.Accepted = 1 and a.Noted = 0 and a.CounselerId = @counselerId and a.DateTime < @toDate and a.DateTime >= @nowDate
 order by a.DateTime desc";
 
                 return con.Query<Appointment, Student, Counseler, Appointment>(sql, (a, s, c) =>
@@ -89,7 +89,7 @@ order by a.DateTime desc";
                 string sql = @"
 select * from Appointments a
 inner join Counselers c on a.CounselerId = c.Id
-where a.Accepted = 1 and a.StudentId = @StudentId and a.DateTime < @toDate and a.DateTime >= @nowDate
+where a.Accepted = 1 and a.Noted = 0 and a.StudentId = @StudentId and a.DateTime < @toDate and a.DateTime >= @nowDate
 order by a.DateTime desc";
 
                 return con.Query<Appointment, Counseler, Appointment>(sql, (a, c) =>

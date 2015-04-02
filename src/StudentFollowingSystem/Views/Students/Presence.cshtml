@@ -5,16 +5,16 @@
 
 <h2>Aanwezigheid opgeven</h2>
 
-@if (Model.PastSubject)
-{
-    <p class="bg-danger" style="margin-top: 15px; padding: 15px">
-        Je hebt dit onderdeel gemist en kunt niet meer je aanwezigheid opgeven.
-    </p>
-}
-else if (Model.AlreadyPresent)
+@if (Model.AlreadyPresent)
 {
     <p class="bg-success" style="margin-top: 15px; padding: 15px">
         Je hebt je aanwezigheid voor dit onderdeel al opgegeven.
+    </p>
+}
+else if (Model.PastSubject)
+{
+    <p class="bg-danger" style="margin-top: 15px; padding: 15px">
+        Je hebt dit onderdeel gemist en kunt niet meer je aanwezigheid opgeven.
     </p>
 }
 else

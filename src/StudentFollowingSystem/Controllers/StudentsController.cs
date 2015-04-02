@@ -305,7 +305,7 @@ namespace StudentFollowingSystem.Controllers
                 var presence = _presenceRepository.GetByStudent(studentId);
 
                 // Check if student is not already present.
-                if (presence.All(p => p.StudentId != studentId))
+                if (!presence.Any(p => p.StudentId != studentId && p.SubjectId == subject.Id))
                 {
                     _presenceRepository.Add(new Presence { StudentId = Student.Id, SubjectId = subjectId });
                 }
